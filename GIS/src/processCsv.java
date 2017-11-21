@@ -35,7 +35,7 @@ public class processCsv {
 			System.out.println("filter by:\n1.for time choose 1\n2.for id choose 2\n3.for location choose 3\n4.to not filter-press any key");
 			String input=choose.nextLine();
 			//		choose.close();
-//gggggg
+
 			if(!input.equals("1") && !input.equals("2") && !input.equals("3"))
 			{
 				System.out.println("you chose not to filter");
