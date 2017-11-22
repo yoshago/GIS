@@ -1,5 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 /**
  * this class take the .csv file that class scanFolder export and filter him by user preferences
@@ -18,17 +19,19 @@ public class processCsv {
 		this.f=new File(path);
 		this.singleScanList=read.readOutputFolderFile(f);
 		Filter.mainFilter(this.singleScanList);
-//		toKML();
+		toKML();
 	}
 	
 	
-//	private void toKML()
-//	{
-//		csvToKml csvk= new csvToKml(this.singleScanList);
-//		//		this.toCSV();
-//		csvk.ScanToKml();
-//		csvk.exportToKml();
-//	}
+	private void toKML()
+	{
+		String kmlOutputPath;
+		System.out.println("please enter path for output");
+		Scanner userInput=new Scanner(System.in);
+		kmlOutputPath=userInput.nextLine();
+		kmlFile kmlFile= new kmlFile(this.singleScanList, kmlOutputPath);
+		userInput.close();
+	}
 
 	
 	public String[] getMinCoordinate(){

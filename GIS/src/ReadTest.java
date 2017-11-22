@@ -15,7 +15,7 @@ import org.junit.Test;
 public class ReadTest {
 
 	@Test
-	public void test() {
+	public void readFolderTest() {
 		File f=new File("C:\\");
 		
 		assertEquals(0, read.readFolder(f.listFiles()).size());

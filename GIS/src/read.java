@@ -86,7 +86,7 @@ public class read {
 		{
 			System.out.println("error reading file "+ex);
 		}
-
+      
 	}
 
 	private static boolean isWigleFile(File f)
@@ -138,7 +138,7 @@ public class read {
 				coordinate coor=new coordinate(singleScanLine[2] ,singleScanLine[3] ,singleScanLine[4]);
 				singleScan singleScan=new singleScan(singleScanLine[0], singleScanLine[1] ,coor);
 				int i=5;
-				while(singleScanLine[i]!=null && i<46)
+				while(++i<singleScanLine.length && singleScanLine[i]!=null )
 				{
 					wifiSpot wifiSpot=new wifiSpot(singleScanLine[i],singleScanLine[++i],singleScanLine[++i],singleScanLine[++i],coor);
 					singleScan.add(wifiSpot);

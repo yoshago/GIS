@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /**
  * @author ישי
@@ -9,8 +10,11 @@ public class Run {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		String path="C:\\Users\\ישי\\Desktop\\summer_proj\\ex1\\checkfolder";
-		Folder f=new Folder(path);
+		System.out.println("please enter path for intput");
+		Scanner userInput=new Scanner(System.in);
+		String inputPath=userInput.nextLine();
+		Folder f=new Folder(inputPath);
+		processCsv processCsv=new processCsv(f.getOutputPath());
 	}
 
 }

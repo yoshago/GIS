@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *
  */
 public class Folder {
-
+    private String outputPath;
 	private String path;
 	private File[] listOfFiles;
 	private ArrayList<singleScan> singleScansList;
@@ -21,6 +21,11 @@ public class Folder {
 		File folder = new File(this.path);
 		this.listOfFiles = folder.listFiles();
 		this.singleScansList=read.readFolder(listOfFiles);
-		write.writeCsvFile(this.singleScansList,"output");
+		this.outputPath=write.writeCsvFile(this.singleScansList,path+"\\output");
 	}
+
+	public String getOutputPath() {
+		return outputPath;
+	}
+	
 }

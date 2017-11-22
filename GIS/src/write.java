@@ -17,11 +17,11 @@ import java.util.Date;
  */
 public class write {
 
-	public static void writeCsvFile(ArrayList<singleScan> singleScanList,String name)
+	public static String writeCsvFile(ArrayList<singleScan> singleScanList,String pathOutput)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
-		String nameOfFile=name + dateFormat.format(date) + ".csv";
+		String nameOfFile=pathOutput + dateFormat.format(date) + ".csv";
 		try
 		{
 			PrintWriter pw = new PrintWriter(new File(nameOfFile));
@@ -33,6 +33,8 @@ public class write {
 			System.out.println("error writing file "+ex);
 			System.exit(2);
 		}
+		System.out.println("done print csv file");
+		return nameOfFile;
 	}
 	
 	public static String singleScanListToCsvString(ArrayList<singleScan> singleScanList)

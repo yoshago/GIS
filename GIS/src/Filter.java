@@ -37,7 +37,7 @@ public class Filter {
 					filterByLocation(singleScanList);	
 			}
 		}	
-		choose.close();
+//		choose.close();
 	}
 
 
