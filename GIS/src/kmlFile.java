@@ -20,7 +20,8 @@ import de.micromata.opengis.kml.v_2_2_0.Placemark;
  * @author Yehonatan&Yishay
  * 
  * @description this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
- * 				and process it into a kml file that shows the wifi spots on the map.
+ * 				and process it into a kml file using Java Api Kml library.
+ * 				the kml file can be shown with google earth.
  * 
  */
 
@@ -31,27 +32,41 @@ public class kmlFile {
 	private Document document = kmlObject.createAndSetDocument().withName(DocumentName);
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
 
+	/**
+	 * Receives output path and filtered list of singleScan object and generates KML file
+	 * 
+	 * @param scansList
+	 * @param outputPath
+	 * 
+	 */
 	public kmlFile(ArrayList<singleScan> scansList, String outputPath){
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-		Date date = new Date();
-		this.kmlFileOutput = new File(outputPath +"\\outputEarth"+dateFormat.format(date)+".kml");
 		this.scansList = scansList;
-		addStyles(this.document);
+		addStyles();
 		addScansPlacemarks();
 		removeDuplicateMac();
 		addWifiSpotsPlacemarks();
-		exportKml();
+		exportKml(outputPath);
 		
 
 
 	}
 
-
-	private void addStyles(Document document){
+	/**
+	 * Adds Icon styles to the document
+	 * 
+	 */
+	private void addStyles(){
 		document.createAndAddStyle().withId("wifiIcon").createAndSetIconStyle().withIcon(new Icon().withHref("http://www.freepngimg.com/download/wifi/4-2-wi-fi-png-images.png"));
 		document.createAndAddStyle().withId("Magnifier").createAndSetIconStyle().withIcon(new Icon().withHref("https://images.vexels.com/media/users/3/132064/isolated/preview/27a9fb54f687667ecfab8f20afa58bbb-search-businessman-circle-icon-by-vexels.png"));
 	}
-
+	
+	/**
+	 * Removing duplicate wifi spots (by mac address).
+	 * Each wifi spot will occur only once in the singleScan where the signal is the strongest(The closest place to the actual router).  
+	 * The function uses HashMap to map the mac to the signal.
+	 */
+	
+	
 	private void removeDuplicateMac(){
 		Map<String, wifiSpot> macToSignalMap = new HashMap<>();
 
@@ -101,7 +116,12 @@ public class kmlFile {
 		//		}
 		//		return withoutDuplicatesWifiSpots;
 	}
-
+	
+	
+	/**
+	 * Adds points of each scan to the kml file using the JAK library (java api for kml).
+	 * 
+	 */
 	private void addScansPlacemarks(){
 		for (int i=0;i<scansList.size();i++){
 			coordinate scanLocation = scansList.get(i).getCoordinate();
@@ -117,7 +137,13 @@ public class kmlFile {
 			p.withName(model).withDescription(Description).withStyleUrl("#Magnifier").createAndSetPoint().addToCoordinates(scanLocation.getLon(), scanLocation.getLat(), scanLocation.getAlt());
 		}
 	}
-
+	
+	/**
+	 * Adds points of each wifi spot to the kml using the JAK library (java api for kml)
+	 * (used only after removing the duplicated wifi spots).
+	 * 
+	 */
+	
 	private void addWifiSpotsPlacemarks(){
 		for (int i = 0; i < scansList.size(); i++) {
 			coordinate scanLocation = scansList.get(i).getCoordinate();
@@ -141,8 +167,18 @@ public class kmlFile {
 			}
 		}
 	}
+
+
+	/**
+	 * Exports the kml file to the output path.
+	 * The name of the exported file will contain the time of export.
+	 * 
+	 */
 	
-	private void exportKml(){
+	private void exportKml(String outputPath){
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		Date date = new Date();
+		kmlFileOutput = new File(outputPath +"\\outputEarth"+dateFormat.format(date)+".kml");
 		try{
 		kmlObject.marshal(kmlFileOutput);
 		System.out.println("kml exported successfully!");
