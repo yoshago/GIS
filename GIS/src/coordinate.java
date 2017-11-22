@@ -35,9 +35,9 @@ public class coordinate {
        public int compare(coordinate another)
        {
     	   if(another.lon<=this.lon && another.lat<=this.lat)
-    		   return -1;
-    	   if(another.lon>=this.lon && another.lat>=this.lat)
     		   return 1;
+    	   if(another.lon>=this.lon && another.lat>=this.lat)
+    		   return -1;
     	   return 0;
        }
        

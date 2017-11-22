@@ -16,7 +16,7 @@ public class ReadTest {
 
 	@Test
 	public void test() {
-		File f=new File("C:\\git\\GIS\\GIS");
+		File f=new File("C:\\");
 		
 		assertEquals(0, read.readFolder(f.listFiles()).size());
 	}
