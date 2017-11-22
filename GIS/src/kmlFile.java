@@ -56,8 +56,8 @@ public class kmlFile {
 	 * 
 	 */
 	private void addStyles(){
-		document.createAndAddStyle().withId("wifiIcon").createAndSetIconStyle().withIcon(new Icon().withHref("http://www.freepngimg.com/download/wifi/4-2-wi-fi-png-images.png"));
-		document.createAndAddStyle().withId("Magnifier").createAndSetIconStyle().withIcon(new Icon().withHref("https://images.vexels.com/media/users/3/132064/isolated/preview/27a9fb54f687667ecfab8f20afa58bbb-search-businessman-circle-icon-by-vexels.png"));
+		document.createAndAddStyle().withId("wifiIcon").createAndSetIconStyle().withScale(1.5).withIcon(new Icon().withHref("http://www.freepngimg.com/download/wifi/4-2-wi-fi-png-images.png"));
+		document.createAndAddStyle().withId("Magnifier").createAndSetIconStyle().withScale(1.5).withIcon(new Icon().withHref("https://images.vexels.com/media/users/3/132064/isolated/preview/27a9fb54f687667ecfab8f20afa58bbb-search-businessman-circle-icon-by-vexels.png"));
 	}
 	
 	/**
