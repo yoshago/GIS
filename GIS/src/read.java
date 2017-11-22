@@ -34,7 +34,7 @@ public class read {
 		final int LAT_INDEX=6;
 		final int LON_INDEX=7;
 		final int ALT_INDEX=8;
-		final int ID_INDEX=5;
+		final int ID_INDEX=2;
 		final int TYPE_INDEX=10;// GSM/WIFI
 
 		try
@@ -59,7 +59,7 @@ public class read {
 			{
 				readLine = str.split(",");
 				if(count==0)//the id is in the first line only
-					id=readLine[ID_INDEX].substring(8);
+					id=readLine[ID_INDEX].substring(6);
 				else if(count>1 && readLine.length==11 && readLine[TYPE_INDEX].contains("WIFI"))
 				{
 					coor=new coordinate(readLine[LON_INDEX], readLine[LAT_INDEX], readLine[ALT_INDEX]);

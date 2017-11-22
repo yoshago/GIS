@@ -128,7 +128,7 @@ public class kmlFile {
 			String model = scansList.get(i).getId();
 			String time = scansList.get(i).getTime();
 			int numOfWifiSpots = scansList.get(i).getSize();
-			String Description = numOfWifiSpots + "wifi networks found:\n";
+			String Description = numOfWifiSpots + " wifi networks found:\n";
 			for (int j=0;j<scansList.get(i).getWifiSpotsList().size();j++){
 				Description+= scansList.get(i).getWifiSpotsList().get(j).getSsid()+"\n";
 			}
