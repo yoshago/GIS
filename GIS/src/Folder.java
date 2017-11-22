@@ -21,22 +21,6 @@ public class Folder {
 		File folder = new File(this.path);
 		this.listOfFiles = folder.listFiles();
 		this.singleScansList=read.readFolder(listOfFiles);
-		write.writeCsvFile(toCsvString());
+		write.writeCsvFile(this.singleScansList,"output");
 	}
-	
-	private String toCsvString()
-	{
-		String s="time,id,lon,lat,alt,size,";
- 		for(int i=0;i<=9;i++)
- 		{
- 			s+="mac"+i+",ssid"+i+",channel"+i+",signal"+i+",";
- 		}
- 		s+="\n";
- 		for(int i=0;i<this.singleScansList.size();i++)
- 		{
- 			s=s+singleScansList.get(i).toString()+"\n";
- 		}
- 		return s;
-	}
-	
 }
