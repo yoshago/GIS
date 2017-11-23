@@ -19,9 +19,7 @@ import de.micromata.opengis.kml.v_2_2_0.Placemark;
 /**
  * @author Yehonatan&Yishay
  * 
- * @Description this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
- * 				and process it into a kml file using Java Api Kml library.
- * 				the kml file can be shown with google earth.
+ *
  * 
  */
 
@@ -33,7 +31,10 @@ public class kmlFile {
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
 
 	/**
-	 * Receives output path and filtered list of singleScan object and generates KML file
+	 * this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
+	 * and process it into a kml file using Java Api Kml library.
+	 * the kml file can be shown with google earth.
+	 * 
 	 * 
 	 * @param scansList
 	 * @param outputPath
