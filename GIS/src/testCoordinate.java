@@ -2,14 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-/**
- * 
- */
 
-/**
- * @author ישי
- *
- */
 public class testCoordinate {
 
 	coordinate coor=new coordinate("6","5");
@@ -20,7 +13,8 @@ public class testCoordinate {
 	public void compareTest() {
 		assertEquals(-1, coor.compare(bigger));
 		assertEquals(1, coor.compare(smaller));
-		assertEquals(0, coor.compare(strange));
+		assertEquals(-2, coor.compare(strange));
+		assertEquals(0,coor.compare(coor));
 	}
 	
 	

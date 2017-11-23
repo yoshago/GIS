@@ -4,20 +4,12 @@ import java.io.File;
 
 import org.junit.Test;
 
-/**
- * 
- */
 
-/**
- * @author ישי
- *
- */
-public class ReadTest {
+public class testRead {
 
 	@Test
 	public void readFolderTest() {
 		File f=new File("C:\\");
 		assertEquals(0, read.readFolder(f.listFiles()).size());
 	}
-
 }

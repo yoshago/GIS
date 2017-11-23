@@ -2,14 +2,7 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-/**
- * 
- */
 
-/**
- * @author ישי
- *
- */
 public class testWifiSpot {
 
 	wifiSpot ws=new wifiSpot("mac", "ssid", "channel", "-32", new coordinate());

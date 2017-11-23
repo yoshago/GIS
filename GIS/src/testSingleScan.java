@@ -2,8 +2,8 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class singleScanTest {
-
+public class testSingleScan {
+///test add and removeWorstSignal
 	@Test
 	public void addTest() {
 		singleScan sc=new singleScan();
