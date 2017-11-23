@@ -1,27 +1,34 @@
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * 
- */
 
 /**
- * @author ישי
+ * @author Yontan&Yishay
+ * @description the class represents an object of type Folder that contains path to folder, 
+ *              list of files in folder,
+ *              list of all data from the files in folder,
+ *              path for output file that exported after data processing 
  *
  */
+
 public class Folder {
     private String outputPath;
 	private String path;
 	private File[] listOfFiles;
 	private ArrayList<singleScan> singleScansList;
 	
-	public Folder(String s)
+	/**
+	 * @param path-contains path to the input folder 
+	 * @description this constructure get path, update listOfFiles, 
+	 *              and call functions from read and write libraries   
+	 */
+	public Folder(String path)
 	{
-		this.path=s;
+		this.path=path;
 		File folder = new File(this.path);
 		this.listOfFiles = folder.listFiles();
 		this.singleScansList=read.readFolder(listOfFiles);
-		this.outputPath=write.writeCsvFile(this.singleScansList,path+"\\output");
+		this.outputPath=write.writeCsvFile(this.singleScansList,this.path+"\\output");
 	}
 
 	public ArrayList<singleScan> getSingleScansList() {
@@ -35,5 +42,14 @@ public class Folder {
 	public String getOutputPath() {
 		return outputPath;
 	}
+
+	public String getPath() {
+		return path;
+	}
+
+	public File[] getListOfFiles() {
+		return listOfFiles;
+	}
+	
 	
 }

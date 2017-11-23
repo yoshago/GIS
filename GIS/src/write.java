@@ -1,6 +1,4 @@
-/**
- * 
- */
+
 
 
 import java.io.File;
@@ -12,11 +10,22 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * @author ישי
- *
+ * @author Yehonatan&Yishay
+ * @description this library including write function, that used in classes: Folder,processCsv.
+ * @include writeCsvFile function that export file, 
+ *          and singleScanListToCsvString function that make String from list of singleScan 
  */
+
+
+
 public class write {
 
+	
+	/**
+	 * @param singleScanList- singleScan list  that contains all the data.
+	 * @param pathOutput- String that contains output path
+	 * @return return path+name of the exported file.
+	 */
 	public static String writeCsvFile(ArrayList<singleScan> singleScanList,String pathOutput)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
@@ -37,6 +46,10 @@ public class write {
 		return nameOfFile;
 	}
 	
+	/**
+	 * @param singleScanList- singleScan list  that contains all the data.
+	 * @return String of all the data from singleScanList
+	 */
 	public static String singleScanListToCsvString(ArrayList<singleScan> singleScanList)
 	{
 		String s="time,id,lon,lat,alt,size,";

@@ -3,16 +3,19 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
- * this class take the .csv file that class scanFolder export and filter him by user preferences
- * this class uses class csvToKml and used by it 
+ * @author Yehonatan&Yishay
+ * @description this object contains: 
+ *              1. csv file- exported by Folder class (using write library).
+ *              2. singleScan list- a list of singleScan objects that each one of them contains the data of a one scan of the wigleWifi app.
+ *              this class call Filter class and send all data after filtering to kmlFile class
+ *               
  * 
  */
+
 
 public class processCsv {
 	private File f;
 	private ArrayList<singleScan> singleScanList;
-	private String[] MinCoordinate;
-	private String[] MaxCoordinate;
 
 	public processCsv(String path)
 	{
@@ -20,9 +23,13 @@ public class processCsv {
 		this.singleScanList=read.readOutputFolderFile(f);
 		Filter.mainFilter(this.singleScanList);
 		toKML();
+		write.writeCsvFile(this.singleScanList,"processCsvTestFile");
 	}
 	
 	
+	/**
+	 * this function take output path from user and send all data and output path to kmlFile
+	 */
 	private void toKML()
 	{
 		String kmlOutputPath;
@@ -32,15 +39,7 @@ public class processCsv {
 		kmlFile kmlFile= new kmlFile(this.singleScanList, kmlOutputPath);
 		userInput.close();
 	}
-
-	
-	public String[] getMinCoordinate(){
-		return MinCoordinate;
-	}
-
-	public String[] getMaxCoordinate(){
-		return MaxCoordinate;
-	}
+    
 
 	public File getF() {
 		return f;
