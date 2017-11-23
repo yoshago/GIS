@@ -1,16 +1,19 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
-/**
- * 
- */
 
 /**
- * @author ישי
+ * @author Yehonatan&Yishay
+ * @description A library class. contains functions to filter ArrayList of singleScan objects.
  *
  */
 public class Filter {
 	
+	/**
+	 * @param singleScanList
+	 * this function calls the other filter functions according to the user request, (Kind of a UI for filtering).
+	 * 
+	 */
 	public static void mainFilter(ArrayList<singleScan> singleScanList) 
 	{
 		boolean flag=true;
@@ -41,6 +44,10 @@ public class Filter {
 	}
 
 
+	/**
+	 * @param singleScanList
+	 * this functions filter the singleScans by its time using start time and end time that the functions gets from the user.
+	 */
 	public static void filterByTime(ArrayList<singleScan> singleScanList)
 	{
 		System.out.println("please enter start time: (in format YYYY-MM-DD hh:mm:ss)");
@@ -60,6 +67,12 @@ public class Filter {
 		}
 	}
 
+	/**
+	 * @param singleScanList
+	 * Uses to filter the singleScans by location.
+	 * the function gets Minimum coordinate and Maximum coordinate and creates an imagined rectangle area and remove all the coordinates out of the border of the rectangle. 
+	 * 
+	 */
 	public static void filterByLocation(ArrayList<singleScan> singleScanList)
 	{
 
@@ -88,6 +101,11 @@ public class Filter {
 		}
 	}
 	
+	/**
+	 * @param singleScanList
+	 * filter the singleScans by id. remove all the singleScans with different id.
+	 * 
+	 */
 	public static void filterByID(ArrayList<singleScan> singleScanList)
 	{
 		System.out.println("please enter id: ");

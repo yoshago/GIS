@@ -63,69 +63,26 @@ public class kmlFile {
 	/**
 	 * Removing duplicate wifi spots (by mac address).
 	 * Each wifi spot will occur only once in the singleScan where the signal is the strongest(The closest place to the actual router).  
-	 * The function uses HashMap to map the mac to the signal.
+	 * The function uses HashMap to map each wifiSpot to its mac.
 	 */
 	
 	
 	private void removeDuplicateMac(){
-		Map<String, wifiSpot> macToSignalMap = new HashMap<>();
+		Map<String, wifiSpot> macToWifiSpotMap = new HashMap<>();
 
 
 		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
-			if (macToSignalMap.containsKey(wifiSpot.getMac())) {
-				if (wifiSpot.compareBySignal(macToSignalMap.get(wifiSpot.getMac()))==1) {
-					macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
+			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) {
+				if (wifiSpot.compareBySignal(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {
+					macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
 				}
 			}
 			else {
-				macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
+				macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
 			}
 		}));
-//		for(int i=0;i<scansList.size();i++)
-//		{
-//			ArrayList<wifiSpot> wifiSpotList = scansList.get(i).getWifiSpotsList();
-//			singleScan ss = scansList.get(i);
-//			for (int j=0;j<wifiSpotList.size();j++){
-//				wifiSpot w = wifiSpotList.get(j);
-//				if(w.getCoordinate().compare(macToSignalMap.get(w.getMac()).getCoordinate())!=0){
-//					System.out.println("bla");
-//					wifiSpotList.remove(j);
-//					ss.setSize(ss.getSize()-1);
-//				}
-//				scansList.get(i).setWifiSpotsList(wifiSpotList);
-//			}
-//		}
 		scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
-				.removeIf(wifiSpot -> !wifiSpot.equals(macToSignalMap.get(wifiSpot.getMac()))));
-
-
-
-
-
-
-
-		//		ArrayList<wifiSpot> withoutDuplicatesWifiSpots = new ArrayList<wifiSpot>();
-		//		for (int i=0;i<scansList.size();i++){
-		//			singleScan currentScan = scansList.get(i);
-		//			for(int j=0;j<currentScan.getWifiSpotsList().size();j++){
-		//				wifiSpot currentWifiSpot = currentScan.getWifiSpotsList().get(j);
-		//				boolean flag = false;
-		//				for(int k = 0; k<withoutDuplicatesWifiSpots.size();k++){
-		//					if(currentWifiSpot.getMac().equals(withoutDuplicatesWifiSpots.get(k).getMac())){
-		//						flag = true;
-		//						if(currentWifiSpot.compareBySignal(withoutDuplicatesWifiSpots.get(k))==1){
-		//							withoutDuplicatesWifiSpots.remove(k);
-		//							withoutDuplicatesWifiSpots.add(currentWifiSpot);
-		//							break;	
-		//						}
-		//						else break;
-		//					}
-		//				}
-		//				if(!flag) withoutDuplicatesWifiSpots.add(currentWifiSpot); 
-		//			}
-		//			
-		//		}
-		//		return withoutDuplicatesWifiSpots;
+				.removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
 	}
 	
 	

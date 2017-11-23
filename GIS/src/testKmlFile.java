@@ -9,8 +9,7 @@ public class testKmlFile {
 	@Test
 	
 	
-	
-	public void test() {
+	public void testRemvoeDuplicates() {
 		Folder f = new Folder("C:\\Users\\Yehonatan\\git\\GIS\\GIS");
 		ArrayList<singleScan> ssl = f.getSingleScansList();
 		kmlFile KmlFile = new kmlFile(ssl,"C:\\Users\\Yehonatan\\git\\GIS\\GIS");

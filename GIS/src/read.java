@@ -5,15 +5,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-/**
- * 
- */
+
 
 /**
- * @author ישי
+ * @author Yehonatan&Yishay
+ * @description A library class. the class contains static functions that associated with reading files and folders.
  *
  */
 public class read {
+	/**
+	 * @param listOfFiles
+	 * @return
+	 */
 	public static ArrayList<singleScan> readFolder(File[] listOfFiles)
 	{
 		ArrayList<singleScan> singleScanList=new ArrayList<singleScan>();
