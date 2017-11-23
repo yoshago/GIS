@@ -67,6 +67,9 @@ public class singleScan {
 	public String getId() {
 		return id;
 	}
+	public void setWifiSpotsList(ArrayList<wifiSpot> wifiSpotsList) {
+		this.wifiSpotsList = wifiSpotsList;
+	}
 	public coordinate getCoordinate() {
 		return coordinate;
 	}

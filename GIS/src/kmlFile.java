@@ -70,10 +70,8 @@ public class kmlFile {
 	private void removeDuplicateMac(){
 		Map<String, wifiSpot> macToSignalMap = new HashMap<>();
 
-		List<ArrayList<wifiSpot>> allWifiSpotLists = scansList.stream().map(singleScan::getWifiSpotsList)
-				.collect(Collectors.toList());
 
-		allWifiSpotLists.forEach(wifiSpotList -> wifiSpotList.forEach(wifiSpot -> {
+		scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
 			if (macToSignalMap.containsKey(wifiSpot.getMac())) {
 				if (wifiSpot.compareBySignal(macToSignalMap.get(wifiSpot.getMac()))==1) {
 					macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
@@ -83,9 +81,8 @@ public class kmlFile {
 				macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
 			}
 		}));
-		allWifiSpotLists.forEach(wifiSpotList -> wifiSpotList
+		scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
 				.removeIf(wifiSpot -> !wifiSpot.equals(macToSignalMap.get(wifiSpot.getMac()))));
-
 
 
 

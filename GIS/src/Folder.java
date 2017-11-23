@@ -24,6 +24,14 @@ public class Folder {
 		this.outputPath=write.writeCsvFile(this.singleScansList,path+"\\output");
 	}
 
+	public ArrayList<singleScan> getSingleScansList() {
+		return singleScansList;
+	}
+
+	public void setSingleScansList(ArrayList<singleScan> singleScansList) {
+		this.singleScansList = singleScansList;
+	}
+
 	public String getOutputPath() {
 		return outputPath;
 	}
