@@ -71,7 +71,7 @@ public class kmlFile {
 		Map<String, wifiSpot> macToSignalMap = new HashMap<>();
 
 
-		scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
+		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
 			if (macToSignalMap.containsKey(wifiSpot.getMac())) {
 				if (wifiSpot.compareBySignal(macToSignalMap.get(wifiSpot.getMac()))==1) {
 					macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
@@ -82,7 +82,7 @@ public class kmlFile {
 			}
 		}));
 		scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
-				.removeIf(wifiSpot -> !wifiSpot.equals(macToSignalMap.get(wifiSpot.getMac()))));
+				.removeIf(wifiSpot -> wifiSpot.getCoordinate().compare(macToSignalMap.get(wifiSpot.getMac()).getCoordinate())!=0));
 
 
 
