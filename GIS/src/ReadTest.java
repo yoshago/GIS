@@ -17,7 +17,6 @@ public class ReadTest {
 	@Test
 	public void readFolderTest() {
 		File f=new File("C:\\");
-		
 		assertEquals(0, read.readFolder(f.listFiles()).size());
 	}
 

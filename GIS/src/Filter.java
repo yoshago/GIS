@@ -50,7 +50,7 @@ public class Filter {
 		Scanner inputEndTime=new Scanner(System.in);
 		String end=inputEndTime.nextLine();
 
-		for(int i=1;i<singleScanList.size();i++)
+		for(int i=0;i<singleScanList.size();i++)
 		{
 			if(singleScanList.get(i).getTime().compareTo(start)<0 || singleScanList.get(i).getTime().compareTo(end)>0)
 			{
@@ -76,11 +76,11 @@ public class Filter {
 		String maxLat = end.split(",")[1];
 		coordinate max=new coordinate(maxLon,maxLat);
 		
-		for(int i=1;i<singleScanList.size();i++)
+		for(int i=0;i<singleScanList.size();i++)
 		{
 			coordinate singleScanCoor=singleScanList.get(i).getCoordinate();//remember to check with String 
 
-			if(singleScanCoor.compare(min)!=1 || singleScanCoor.compare(max)!=-1)
+			if(!(singleScanCoor.compare(min)>=0 && (singleScanCoor.compare(max)<=0 && singleScanCoor.compare(max)!=-2)))
 			{
 				singleScanList.remove(i);
 				i--;
@@ -94,7 +94,7 @@ public class Filter {
 		Scanner inputID=new Scanner(System.in);
 		String ID=inputID.nextLine();
 
-		for(int i=1;i<singleScanList.size();i++)
+		for(int i=0;i<singleScanList.size();i++)
 		{
 			if(!ID.equals(singleScanList.get(i).getId()))
 			{

@@ -34,11 +34,13 @@ public class coordinate {
        
        public int compare(coordinate another)
        {
-    	   if(another.lon<=this.lon && another.lat<=this.lat)
+    	   if(another.lon<this.lon && another.lat<this.lat)
     		   return 1;
-    	   if(another.lon>=this.lon && another.lat>=this.lat)
+    	   if(another.lon>this.lon && another.lat>this.lat)
     		   return -1;
-    	   return 0;
+    	   if(another.lon==this.lon && another.lat==this.lat)
+    		   return 0;
+    	   return -2;
        }
        
        public String toString()

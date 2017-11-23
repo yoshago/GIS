@@ -79,6 +79,7 @@ public class read {
 				count++;
 				str=br.readLine();
 			}
+			singleScanList.add(singleScan);
 			br.close();
 			fr.close();
 		}
