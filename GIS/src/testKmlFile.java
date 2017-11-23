@@ -12,12 +12,9 @@ public class testKmlFile {
 	
 	public void test() {
 		Folder f = new Folder("C:\\Users\\Yehonatan\\git\\GIS\\GIS");
-		ArrayList<singleScan> before = f.getSingleScansList();
-		ArrayList<singleScan> after = before;
-		kmlFile KmlFile = new kmlFile(after,"C:\\Users\\Yehonatan\\git\\GIS\\GIS");
-		assertEquals(10, before.get(0).getSize());
-		System.out.println(after.get(0).getSize());
-		assertEquals(5, after.get(0).getSize());
+		ArrayList<singleScan> ssl = f.getSingleScansList();
+		kmlFile KmlFile = new kmlFile(ssl,"C:\\Users\\Yehonatan\\git\\GIS\\GIS");
+		assertEquals(6, KmlFile.getScansList().get(0).getWifiSpotsList().size());
 	}
 
 }

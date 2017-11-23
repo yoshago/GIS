@@ -81,8 +81,22 @@ public class kmlFile {
 				macToSignalMap.put(wifiSpot.getMac(), wifiSpot);
 			}
 		}));
+//		for(int i=0;i<scansList.size();i++)
+//		{
+//			ArrayList<wifiSpot> wifiSpotList = scansList.get(i).getWifiSpotsList();
+//			singleScan ss = scansList.get(i);
+//			for (int j=0;j<wifiSpotList.size();j++){
+//				wifiSpot w = wifiSpotList.get(j);
+//				if(w.getCoordinate().compare(macToSignalMap.get(w.getMac()).getCoordinate())!=0){
+//					System.out.println("bla");
+//					wifiSpotList.remove(j);
+//					ss.setSize(ss.getSize()-1);
+//				}
+//				scansList.get(i).setWifiSpotsList(wifiSpotList);
+//			}
+//		}
 		scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
-				.removeIf(wifiSpot -> wifiSpot.getCoordinate().compare(macToSignalMap.get(wifiSpot.getMac()).getCoordinate())!=0));
+				.removeIf(wifiSpot -> !wifiSpot.equals(macToSignalMap.get(wifiSpot.getMac()))));
 
 
 
@@ -115,6 +129,10 @@ public class kmlFile {
 	}
 	
 	
+	public ArrayList<singleScan> getScansList() {
+		return scansList;
+	}
+
 	/**
 	 * Adds points of each scan to the kml file using the JAK library (java api for kml).
 	 * 
@@ -147,7 +165,7 @@ public class kmlFile {
 			String model = scansList.get(i).getId();
 			String time = scansList.get(i).getTime();
 			ArrayList<wifiSpot> currentWifiSpotsList = scansList.get(i).getWifiSpotsList();
-			for (int j = 0; j < (currentWifiSpotsList.size()); j++) {
+			for (int j = 0; j < (currentWifiSpotsList.size()); j++){
 				String ssid = currentWifiSpotsList.get(j).getSsid();
 				String mac = currentWifiSpotsList.get(j).getMac();
 				String frequency = currentWifiSpotsList.get(j).getChannel();

@@ -7,8 +7,8 @@ public class singleScan {
     private String time;
     private String id;
     private coordinate coordinate;
-    private int size=0;
     private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
+    private int size=wifiSpotsList.size();
     public singleScan()
     {
     	
@@ -43,7 +43,10 @@ public class singleScan {
     	if(size==10)
     	removeWorstSignal();
     }
-    /**
+    public void setSize(int size) {
+	this.size = size;
+}
+	/**
      * this function called by add function. 
      * used to get sure that that only 10 wifi objects stay in wifilist(the most strong signals)
      */
