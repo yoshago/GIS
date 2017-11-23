@@ -3,17 +3,35 @@ import java.util.ArrayList;
  * this class used by classes: linesCollector & csvFilter
  *  this class  collect object of wifi
  */
+/**
+ * @author Yehonatan&Yishay
+ * @description this object represent one scan of wigle-wifi application, and contains:
+ *              1. list of wifiSpot objects.
+ *              2. time of scan.
+ *              3. id of the scanner smartphone.
+ *              4. location of scan.
+ *              5. size of wifiSpot list(maximum 10)
+ */
 public class singleScan {
+    
     private String time;
     private String id;
     private coordinate coordinate;
     private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
     private int size=wifiSpotsList.size();
+    /**
+     * @description empty constructor.
+     */
     public singleScan()
     {
     	
     }
-   public singleScan(String time, String id , coordinate coordinate)
+   /**
+ * @param time-time of scan.
+ * @param id-id of the scanner smartphone.
+ * @param coordinate-location of scan.
+ */
+public singleScan(String time, String id , coordinate coordinate)
    {
 	    this.time=time;
 	    this.id=id;
@@ -21,9 +39,8 @@ public class singleScan {
    }
   
    /**
-    * 
-    * @param w(wifi object)
-    * add & sort wifi object into the list of wifi networks
+    * @description this function add wifiSpot to wifiSpotsList
+    * @param w-wifiSpot object
     * 
     */
     public void add (wifiSpot w)
@@ -47,6 +64,7 @@ public class singleScan {
 	this.size = size;
 }
 	/**
+	 * @description
      * this function called by add function. 
      * used to get sure that that only 10 wifi objects stay in wifilist(the most strong signals)
      */

@@ -10,12 +10,13 @@ import java.util.ArrayList;
 /**
  * @author Yehonatan&Yishay
  * @description A library class. the class contains static functions that associated with reading files and folders.
- *
+ *              using by classes: Folder, processCsv.
  */
 public class read {
 	/**
-	 * @param listOfFiles
-	 * @return
+	 * @param listOfFiles-list of all file from user's Folder.
+	 * @return singleScanList-contains all data from the wigle-wifi files in the folder. 
+	 *         every singleScan represent one scan of wigle-wifi application. 
 	 */
 	public static ArrayList<singleScan> readFolder(File[] listOfFiles)
 	{
@@ -27,6 +28,11 @@ public class read {
 		return singleScanList;
 	}
 
+	/**
+	 * @param f-one file from the "listOfFiles" 
+	 * @param singleScanList-list of singleScan objects.
+	 * @description this function get file and process him into a list of singleScans.
+	 */
 	public static void readFile(File f, ArrayList<singleScan> singleScanList)
 	{
 		final int MAC_INDEX=0;
@@ -93,6 +99,10 @@ public class read {
       
 	}
 
+	/**
+	 * @param f-file from listOfFiles.  
+	 * @return true if this file is a Wigle-wifi file,  else-false
+	 */
 	private static boolean isWigleFile(File f)
 	{
 		if(!f.getName().contains(".csv"))
@@ -125,6 +135,13 @@ public class read {
 
 
 
+	/**
+	 * @description this function called by process csv class, get file and return singleScan list,
+	 *              that contains data from each scan of wigle-wifi application in one singleScan.
+	 * @param f- output file that exported by Folder class
+	 * @return singleScan list
+	 *  
+	 */
 	public static ArrayList<singleScan> readOutputFolderFile(File f)
 	{
 		ArrayList<singleScan> singleScanList=new ArrayList<singleScan>();

@@ -1,11 +1,13 @@
 
 
 /**
- * wifi objects are build in read class
- * and uses at line class
- * each wifi contains: mac address, name of spot, signal volume, channel.
- * this class contains functions: compare, toString.  
+ * @author Yehonatan&Yishay
+ * @description wifiSpot objects are build in read class
+ *              and uses at singleScan class
+ *              each wifiSpot contains: mac address, name of spot, signal volume, channel and coordinate.
+ *              this class contains functions: compare, toString.  
  */
+
 public class wifiSpot {
 	
 
@@ -17,6 +19,13 @@ public class wifiSpot {
 	/**
 	 * Constructor: get(name of spot,mac address,signal volume,channel
 	 * 
+	 */
+	/**
+	 * @param mac-mac address
+	 * @param ssid-name of spot
+	 * @param channel-frequency
+	 * @param signal-signal volume
+	 * @param coordinate-the location that this spot scanned
 	 */
 	public wifiSpot(String mac, String ssid, String channel, String signal, coordinate coordinate)
 	{
@@ -39,11 +48,15 @@ public class wifiSpot {
 	 * compare: compare two wifi objects by signal volume. return int.
 	 * 
 	 */
-	public int compareBySignal(wifiSpot w)
+	/**
+	 * @param another- another wifiSpot object
+	 * @return 1 if this spot's volume signal higher than another, 0 if volume signal equal in both spots, -1 if this spot's volume signal lower than anothar. 
+	 */
+	public int compareBySignal(wifiSpot another)
 	{
-		if(Integer.parseInt(this.signal)>Integer.parseInt(w.signal))
+		if(Integer.parseInt(this.signal)>Integer.parseInt(another.signal))
 			return 1;
-		else if(Integer.parseInt(this.signal)<Integer.parseInt(w.signal))
+		else if(Integer.parseInt(this.signal)<Integer.parseInt(another.signal))
 				return -1;
 		else return 0;
 	}
