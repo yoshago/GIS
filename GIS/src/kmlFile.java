@@ -19,7 +19,7 @@ import de.micromata.opengis.kml.v_2_2_0.Placemark;
 /**
  * @author Yehonatan&Yishay
  * 
- * @description this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
+ * @Description this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
  * 				and process it into a kml file using Java Api Kml library.
  * 				the kml file can be shown with google earth.
  * 

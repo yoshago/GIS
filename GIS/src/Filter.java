@@ -3,6 +3,7 @@ import java.util.Scanner;
 
 
 /**
+ *
  * @author Yehonatan&Yishay
  * @description A library class. contains functions to filter ArrayList of singleScan objects.
  *
