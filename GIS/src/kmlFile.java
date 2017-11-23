@@ -29,6 +29,7 @@ public class kmlFile {
 	private final Kml kmlObject = new Kml();
 	private Document document = kmlObject.createAndSetDocument().withName(DocumentName);
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
+	private boolean marshalTest;
 
 	/**
 	 * this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
@@ -153,13 +154,18 @@ public class kmlFile {
 		Date date = new Date();
 		kmlFileOutput = new File(outputPath +"\\outputEarth"+dateFormat.format(date)+".kml");
 		try{
-		kmlObject.marshal(kmlFileOutput);
+		marshalTest = kmlObject.marshal(kmlFileOutput);
 		System.out.println("kml exported successfully!");
 		}
 		catch (IOException ex) {
 			System.out.print("Error exporting file\n" + ex);
 			System.exit(2);
 		}
+		
+	}
+
+	public boolean isMarshalTest() {
+		return marshalTest;
 	}
 	
 	
