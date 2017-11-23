@@ -1,5 +1,6 @@
 
 
+import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
@@ -156,6 +157,7 @@ public class kmlFile {
 		try{
 		marshalTest = kmlObject.marshal(kmlFileOutput);
 		System.out.println("kml exported successfully!");
+		run(kmlFileOutput);
 		}
 		catch (IOException ex) {
 			System.out.print("Error exporting file\n" + ex);
@@ -166,6 +168,19 @@ public class kmlFile {
 
 	public boolean isMarshalTest() {
 		return marshalTest;
+	}
+	
+	private void run(File output)
+	{
+		try
+		{
+		Desktop.getDesktop().open(output);	
+		}
+		catch(IOException ex)
+		{
+			System.out.println("error running file\n"+ex);
+			System.exit(2);
+		}
 	}
 	
 	
