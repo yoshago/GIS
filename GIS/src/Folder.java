@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  */
 
-public class Folder {
+public class Folder implements readWriteInterface{
     private String outputPath;
 	private String path;
 	private File[] listOfFiles;
@@ -19,7 +19,7 @@ public class Folder {
 	
 	/**
 	 * @param path-contains path to the input folder 
-	 * @description this constructure get path, update listOfFiles, 
+	 * @description this constructor get path, update listOfFiles, 
 	 *              and call functions from read and write libraries   
 	 */
 	public Folder(String path)
@@ -27,10 +27,18 @@ public class Folder {
 		this.path=path;
 		File folder = new File(this.path);
 		this.listOfFiles = folder.listFiles();
-		this.singleScansList=read.readFolder(listOfFiles);
-		this.outputPath=write.writeCsvFile(this.singleScansList,this.path+"\\output");
+		read();
+		write();
 	}
 
+	public void read()
+	{
+		this.singleScansList=read.readFolder(listOfFiles);
+	}
+	public void write()
+	{
+		this.outputPath=write.writeCsvFile(this.singleScansList,this.path+"\\output");
+	}
 	public ArrayList<singleScan> getSingleScansList() {
 		return singleScansList;
 	}

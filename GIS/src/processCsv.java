@@ -13,16 +13,25 @@ import java.util.Scanner;
  */
 
 
-public class processCsv {
+public class processCsv implements readWriteInterface{
 	private File f;
 	private ArrayList<singleScan> singleScanList;
 
 	public processCsv(String path)
 	{
 		this.f=new File(path);
-		this.singleScanList=read.readOutputFolderFile(f);
+		read();
 		Filter.mainFilter(this.singleScanList);
 		toKML();
+		write();
+	}
+	
+	public void read()
+	{
+		this.singleScanList=read.readOutputFolderFile(f);
+	}
+	public void write()
+	{
 		write.writeCsvFile(this.singleScanList,"processCsvTestFile");
 	}
 	
