@@ -173,11 +173,11 @@ public class kmlFile {
 		return marshalTest;
 	}
 	
-	private void run(File output)
+	private void run(File output1)
 	{
 		try
 		{
-		Desktop.getDesktop().open(output);	
+		Desktop.getDesktop().open(output1);	
 		}
 		catch(IOException ex)
 		{
