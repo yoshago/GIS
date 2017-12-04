@@ -157,7 +157,6 @@ public class kmlFile {
 		try{
 		marshalTest = kmlObject.marshal(kmlFileOutput);
 		System.out.println("kml exported successfully!");
-		
 		run(kmlFileOutput);
 		}
 		catch (IOException ex) {
