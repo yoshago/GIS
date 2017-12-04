@@ -22,8 +22,9 @@ public class processCsv implements readWriteInterface{
 		this.f=new File(path);
 		read();
 		Filter.mainFilter(this.singleScanList);
-		toKML();
 		write();
+		toKML();
+		
 	}
 	
 	public void read()

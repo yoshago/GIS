@@ -154,9 +154,12 @@ public class kmlFile {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
 		kmlFileOutput = new File(outputPath +"\\outputEarth"+dateFormat.format(date)+".kml");
+		System.out.println(kmlFileOutput.getName());
+		System.out.println("qfadvszdv");
 		try{
 		marshalTest = kmlObject.marshal(kmlFileOutput);
-		System.out.println("kml exported successfully!");
+		//System.out.println("kml exported successfully!");
+		System.out.println(kmlFileOutput.getName());
 		run(kmlFileOutput);
 		}
 		catch (IOException ex) {
