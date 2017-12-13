@@ -86,13 +86,7 @@ public class kmlFile {
 		}));
 	}                                                                                                    //scansList.forEach(singleScan -> singleScan.getWifiSpotsList().removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
 	
-	private void computeWifiSpotLocation()
-	{
-		
-		
-		
-		
-	}
+
 	
 	
 	public ArrayList<singleScan> getScansList() {
