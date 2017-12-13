@@ -18,13 +18,14 @@ import java.util.Scanner;
 public class processCsv implements readWriteInterface{
 	private File f;
 	private ArrayList<singleScan> singleScanList;
-	public ArrayList<wifiSpot> finalWifiList;
-
+    
 	public processCsv(String path)
 	{
 		this.f=new File(path);
 		read();
+		MacLocation ml=new MacLocation(this.singleScanList);
 		Filter.mainFilter(this.singleScanList);
+		MacLocation ml=new MacLocation(this.singleScanList);
 		write(); 
 		toKML();
 	}
