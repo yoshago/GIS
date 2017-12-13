@@ -26,7 +26,7 @@ public class LocationFinder {
 	{
 		for(int i=0;i<input.size();i++)
 		{
-			Locating(DB,input.get(i));
+			Locating(input.get(i));
 			
 		}
 		
