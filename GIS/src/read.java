@@ -134,6 +134,17 @@ public class read {
 	}
 
 
+	
+	
+	public static ArrayList<singleScan> readOutputFolder(File[] listOfFiles)
+	{
+		ArrayList<singleScan> singleScanList=new ArrayList<singleScan>();
+		for(int i=0;i<listOfFiles.length;i++)
+		{
+			readOutputFolderFile(listOfFiles[i],singleScanList);	
+		}
+		return singleScanList;
+	}
 
 	/**
 	 * @description this function called by process csv class, get file and return singleScan list,
@@ -142,9 +153,9 @@ public class read {
 	 * @return singleScan list
 	 *  
 	 */
-	public static ArrayList<singleScan> readOutputFolderFile(File f)
+	public static ArrayList<singleScan> readOutputFolderFile(File f,ArrayList<singleScan> singleScanList)
 	{
-		ArrayList<singleScan> singleScanList=new ArrayList<singleScan>();
+		
 		try
 		{
 			String[] singleScanLine=new String[46];
@@ -152,6 +163,7 @@ public class read {
 			BufferedReader br=new BufferedReader(fr);
 			String str;
 			str = br.readLine();
+			if(str.contains("time"))
 			str=br.readLine();
 			while (str != null)
 			{

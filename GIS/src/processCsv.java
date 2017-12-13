@@ -1,5 +1,7 @@
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -16,6 +18,7 @@ import java.util.Scanner;
 public class processCsv implements readWriteInterface{
 	private File f;
 	private ArrayList<singleScan> singleScanList;
+	public ArrayList<wifiSpot> finalWifiList;
 
 	public processCsv(String path)
 	{
@@ -24,12 +27,16 @@ public class processCsv implements readWriteInterface{
 		Filter.mainFilter(this.singleScanList);
 		write(); 
 		toKML();
-		
+	}
+	public processCsv(ArrayList<singleScan> singleScanList)
+	{
+		this.singleScanList=singleScanList;
+		write();
 	}
 	
 	public void read()
 	{
-		this.singleScanList=read.readOutputFolderFile(f);
+		this.singleScanList=read.readOutputFolder(f.listFiles());
 	}
 	public void write()
 	{

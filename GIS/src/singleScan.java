@@ -81,7 +81,17 @@ public singleScan(String time, String id , coordinate coordinate)
     	}
     	return s;	
     }
-   
+	
+	public int contains(wifiSpot another)
+	{
+		for(int i=0;i<this.getSize();i++)
+		{
+		if(this.wifiSpotsList.get(i).getMac().equals(another.getMac())) 
+			return i;
+		}
+		return -1;
+	}
+	
 	public String getTime() {
 		return time;
 	}
@@ -99,6 +109,9 @@ public singleScan(String time, String id , coordinate coordinate)
 	}
 	public int getSize() {
 		return size;
+	}
+	public void setCoordinate(coordinate coordinate) {
+		this.coordinate = coordinate;
 	}
 	
 }

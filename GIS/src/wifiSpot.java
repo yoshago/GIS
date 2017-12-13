@@ -13,7 +13,7 @@ public class wifiSpot {
 
 	private String ssid;
 	private String mac;
-	private String signal;
+	private int signal;
 	private String channel;
 	private coordinate coordinate;
 	/**
@@ -31,7 +31,7 @@ public class wifiSpot {
 	{
 		this.ssid=ssid;
 		this.mac=mac;
-		this.signal=signal;
+		this.signal=Integer.parseInt(signal);
 		this.channel=channel;
 		this.coordinate=coordinate;
 	}
@@ -54,9 +54,9 @@ public class wifiSpot {
 	 */
 	public int compareBySignal(wifiSpot another)
 	{
-		if(Integer.parseInt(this.signal)>Integer.parseInt(another.signal))
+		if((this.signal)>(another.signal))
 			return 1;
-		else if(Integer.parseInt(this.signal)<Integer.parseInt(another.signal))
+		else if((this.signal)<(another.signal))
 				return -1;
 		else return 0;
 	}
@@ -69,7 +69,7 @@ public class wifiSpot {
 		return mac;
 	}
 
-	public String getSignal() {
+	public int getSignal() {
 		return signal;
 	}
 

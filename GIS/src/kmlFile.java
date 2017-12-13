@@ -31,6 +31,7 @@ public class kmlFile {
 	private Document document = kmlObject.createAndSetDocument().withName(DocumentName);
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
 	private boolean marshalTest;
+	private Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = new HashMap<>();
 
 	/**
 	 * this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
@@ -70,22 +71,27 @@ public class kmlFile {
 	 */
 	
 	
-	private void removeDuplicateMac(){
-		Map<String, wifiSpot> macToWifiSpotMap = new HashMap<>();
-
-
+	private void macMap()
+	{
 		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
-			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) {
-				if (wifiSpot.compareBySignal(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {
-					macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
-				}
-			}
-			else {
-				macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
+			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) 
+			{
+				macToWifiSpotMap.get(wifiSpot.getMac()).add(wifiSpot);                                                      //if (wifiSpot.compareBySignal(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);}
+			} 
+			else 
+			{
+				macToWifiSpotMap.put(wifiSpot.getMac(),new ArrayList<wifiSpot>());
+				macToWifiSpotMap.get(wifiSpot.getMac()).add(wifiSpot);
 			}
 		}));
-		scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
-				.removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
+	}                                                                                                    //scansList.forEach(singleScan -> singleScan.getWifiSpotsList().removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
+	
+	private void computeWifiSpotLocation()
+	{
+		
+		
+		
+		
 	}
 	
 	

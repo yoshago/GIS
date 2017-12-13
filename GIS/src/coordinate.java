@@ -29,10 +29,20 @@ public class coordinate {
      */
     public coordinate(String lon, String lat ,String alt)
        {
-    	   this.lon=Double.parseDouble(lon);
-    	   this.lat=Double.parseDouble(lat);
-    	   this.alt=Double.parseDouble(alt);
+    		if(lon.equals("?"))this.lon=0;
+    		else this.lon=Double.parseDouble(lon);
+    		if(lat.equals("?"))this.lat=0;
+    		else this.lat=Double.parseDouble(lat);
+    		if(alt.equals("?"))this.alt=0;
+    		else this.alt=Double.parseDouble(alt);
        }
+   
+    public coordinate(double lon, double lat ,double alt)
+    {
+ 	   this.lon=lon;
+ 	   this.lat=lat;
+ 	   this.alt=alt;
+    }
        
        /**
      * @param lon represents the longitude of the coordinate
