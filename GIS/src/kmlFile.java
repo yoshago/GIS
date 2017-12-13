@@ -47,7 +47,6 @@ public class kmlFile {
 		this.scansList = scansList;
 		addStyles();
 		addScansPlacemarks();
-		removeDuplicateMac();
 		addWifiSpotsPlacemarks();
 		exportKml(outputPath);
 		
@@ -129,7 +128,7 @@ public class kmlFile {
 				String ssid = currentWifiSpotsList.get(j).getSsid();
 				String mac = currentWifiSpotsList.get(j).getMac();
 				String frequency = currentWifiSpotsList.get(j).getChannel();
-				String signal = currentWifiSpotsList.get(j).getSignal();
+				int signal = currentWifiSpotsList.get(j).getSignal();
 				String description = "SSID: " + "<b>" + ssid + "</b>" + "<br/>" + "MAC: " + "<b>" + mac + "</b>"
 						+ "<br/>" + "Time: " + "<b>" + time + "</b>" + "<br/>" + "Model: " + "<b>" + model
 						+ "</b>" + "<br/>" + "Longitude: " + "<b>" + scanLocation.getLon() + "</b>" + "<br/>" + "Latitude: "
