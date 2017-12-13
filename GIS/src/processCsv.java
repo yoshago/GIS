@@ -23,7 +23,6 @@ public class processCsv implements readWriteInterface{
 	{
 		this.f=new File(path);
 		read();
-		MacLocation ml=new MacLocation(this.singleScanList);
 		Filter.mainFilter(this.singleScanList);
 		MacLocation ml=new MacLocation(this.singleScanList);
 		write(); 
