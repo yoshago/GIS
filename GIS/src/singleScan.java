@@ -49,7 +49,7 @@ public singleScan(String time, String id , coordinate coordinate)
     	if(wifiSpotsList.isEmpty())  wifiSpotsList.add(w);
     	else
     	{
-    	while(i<wifiSpotsList.size() && w.compareBySignal(this.wifiSpotsList.get(i))<0){
+    	while(i<wifiSpotsList.size() && w.compareTo(this.wifiSpotsList.get(i))<0){
     		i++;
     		if(i>10) return;
     	}

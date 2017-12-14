@@ -8,7 +8,7 @@
  *              this class contains functions: compare, toString.  
  */
 
-public class wifiSpot {
+public class wifiSpot implements Comparable<wifiSpot> {
 	
 
 	private String ssid;
@@ -52,14 +52,7 @@ public class wifiSpot {
 	 * @param another- another wifiSpot object
 	 * @return 1 if this spot's volume signal higher than another, 0 if volume signal equal in both spots, -1 if this spot's volume signal lower than anothar. 
 	 */
-	public int compareBySignal(wifiSpot another)
-	{
-		if((this.signal)>(another.signal))
-			return 1;
-		else if((this.signal)<(another.signal))
-				return -1;
-		else return 0;
-	}
+	
 	
 	public String getSsid() {
 		return ssid;
@@ -78,6 +71,11 @@ public class wifiSpot {
 	}
 	public coordinate getCoordinate() {
 		return coordinate;
+	}
+	
+	@Override
+	public int compareTo(wifiSpot wifi) {
+		return Integer.compare(this.signal, wifi.getSignal());
 	}
 	
 }

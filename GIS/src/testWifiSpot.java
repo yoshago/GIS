@@ -13,9 +13,9 @@ public class testWifiSpot {
 	@Test
 	public void compareBySignalTest() {
 		
-		assertEquals(-1, ws.compareBySignal(higherSignal));
-		assertEquals(1, ws.compareBySignal(lowerSignal));
-		assertEquals(0, ws.compareBySignal(equalSignal));
+		assertEquals(-1, ws.compareTo(higherSignal));
+		assertEquals(1, ws.compareTo(lowerSignal));
+		assertEquals(0, ws.compareTo(equalSignal));
 
 	}
 

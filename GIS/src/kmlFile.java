@@ -8,9 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Icon;
@@ -30,6 +28,7 @@ public class kmlFile {
 	private final Kml kmlObject = new Kml();
 	private Document document = kmlObject.createAndSetDocument().withName(DocumentName);
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
+	private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
 	private boolean marshalTest;
 	private Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = new HashMap<>();
 
@@ -43,16 +42,15 @@ public class kmlFile {
 	 * @param outputPath
 	 * 
 	 */
-	public kmlFile(ArrayList<singleScan> scansList, String outputPath){
+	public kmlFile(ArrayList scansList, String outputPath){
 		this.scansList = scansList;
 		addStyles();
 		addScansPlacemarks();
 		addWifiSpotsPlacemarks();
 		exportKml(outputPath);
-		
-
-
 	}
+	
+
 
 	/**
 	 * Adds Icon styles to the document
@@ -69,21 +67,8 @@ public class kmlFile {
 	 * The function uses HashMap to map each wifiSpot to its mac.
 	 */
 	
-	
-	private void macMap()
-	{
-		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
-			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) 
-			{
-				macToWifiSpotMap.get(wifiSpot.getMac()).add(wifiSpot);                                                      //if (wifiSpot.compareBySignal(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);}
-			} 
-			else 
-			{
-				macToWifiSpotMap.put(wifiSpot.getMac(),new ArrayList<wifiSpot>());
-				macToWifiSpotMap.get(wifiSpot.getMac()).add(wifiSpot);
-			}
-		}));
-	}                                                                                                    //scansList.forEach(singleScan -> singleScan.getWifiSpotsList().removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
+	                       
+	                                                                                                  //scansList.forEach(singleScan -> singleScan.getWifiSpotsList().removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
 	
 
 	
