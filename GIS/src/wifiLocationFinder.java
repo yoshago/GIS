@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -51,12 +52,13 @@ public class wifiLocationFinder {
 	 */
 	private wifiSpot wifiSpotLocation(ArrayList<wifiSpot> wifiList)
 	{
+		Collections.sort(wifiList);
 		double moneLon=0;
 		double moneLat=0;
 		double moneAlt=0;
 		double mech=0;
 		
-		for(int i=0;i<wifiList.size();i++)
+		for(int i=0;i<4;i++)
 		{
 			double weight=1/Math.pow(wifiList.get(i).getSignal(),2);
 			moneLon+=wifiList.get(i).getCoordinate().getLon()*weight;
