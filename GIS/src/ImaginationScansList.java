@@ -19,7 +19,7 @@ private int size=0;
 	}
 	public boolean add(ImaginationScan scan)
 	{
-		if(this.size<4)
+		if(this.size==0)
 		{
 			list.add(scan);
 			this.size++;
@@ -35,6 +35,7 @@ private int size=0;
 			if(i<=3)
 			{	
 				list.add(scan);
+				if(size<=4)
 				size++;
 				return true;
 			}
