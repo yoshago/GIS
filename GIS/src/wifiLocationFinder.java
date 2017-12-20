@@ -10,11 +10,11 @@ import java.util.Map;
  * @author ישי
  *
  */
-public class MacLocation {
-	private ArrayList<singleScan> dataBase;
+public class wifiLocationFinder {
+	private DB dataBase;
 	private ArrayList<wifiSpot> finalWifiList;
 	
-	public MacLocation(ArrayList<singleScan> dataBase)
+	public wifiLocationFinder(DB dataBase)
 	{
 		this.dataBase=dataBase;
 		
@@ -23,7 +23,7 @@ public class MacLocation {
 	private Map<String, ArrayList<wifiSpot>> macMap()
 	{
 		Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = new HashMap<>();
-		this.dataBase.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
+		this.dataBase.getScansList().forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
 			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) 
 			{
 				macToWifiSpotMap.get(wifiSpot.getMac()).add(wifiSpot);                                                      //if (wifiSpot.compareBySignal(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);}
@@ -37,7 +37,7 @@ public class MacLocation {
 		return macToWifiSpotMap;
 	}          
 	
-	private void findSpotsLocation()
+	public void findSpotsLocation()
 	{
 		ArrayList<wifiSpot> tmpwifiList=new ArrayList<wifiSpot>();
 		Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = macMap();
