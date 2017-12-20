@@ -75,7 +75,8 @@ public class personLocationFinder {
 			tmp=singleScan.contains(input.get(i));
 			if(tmp>=0)
 			{
-				imagination*=Math.abs(-input.get(i).getSignal()-Math.abs(-input.get(i).getSignal()-singleScan.getWifiSpotsList().get(tmp).getSignal()))/-input.get(i).getSignal();
+				int delta=Math.abs(-input.get(i).getSignal()-singleScan.getWifiSpotsList().get(tmp).getSignal());
+				imagination*=(Math.abs(-input.get(i).getSignal())-delta)/-input.get(i).getSignal();
 			}
 			else imagination*=0.1;
 		}

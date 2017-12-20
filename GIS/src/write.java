@@ -87,7 +87,7 @@ public class write {
 		String s="";
 		for(int i=0;i<wsl.size();i++)
 		{
-			s+=wsl.get(i).toString()+","+wsl.get(i).getCoordinate().toString()+"\n";
+			s+=wsl.get(i).toString()+wsl.get(i).getCoordinate().toString()+"\n";
 		}
 		return s;
 	}
