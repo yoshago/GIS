@@ -8,10 +8,14 @@ import java.util.ArrayList;
  * @author ישי
  *
  */
-public class ImaginationScan {
+public class ImaginationScan extends singleScan{
 
 private double imagination;
-private singleScan scan;
+private String time;
+private String id;
+private coordinate coordinate;
+private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
+private int size=wifiSpotsList.size();
 
 public final int norm=10000;
 public final double sig_dif=0.4;
@@ -19,10 +23,11 @@ public final int min_dif=3;
 public int no_signal=-120;
 public int dif_no_signal=100;
 
-	public ImaginationScan(singleScan scan,double imagination)
+	public ImaginationScan(String time, String id , coordinate coordinate, ArrayList<wifiSpot> wifiSpotList, double imagination)
 	{
+		super(time, id, coordinate,wifiSpotList);
 		this.imagination=imagination;
-		this.scan=scan;
+		
 	}
 	
 	public int compare(ImaginationScan another)
@@ -50,13 +55,11 @@ public int dif_no_signal=100;
 	}
 
 	private int diff(ArrayList<wifiSpot> input, int i) {
-		int index=scan.contains(input.get(i));
+		int index=this.contains(input.get(i));
 		if(index<0) return 100;
-		else return Math.max(3,Math.abs(input.get(i).getSignal()-this.scan.getWifiSpotsList().get(index).getSignal()));
+		else return Math.max(3,Math.abs(input.get(i).getSignal()-this.getWifiSpotsList().get(index).getSignal()));
 	}
 
-	public singleScan getScan() {
-		return scan;
-	}
+
 	
 }

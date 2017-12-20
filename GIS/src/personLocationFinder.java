@@ -9,12 +9,12 @@ import java.util.ArrayList;
  * @author ישי
  *
  */
-public class LocationFinder {
+public class personLocationFinder {
 	
 	ArrayList<singleScan> DB;
 	ArrayList<singleScan> input;
 	
-	public LocationFinder(String pathDB,String pathInput)
+	public personLocationFinder(String pathDB,String pathInput)
 	{
 		File fDB=new File(pathDB);
 		File fInput=new File(pathInput);
@@ -39,7 +39,7 @@ public class LocationFinder {
 		for(int j=0;j<this.DB.size();j++)
 		{
 			imagination=testImagination(DB.get(j),input.getWifiSpotsList());
-			ImaginationScan scan=new ImaginationScan(DB.get(j),imagination);
+			ImaginationScan scan=new ImaginationScan(DB.get(j).getTime(),DB.get(j).getId(),DB.get(j).getCoordinate(),DB.get(j).getWifiSpotsList(),imagination);
 			list.add(scan);
 		}
 		input.setCoordinate(findLocation(list,input));
@@ -57,9 +57,9 @@ public class LocationFinder {
 		for(int i=0;i<list.getSize();i++)
 		{
 			pi=list.getList().get(i).computePI(inputScan.getWifiSpotsList());
-			moneLon+=list.getList().get(i).getScan().getCoordinate().getLon()*pi;
-			moneLat+=list.getList().get(i).getScan().getCoordinate().getLat()*pi;
-			moneAlt+=list.getList().get(i).getScan().getCoordinate().getAlt()*pi;
+			moneLon+=list.getList().get(i).getCoordinate().getLon()*pi;
+			moneLat+=list.getList().get(i).getCoordinate().getLat()*pi;
+			moneAlt+=list.getList().get(i).getCoordinate().getAlt()*pi;
 			mech+=pi;
 		}
 		coordinate coor=new coordinate(moneLon/mech,moneLat/mech,moneAlt/mech);

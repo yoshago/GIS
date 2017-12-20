@@ -13,85 +13,93 @@ import java.util.ArrayList;
  *              5. size of wifiSpot list(maximum 10)
  */
 public class singleScan {
-    
-    private String time;
-    private String id;
-    private coordinate coordinate;
-    private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
-    private int size=wifiSpotsList.size();
-    /**
-     * @description empty constructor.
-     */
-    public singleScan()
-    {
-    	
-    }
-   /**
- * @param time-time of scan.
- * @param id-id of the scanner smartphone.
- * @param coordinate-location of scan.
- */
-public singleScan(String time, String id , coordinate coordinate)
-   {
-	    this.time=time;
-	    this.id=id;
-	   this.coordinate=coordinate;
-   }
-  
-   /**
-    * @description this function add wifiSpot to wifiSpotsList
-    * @param w-wifiSpot object
-    * 
-    */
-    public void add (wifiSpot w)
-    { 
-    	int i=0;
-    	if(wifiSpotsList.isEmpty())  wifiSpotsList.add(w);
-    	else
-    	{
-    	while(i<wifiSpotsList.size() && w.compareTo(this.wifiSpotsList.get(i))<0){
-    		i++;
-    		if(i>10) return;
-    	}
-    	wifiSpotsList.add(i, w);
-    	}
-    	if(size<10)//the maximum size is 10
-    		size++;
-    	if(size==10)
-    	removeWorstSignal();
-    }
-    public void setSize(int size) {
-	this.size = size;
-}
+
+	private String time;
+	private String id;
+	private coordinate coordinate;
+	private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
+	private int size=wifiSpotsList.size();
+	/**
+	 * @description empty constructor.
+	 */
+	public singleScan()
+	{
+
+	}
+	/**
+	 * @param time-time of scan.
+	 * @param id-id of the scanner smartphone.
+	 * @param coordinate-location of scan.
+	 */
+	public singleScan(String time, String id , coordinate coordinate)
+	{
+		this.time=time;
+		this.id=id;
+		this.coordinate=coordinate;
+	}
+	public singleScan(String time, String id , coordinate coordinate, ArrayList<wifiSpot> wifiSpotList)
+	{
+		this.time=time;
+		this.id=id;
+		this.coordinate=coordinate;
+		this.wifiSpotsList = wifiSpotList;
+
+	}
+
+	/**
+	 * @description this function add wifiSpot to wifiSpotsList
+	 * @param w-wifiSpot object
+	 * 
+	 */
+	public void add (wifiSpot w)
+	{ 
+		int i=0;
+		if(wifiSpotsList.isEmpty())  wifiSpotsList.add(w);
+		else
+		{
+			while(i<wifiSpotsList.size() && w.compareTo(this.wifiSpotsList.get(i))<0){
+				i++;
+				if(i>10) return;
+			}
+			wifiSpotsList.add(i, w);
+		}
+		if(size<10)//the maximum size is 10
+			size++;
+		if(size==10)
+			removeWorstSignal();
+	}
+	public void setSize(int size) {
+		this.size = size;
+	}
 	/**
 	 * @description
-     * this function called by add function. 
-     * used to get sure that that only 10 wifi objects stay in wifilist(the most strong signals)
-     */
-    private void removeWorstSignal() {
+	 * this function called by add function. 
+	 * used to get sure that that only 10 wifi objects stay in wifilist(the most strong signals)
+	 */
+	private void removeWorstSignal() {
 		if(this.wifiSpotsList.size()>10) this.wifiSpotsList.remove(10);
-		
+
 	}
 	public String toString()
-    {
-    	String s=this.time+","+this.id+","+this.coordinate.toString()+","+this.size+",";
-    	for(int i=0;i<wifiSpotsList.size();i++)
-    	{
-    		s+=wifiSpotsList.get(i).toString();
-    	}
-    	return s;	
-    }
-	
+	{
+		String s=this.time+","+this.id+","+this.coordinate.toString()+","+this.size+",";
+		for(int i=0;i<wifiSpotsList.size();i++)
+		{
+			s+=wifiSpotsList.get(i).toString();
+		}
+		return s;	
+	}
+
 	public int contains(wifiSpot another)
 	{
 		for(int i=0;i<this.getSize();i++)
 		{
-		if(this.wifiSpotsList.get(i).getMac().equals(another.getMac())) 
-			return i;
+			if(this.wifiSpotsList.get(i).getMac().equals(another.getMac())) 
+				return i;
 		}
 		return -1;
 	}
-	
+
 	public String getTime() {
 		return time;
 	}
@@ -113,5 +121,5 @@ public singleScan(String time, String id , coordinate coordinate)
 	public void setCoordinate(coordinate coordinate) {
 		this.coordinate = coordinate;
 	}
-	
+
 }
