@@ -17,6 +17,7 @@ private coordinate coordinate;
 private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
 private int size=wifiSpotsList.size();
 
+
 public final int norm=10000;
 public final double sig_dif=0.4;
 public final int min_dif=3;
