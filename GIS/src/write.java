@@ -64,4 +64,32 @@ public class write {
  		}
  		return s;
 	}
+	
+	public static void algo1toCsv(ArrayList<wifiSpot> wsl)
+	{
+		String nameOfFile="algo1output.csv";
+		try
+		{
+			PrintWriter pw = new PrintWriter(new File(nameOfFile));
+			pw.write(algo1toString(wsl));	
+			pw.close();
+		}
+		catch(IOException ex)
+		{
+			System.out.println("error writing file "+ex);
+			System.exit(2);
+		}
+		System.out.println("done print csv file");
+	}
+
+	private static String algo1toString(ArrayList<wifiSpot> wsl)
+	{
+		String s="";
+		for(int i=0;i<wsl.size();i++)
+		{
+			s+=wsl.get(i).toString()+","+wsl.get(i).getCoordinate().toString()+"\n";
+		}
+		return s;
+	}
+	
 }
