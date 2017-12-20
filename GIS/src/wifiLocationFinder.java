@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class wifiLocationFinder {
 	private DB dataBase;
-	private ArrayList<wifiSpot> finalWifiList;
+	private ArrayList<wifiSpot> finalWifiList = new ArrayList<wifiSpot>();
 	
 	public wifiLocationFinder(DB dataBase)
 	{
@@ -42,7 +42,8 @@ public class wifiLocationFinder {
 	{
 		ArrayList<wifiSpot> tmpwifiList=new ArrayList<wifiSpot>();
 		Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = macMap();
-		macToWifiSpotMap.forEach((key,wifiList)->this.finalWifiList.add(wifiSpotLocation(wifiList)));
+		System.out.println(macToWifiSpotMap.size());
+		macToWifiSpotMap.forEach((key,wifiList)->finalWifiList.add(wifiSpotLocation(wifiList)));
 	}
 	/**
 	 *
@@ -58,7 +59,7 @@ public class wifiLocationFinder {
 		double moneAlt=0;
 		double mech=0;
 		
-		for(int i=0;i<4;i++)
+		for(int i=0;i<wifiList.size();i++)
 		{
 			double weight=1/Math.pow(wifiList.get(i).getSignal(),2);
 			moneLon+=wifiList.get(i).getCoordinate().getLon()*weight;
@@ -69,5 +70,9 @@ public class wifiLocationFinder {
 		coordinate coor=new coordinate(moneLon/mech,moneLat/mech,moneAlt/mech);
 		wifiSpot ws=new wifiSpot(wifiList.get(0).getMac(), wifiList.get(0).getSsid(), wifiList.get(0).getChannel(), "-20", coor);
 		return ws; 
+	}
+
+	public ArrayList<wifiSpot> getFinalWifiList() {
+		return finalWifiList;
 	}
 }

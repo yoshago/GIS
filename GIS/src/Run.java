@@ -15,9 +15,13 @@ public class Run {
 //		String inputPath=userInputnextLine();
 //		Folder f=new Folder(inputPath);
 //		processCsv processCsv=new processCsv(f.getOutputPath());
-		personLocationFinder lf=new personLocationFinder("C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\comb","C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\noGps");
+//		DB db1 = new DB("C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\1",2);
+//		wifiLocationFinder wlf = new wifiLocationFinder(db1);
+//		wlf.findSpotsLocation();
+//		write.algo1toCsv(wlf.getFinalWifiList());
+		personLocationFinder lf=new personLocationFinder("C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\data","C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\input");
 		lf.findLocation();
-		write.writeCsvFile(lf.input, "C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\check1.csv");
+		write.writeCsvFile(lf.input, "C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\output.csv");
 	}
 
 }

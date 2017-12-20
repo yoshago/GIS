@@ -44,6 +44,7 @@ public class DB {
   		}));
   		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
  				.removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
+  		
  	} 
 	
 	
