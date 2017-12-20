@@ -26,7 +26,7 @@ public class write {
 	 * @param pathOutput- String that contains output path
 	 * @return return path+name of the exported file.
 	 */
-	public static String writeCsvFile(ArrayList<singleScan> singleScanList,String pathOutput)
+	public static String writeCsvFile(ArrayList<singleScan> scansList,String pathOutput)
 	{
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
@@ -34,7 +34,7 @@ public class write {
 		try
 		{
 			PrintWriter pw = new PrintWriter(new File(nameOfFile));
-			pw.write(singleScanListToCsvString(singleScanList));	
+			pw.write(singleScanListToCsvString(scansList));	
 			pw.close();
 		}
 		catch(IOException ex)

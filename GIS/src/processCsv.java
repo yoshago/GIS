@@ -15,18 +15,16 @@ import java.util.Scanner;
  */
 
 
-public class processCsv implements readWriteInterface{
-	private File f;
+public class csvFile{
+	private File folder;
 	private ArrayList<singleScan> singleScanList;
     
 	public processCsv(String path)
 	{
 		this.f=new File(path);
 		read();
-		Filter.mainFilter(this.singleScanList);
 		MacLocation ml=new MacLocation(this.singleScanList);
 		write(); 
-		toKML();
 	}
 	public processCsv(ArrayList<singleScan> singleScanList)
 	{
@@ -36,7 +34,7 @@ public class processCsv implements readWriteInterface{
 	
 	public void read()
 	{
-		this.singleScanList=read.readOutputFolder(f.listFiles());
+		this.singleScanList=read.readOutputFolder(folder.listFiles());
 	}
 	public void write()
 	{
