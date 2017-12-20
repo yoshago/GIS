@@ -15,7 +15,7 @@ public class Run {
 //		String inputPath=userInputnextLine();
 //		Folder f=new Folder(inputPath);
 //		processCsv processCsv=new processCsv(f.getOutputPath());
-		LocationFinder lf=new LocationFinder("C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\comb","C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\noGps");
+		personLocationFinder lf=new personLocationFinder("C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\comb","C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\noGps");
 		lf.findLocation();
 		write.writeCsvFile(lf.input, "C:\\Users\\Yehonatan\\Documents\\OOP EX2 Test1\\check1.csv");
 	}
