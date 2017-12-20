@@ -16,5 +16,4 @@ public class runAlgo2 {
 		lf.findLocation();
 		write.writeCsvFile(lf.input, "C:\\Users\\ישי\\Desktop\\testnogps\\check1.csv");
 	}
-
 }
