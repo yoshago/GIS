@@ -15,7 +15,6 @@ private String time;
 private String id;
 private coordinate coordinate;
 private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
-private int size=wifiSpotsList.size();
 
 
 public final int norm=10000;
@@ -26,7 +25,7 @@ public int dif_no_signal=100;
 
 	public ImaginationScan(String time, String id , coordinate coordinate, ArrayList<wifiSpot> wifiSpotList, double imagination)
 	{
-		super(time, id, coordinate,wifiSpotList);
+		super(time,id,coordinate,wifiSpotList);
 		this.imagination=imagination;
 		
 	}
@@ -60,6 +59,8 @@ public int dif_no_signal=100;
 		if(index<0) return 100;
 		else return Math.max(3,Math.abs(input.get(i).getSignal()-this.getWifiSpotsList().get(index).getSignal()));
 	}
+
+
 
 
 	

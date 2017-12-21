@@ -41,6 +41,7 @@ public class personLocationFinder {
 			imagination=testImagination(DB.get(j),input.getWifiSpotsList());
 			ImaginationScan scan=new ImaginationScan(DB.get(j).getTime(),DB.get(j).getId(),DB.get(j).getCoordinate(),DB.get(j).getWifiSpotsList(),imagination);
 			list.add(scan);
+			
 		}
 		input.setCoordinate(findLocation(list,input));
 
@@ -53,7 +54,6 @@ public class personLocationFinder {
 		double moneAlt=0;
 		double mech=0;
 		double pi=1;
-
 		for(int i=0;i<list.getSize();i++)
 		{
 			pi=list.getList().get(i).computePI(inputScan.getWifiSpotsList());
@@ -68,15 +68,15 @@ public class personLocationFinder {
 	
 	private double testImagination(singleScan singleScan,ArrayList<wifiSpot> input)
 	{
-		double imagination=0;
+		double imagination=1;
 		int tmp=0;
 		for(int i=0;i<input.size();i++)
 		{
 			tmp=singleScan.contains(input.get(i));
 			if(tmp>=0)
 			{
-				int delta=Math.abs(-input.get(i).getSignal()-singleScan.getWifiSpotsList().get(tmp).getSignal());
-				imagination*=(Math.abs(-input.get(i).getSignal())-delta)/-input.get(i).getSignal();
+				int delta=Math.abs(input.get(i).getSignal()-singleScan.getWifiSpotsList().get(tmp).getSignal());
+				imagination*=(Math.abs(input.get(i).getSignal())-delta)/-input.get(i).getSignal();
 			}
 			else imagination*=0.1;
 		}

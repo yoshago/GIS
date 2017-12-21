@@ -34,7 +34,7 @@ private int size=0;
 			}
 			if(i<=3)
 			{	
-				list.add(scan);
+				list.add(i,scan);
 				if(size<=4)
 				size++;
 				return true;
