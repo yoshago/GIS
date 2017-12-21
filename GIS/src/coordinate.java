@@ -2,7 +2,7 @@
 /**
  * @author Yehonatan&Yishay
  * @description an object class of the type coordinate that represents location in the world
- * 				using logtitude, latitude and altitude (the format of the coordinateis in geographic .
+ * 				using longtitude, latitude and altitude (the format of the coordinateis in geographic .
  *
  */
 public class coordinate {

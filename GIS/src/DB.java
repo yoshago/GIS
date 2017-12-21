@@ -4,20 +4,40 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * @author Yehonatan&Yishay
+ *
+ */
 public class DB {
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
 	
+
 	public ArrayList<singleScan> getScansList() {
 		return scansList;
 	}
+
+	/**
+	 * @param scansList
+	 * 
+	 */
 
 	public void setScansList(ArrayList<singleScan> scansList) {
 		this.scansList = scansList;
 	}
 
+	/**
+	 * @param scansList
+	 * constructor of the DB from ArrayList of singleScan objects.
+	 */
 	public DB(ArrayList<singleScan> scansList){
 		this.scansList = scansList;
 	}
+	/**
+	 * @param Path
+	 * @param type
+	 * constructor of DB from csv files
+	 * there is two types of input files 1.wigle files, 2.output files.
+	 */
 	public DB(String Path, int type){
 		File folder = new File(Path);
 		File[] listOfFiles = folder.listFiles();
@@ -29,6 +49,10 @@ public class DB {
 		}
 	}
 	
+	/**
+	 * the function leaves in the DB only one object of each wifi router (judging by the mac) the object that will remain is the one with the strongest signal.
+	 * the functions uses a hashmap to link each mac address to one wifiSpot object. 
+	 */
 	public void removeDuplicateMac(){
  		Map<String, wifiSpot> macToWifiSpotMap = new HashMap<>();
   		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
@@ -50,7 +74,7 @@ public class DB {
 	
 
 	/**
-	 * @param singleScanList
+	 * 
 	 * this function calls the other filter functions according to the user request, (Kind of a UI for filtering).
 	 * 
 	 */
@@ -58,6 +82,9 @@ public class DB {
 	public void Filter(){
 		Filter.mainFilter(scansList);
 	}
+	/**
+	 * printing the DB to kml File
+	 */
 	public void toKML()
 	{
 		String kmlOutputPath;
@@ -67,6 +94,9 @@ public class DB {
 		kmlFile kmlFile= new kmlFile(this.scansList, kmlOutputPath);
 		//userInput.close();
 	}
+	/**
+	 * printing the DB to csv File
+	 */
 	public void toCSV()
 	{
 		String pathOutput;

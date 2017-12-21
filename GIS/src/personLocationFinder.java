@@ -1,9 +1,6 @@
 import java.io.File;
 import java.util.ArrayList;
 
-/**
- * 
- */
 
 /**
  * @author ישי
@@ -38,10 +35,9 @@ public class personLocationFinder {
 		double imagination=0;
 		for(int j=0;j<this.DB.size();j++)
 		{
-			imagination=testImagination(DB.get(j),input.getWifiSpotsList());
+			imagination=computeImagination(DB.get(j),input.getWifiSpotsList());
 			ImaginationScan scan=new ImaginationScan(DB.get(j).getTime(),DB.get(j).getId(),DB.get(j).getCoordinate(),DB.get(j).getWifiSpotsList(),imagination);
 			list.add(scan);
-			
 		}
 		input.setCoordinate(findLocation(list,input));
 
@@ -53,7 +49,7 @@ public class personLocationFinder {
 		double moneLat=0;
 		double moneAlt=0;
 		double mech=0;
-		double pi=1;
+		double pi;
 		for(int i=0;i<list.getSize();i++)
 		{
 			pi=list.getList().get(i).computePI(inputScan.getWifiSpotsList());
@@ -62,25 +58,34 @@ public class personLocationFinder {
 			moneAlt+=list.getList().get(i).getCoordinate().getAlt()*pi;
 			mech+=pi;
 		}
-		coordinate coor=new coordinate(moneLon/mech,moneLat/mech,moneAlt/mech);
+		coordinate coor=new coordinate();
+		if (mech>0){
+		coor=new coordinate(moneLon/mech,moneLat/mech,moneAlt/mech);
+		}
 		return coor;
 	}
 	
-	private double testImagination(singleScan singleScan,ArrayList<wifiSpot> input)
+	private double computeImagination(singleScan singleScan,ArrayList<wifiSpot> input)
 	{
 		double imagination=1;
 		int tmp=0;
+		boolean flag =false;
 		for(int i=0;i<input.size();i++)
 		{
 			tmp=singleScan.contains(input.get(i));
 			if(tmp>=0)
 			{
+				flag =true;
 				int delta=Math.abs(input.get(i).getSignal()-singleScan.getWifiSpotsList().get(tmp).getSignal());
 				imagination*=(Math.abs(input.get(i).getSignal())-delta)/-input.get(i).getSignal();
 			}
 			else imagination*=0.1;
 		}
+		if (flag ==true)
+		{
 		return imagination;
+		}
+		else return -1;
 	}
 	
 }

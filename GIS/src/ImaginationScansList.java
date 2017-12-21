@@ -19,6 +19,7 @@ private int size=0;
 	}
 	public boolean add(ImaginationScan scan)
 	{
+		if (scan.getImagination()>-0.5){
 		if(this.size==0)
 		{
 			list.add(scan);
@@ -28,7 +29,7 @@ private int size=0;
 		else
 		{
 			int i=0;
-			while(i<size && scan.compare(this.list.get(i))>0)
+			while(i<size && scan.compareTo(this.list.get(i))>0)
 			{
 				i++;
 			}
@@ -39,6 +40,7 @@ private int size=0;
 				size++;
 				return true;
 			}
+		}
 		}
 		return false;
 	}

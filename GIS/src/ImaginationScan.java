@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * @author ישי
  *
  */
-public class ImaginationScan extends singleScan{
+public class ImaginationScan extends singleScan implements Comparable<ImaginationScan>{
 
 private double imagination;
 private String time;
@@ -30,11 +30,9 @@ public int dif_no_signal=100;
 		
 	}
 	
-	public int compare(ImaginationScan another)
-	{
-		if(this.imagination>another.imagination) return 1;
-		if(this.imagination==another.imagination) return 0;
-		return -1;
+	@Override
+	public int compareTo(ImaginationScan other) {
+		return Double.compare(this.imagination, other.getImagination());
 	}
 	
 	public double computePI(ArrayList<wifiSpot> input)
@@ -58,6 +56,10 @@ public int dif_no_signal=100;
 		int index=this.contains(input.get(i));
 		if(index<0) return 100;
 		else return Math.max(3,Math.abs(input.get(i).getSignal()-this.getWifiSpotsList().get(index).getSignal()));
+	}
+
+	public double getImagination() {
+		return imagination;
 	}
 
 
