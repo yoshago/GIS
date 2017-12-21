@@ -7,8 +7,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+
 
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Icon;
@@ -27,10 +26,9 @@ public class kmlFile {
 	private final String DocumentName = "WifiSpotsMap";
 	private final Kml kmlObject = new Kml();
 	private Document document = kmlObject.createAndSetDocument().withName(DocumentName);
-	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
-	private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
+	private ArrayList<singleScan> scansList;
 	private boolean marshalTest;
-	private Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = new HashMap<>();
+	private String outputPath;
 
 	/**
 	 * this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
@@ -42,16 +40,19 @@ public class kmlFile {
 	 * @param outputPath
 	 * 
 	 */
-	public kmlFile(ArrayList scansList, String outputPath){
+	public kmlFile(ArrayList<singleScan> scansList, String outputPath){
 		this.scansList = scansList;
-		addStyles();
-		addScansPlacemarks();
-		addWifiSpotsPlacemarks();
-		exportKml(outputPath);
+		this.outputPath = outputPath;
+		
 	}
 	
 
-
+	 public void SetKmlFIle(){
+		addStyles();
+		addScansPlacemarks();
+		addWifiSpotsPlacemarks();
+	}
+	
 	/**
 	 * Adds Icon styles to the document
 	 * 
@@ -134,7 +135,7 @@ public class kmlFile {
 	 * 
 	 */
 	
-	private void exportKml(String outputPath){
+	public void exportKml(){
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
 		kmlFileOutput = new File(outputPath +"\\outputEarth"+dateFormat.format(date)+".kml");
@@ -166,7 +167,5 @@ public class kmlFile {
 			System.exit(2);
 		}
 	}
-	
-	
-	
+
 }

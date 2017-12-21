@@ -8,35 +8,35 @@ import java.util.ArrayList;
  */
 public class personLocationFinder {
 	
-	ArrayList<singleScan> DB;
-	ArrayList<singleScan> input;
+	DB DB;
+	DB input;
 	
 	public personLocationFinder(String pathDB,String pathInput)
 	{
 		File fDB=new File(pathDB);
 		File fInput=new File(pathInput);
-		this.DB=read.readOutputFolder(fDB.listFiles());
-		this.input=read.readOutputFolder(fInput.listFiles());
+		this.DB.setScansList(read.readOutputFolder(fDB.listFiles()));
+		this.input.setScansList(read.readOutputFolder(fInput.listFiles()));
 	}
 	
 	public void findLocation()
 	{
-		for(int i=0;i<input.size();i++)
+		for(int i=0;i<input.getScansList().size();i++)
 		{
-			Locating(input.get(i));
+			Locating(input.getScansList().get(i));
 			
 		}
 		
 	}
 	
-	public  void Locating(singleScan input)
+	private  void Locating(singleScan input)
 	{
 		ImaginationScansList list= new ImaginationScansList();
 		double imagination=0;
-		for(int j=0;j<this.DB.size();j++)
+		for(int j=0;j<this.DB.getScansList().size();j++)
 		{
-			imagination=computeImagination(DB.get(j),input.getWifiSpotsList());
-			ImaginationScan scan=new ImaginationScan(DB.get(j).getTime(),DB.get(j).getId(),DB.get(j).getCoordinate(),DB.get(j).getWifiSpotsList(),imagination);
+			imagination=computeImagination(DB.getScansList().get(j),input.getWifiSpotsList());
+			ImaginationScan scan=new ImaginationScan(DB.getScansList().get(j).getTime(),DB.getScansList().get(j).getId(),DB.getScansList().get(j).getCoordinate(),DB.getScansList().get(j).getWifiSpotsList(),imagination);
 			list.add(scan);
 		}
 		input.setCoordinate(findLocation(list,input));

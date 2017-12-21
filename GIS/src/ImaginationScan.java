@@ -33,7 +33,7 @@ public int dif_no_signal=100;
 	@Override
 	public int compareTo(ImaginationScan other) {
 		return Double.compare(this.imagination, other.getImagination());
-	}
+	} 
 	
 	public double computePI(ArrayList<wifiSpot> input)
 	{

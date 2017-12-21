@@ -92,6 +92,8 @@ public class DB {
 		Scanner userInput=new Scanner(System.in);
 		kmlOutputPath=userInput.nextLine();
 		kmlFile kmlFile= new kmlFile(this.scansList, kmlOutputPath);
+		kmlFile.SetKmlFIle();
+		kmlFile.exportKml();
 		//userInput.close();
 	}
 	/**
