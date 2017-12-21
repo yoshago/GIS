@@ -18,7 +18,6 @@ public class wifiLocationFinder {
 	public wifiLocationFinder(DB dataBase)
 	{
 		this.dataBase=dataBase;
-		
 	}
 	
 	private Map<String, ArrayList<wifiSpot>> macMap()
@@ -42,7 +41,6 @@ public class wifiLocationFinder {
 	{
 		ArrayList<wifiSpot> tmpwifiList=new ArrayList<wifiSpot>();
 		Map<String, ArrayList<wifiSpot>> macToWifiSpotMap = macMap();
-		System.out.println(macToWifiSpotMap.size());
 		macToWifiSpotMap.forEach((key,wifiList)->finalWifiList.add(wifiSpotLocation(wifiList)));
 	}
 	/**
