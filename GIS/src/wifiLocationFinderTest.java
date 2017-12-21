@@ -10,7 +10,7 @@ public class wifiLocationFinderTest {
 
 	@Test
 	public void testFindSpotsLocation() {
-		ArrayList<wifiSpot> arrayWifi = new ArrayList<wifiSpot>();
+		ArrayList<wifiSpot> arrayWifi = new ArrayList<wifiSpot>(); 
 		ArrayList<wifiSpot> arrayWifi2 = new ArrayList<wifiSpot>();
 
 		coordinate coor1=new coordinate(35.5,32.5,750.0);
