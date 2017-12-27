@@ -1,9 +1,16 @@
+package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 
 import org.junit.Test;
+
+import Libraries.write;
+import objects.DB;
+import objects.coordinate;
+import objects.singleScan;
+import objects.wifiSpot;
 
 /**
  * 

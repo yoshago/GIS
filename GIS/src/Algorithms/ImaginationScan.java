@@ -1,4 +1,9 @@
+package Algorithms;
 import java.util.ArrayList;
+
+import objects.coordinate;
+import objects.singleScan;
+import objects.wifiSpot;
 
 /**
  * 

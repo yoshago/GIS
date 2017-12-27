@@ -1,8 +1,13 @@
+package objects;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
+import Libraries.Filter;
+import Libraries.read;
+import Libraries.write;
 
 /**
  * @author Yehonatan&Yishay

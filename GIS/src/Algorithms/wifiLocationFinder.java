@@ -1,7 +1,12 @@
+package Algorithms;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+
+import objects.DB;
+import objects.coordinate;
+import objects.wifiSpot;
 
 /**
  * 

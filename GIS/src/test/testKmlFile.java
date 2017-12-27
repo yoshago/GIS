@@ -1,3 +1,4 @@
+package test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -5,6 +6,9 @@ import java.util.ArrayList;
 import org.junit.Test;
 
 import de.micromata.opengis.kml.v_2_2_0.Kml;
+import objects.DB;
+import objects.kmlFile;
+import objects.singleScan;
 
 public class testKmlFile {
 

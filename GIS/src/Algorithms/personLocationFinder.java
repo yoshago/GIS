@@ -1,5 +1,12 @@
+package Algorithms;
 import java.io.File;
 import java.util.ArrayList;
+
+import Libraries.read;
+import objects.DB;
+import objects.coordinate;
+import objects.singleScan;
+import objects.wifiSpot;
 
 
 /**
@@ -86,6 +93,14 @@ public class personLocationFinder {
 		return imagination;
 		}
 		else return -1;
+	}
+
+	public DB getDB() {
+		return DB;
+	}
+
+	public DB getInput() {
+		return input;
 	}
 	
 }

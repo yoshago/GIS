@@ -1,3 +1,4 @@
+package objects;
 import java.util.ArrayList;
 /**
  * this class used by classes: linesCollector & csvFilter

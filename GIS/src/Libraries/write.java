@@ -1,3 +1,4 @@
+package Libraries;
 
 
 
@@ -8,6 +9,9 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+
+import objects.singleScan;
+import objects.wifiSpot;
 
 /**
  * @author Yehonatan&Yishay

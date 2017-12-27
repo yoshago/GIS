@@ -1,9 +1,14 @@
+package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import Libraries.Filter;
+import Libraries.read;
+import objects.singleScan;
 
 
 public class testFilter {

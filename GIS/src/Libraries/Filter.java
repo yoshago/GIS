@@ -1,5 +1,9 @@
+package Libraries;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import objects.coordinate;
+import objects.singleScan;
 
 
 /**

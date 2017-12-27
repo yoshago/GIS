@@ -1,6 +1,11 @@
+package test;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+
+import objects.coordinate;
+import objects.singleScan;
+import objects.wifiSpot;
 
 public class testSingleScan {
 ///test add and removeWorstSignal
