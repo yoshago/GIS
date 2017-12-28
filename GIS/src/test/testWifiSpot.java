@@ -1,7 +1,10 @@
+package test;
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
-
+import objects.wifiSpot;
+import objects.coordinate;
 
 public class testWifiSpot {
 
