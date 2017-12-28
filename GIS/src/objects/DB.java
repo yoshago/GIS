@@ -15,12 +15,16 @@ import Libraries.write;
  */
 public class DB {
 	private ArrayList<singleScan> scansList = new ArrayList<singleScan>();
+	private int numOfWifiSpots;
 	
 
 	public ArrayList<singleScan> getScansList() {
 		return scansList;
 	}
 
+	public void add(ArrayList<singleScan> array) {
+		this.scansList.addAll(array);
+	}
 	/**
 	 * @param scansList
 	 * 
@@ -31,11 +35,20 @@ public class DB {
 	}
 
 	/**
+	 * 
+	 */
+	public DB() {
+	}
+
+	/**
 	 * @param scansList
 	 * constructor of the DB from ArrayList of singleScan objects.
 	 */
 	public DB(ArrayList<singleScan> scansList){
 		this.scansList = scansList;
+	}
+	public DB(DB db){
+		this.scansList = db.getScansList();
 	}
 	/**
 	 * @param Path
@@ -111,6 +124,12 @@ public class DB {
 		Scanner userInput=new Scanner(System.in);
 		pathOutput=userInput.nextLine();
 		write.writeCsvFile(scansList, pathOutput);
+	}
+
+	public int getNumberOfWifiSpots() {
+		this.numOfWifiSpots = 0;
+		this.scansList.forEach(singleScan -> numOfWifiSpots += singleScan.getWifiSpotsList().size());
+		return numOfWifiSpots;
 	}
 	
 }
