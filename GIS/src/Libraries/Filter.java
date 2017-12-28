@@ -32,11 +32,11 @@ public class Filter {
 			{
 				int i=Integer.parseInt(input);
 				if(i==1)
-					filterByTime(scansList);
-				if(i==2)
-					filterByID(scansList);
-				if(i==3)
-					filterByLocation(scansList);	
+					filterByTime(scansList,1,"","");
+//				if(i==2)
+//					filterByID(scansList,1);
+//				if(i==3)
+//					filterByLocation(scansList,1,"","");	
 			}
 		}	
 	}
@@ -44,18 +44,16 @@ public class Filter {
 	 * @param singleScanList
 	 * this functions filter the singleScans by its time using start time and end time that the functions gets from the user.
 	 */
-	public static void filterByTime(ArrayList<singleScan> scansList)
+	public static void filterByTime(ArrayList<singleScan> scansList, int not,String startTime,String endTime)
 	{
-		System.out.println("please enter start time: (in format YYYY-MM-DD hh:mm:ss)");
-		Scanner inputStartTime=new Scanner(System.in);
-		String start=inputStartTime.nextLine();
-		System.out.println("please enter end time: (in format YYYY-MM-DD hh:mm:ss)");
-		Scanner inputEndTime=new Scanner(System.in);
-		String end=inputEndTime.nextLine();
-
 		for(int i=0;i<scansList.size();i++)
 		{
-			if(scansList.get(i).getTime().compareTo(start)<0 || scansList.get(i).getTime().compareTo(end)>0)
+			if(not==1 && (scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
+			{
+				scansList.remove(i);
+				i--;
+			}
+			if(not==0 && !(scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
 			{
 				scansList.remove(i);
 				i--;
@@ -69,27 +67,21 @@ public class Filter {
 	 * the function gets Minimum coordinate and Maximum coordinate and creates an imagined rectangle area and remove all the coordinates out of the border of the rectangle. 
 	 * 
 	 */
-	public static void filterByLocation(ArrayList<singleScan> scansList)
-	{
-
-		System.out.println("Please enter the coordinate of the down-left corner of the rectangle area to filter (in format lon,lat)");
-		Scanner inputlocation=new Scanner(System.in);
-		String start=inputlocation.nextLine();
-		String minLon = start.split(",")[0];
-		String minLat = start.split(",")[1];
+	public static void filterByLocation(ArrayList<singleScan> scansList, int not, String minLon, String minLat, String maxLon, String maxLat)
+	{	
 		coordinate min=new coordinate(minLon,minLat);
-		
-		System.out.println("Please enter the coordinate of the up-right corner of the rectangle area to filter (in format lon,lat)");
-		String end=inputlocation.nextLine();
-		String maxLon = end.split(",")[0];
-		String maxLat = end.split(",")[1];
 		coordinate max=new coordinate(maxLon,maxLat);
 		
 		for(int i=0;i<scansList.size();i++)
 		{
-			coordinate singleScanCoor=scansList.get(i).getCoordinate();//remember to check with String 
+			coordinate singleScanCoor=scansList.get(i).getCoordinate();
 
-			if(!(singleScanCoor.compare(min)>=0 && (singleScanCoor.compare(max)<=0 && singleScanCoor.compare(max)!=-2)))
+			if(not==1 && !(singleScanCoor.compare(min)>=0 && (singleScanCoor.compare(max)<=0 && singleScanCoor.compare(max)!=-2)))
+			{
+				scansList.remove(i);
+				i--;
+			}
+			if(not==0 && (singleScanCoor.compare(min)>=0 && (singleScanCoor.compare(max)<=0 && singleScanCoor.compare(max)!=-2)))
 			{
 				scansList.remove(i);
 				i--;
@@ -100,17 +92,18 @@ public class Filter {
 	/**
 	 * @param singleScanList
 	 * filter the singleScans by id. remove all the singleScans with different id.
-	 * 
+	 * if not=0 not filter, if not=1 regular filter
 	 */
-	public static void filterByID(ArrayList<singleScan> scansList)
-	{
-		System.out.println("please enter id: ");
-		Scanner inputID=new Scanner(System.in);
-		String ID=inputID.nextLine();
-
+	public static void filterByID(ArrayList<singleScan> scansList, int not, String ID)
+	{	
 		for(int i=0;i<scansList.size();i++)
 		{
-			if(!ID.equals(scansList.get(i).getId()))
+			if( not==1 && !ID.equals(scansList.get(i).getId()))
+			{
+				scansList.remove(i);
+				i--;
+			}
+			if(not==0 && ID.equals(scansList.get(i).getId()))
 			{
 				scansList.remove(i);
 				i--;

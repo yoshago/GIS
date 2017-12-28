@@ -51,9 +51,41 @@ public class DBStack extends Stack<DB>{
 	{
 		return super.size();
 	}
-	public void andFilter()
+	
+	public void orFilter(int type, int not)
 	{
-		
+		if(this.Size()>1)
+		{
+			DB db=new DB(this.peek());
+			db.Filter(type,not);
+		}
+		else
+		{
+			DB db=new DB(this.get(0));
+			db.Filter(type,not);
+			for(int i=1;i<this.size();i++)
+			{
+				singleScan scan=this.peek().getScansList().get(i);
+				if(!db.contains(scan))
+					db.getScansList().add(scan);
+			}
+		}
 	}
+	
+	public void andFilter(int type, int not)
+	{
+		if(this.Size()>1)
+		{
+			DB db=new DB(this.peek());
+			db.Filter(type, not);
+		}
+		else
+		{
+		DB db=new DB(this.peek());
+		db.Filter(type, not);
+		this.push(db);
+		}
+	}
+	
 	
 }
