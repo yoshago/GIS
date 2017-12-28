@@ -120,7 +120,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				}
 				id.setVisible(false);
 				frame.setVisible(true);
-				//lll
+				
 			}
 		});
 		System.out.println(id.getID());
