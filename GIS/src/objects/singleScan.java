@@ -123,4 +123,10 @@ public class singleScan {
 		this.coordinate = coordinate;
 	}
 
+	public boolean equals(singleScan another)
+	{
+		if(!(this.time.equals(another.time) && this.coordinate.compare(another.coordinate)==0 && this.id.equals(another.id) && this.getSize()==another.getSize()))
+			return false;
+		return true;
+	}
 }
