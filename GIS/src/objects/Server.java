@@ -11,8 +11,8 @@ import java.io.*;
  */
 public class Server implements Serializable{
 
-	DBStack dbs;
-	FilterStack fs;
+	private DBStack dbs;
+	private FilterStack fs;
 
 	public Server()
 	{
@@ -22,18 +22,23 @@ public class Server implements Serializable{
 
 	public void addDB(DB db)
 	{
-		DBStack another=new DBStack(db);
-		for(int i=0;i<this.fs.size();i++)
+		if(this.dbs.size()==0)
+			this.dbs.push(db);
+		else
 		{
-			another.filter(fs.get(i));
-		}
-		for(int i=0;i<this.dbs.Size();i++)
-		{
-			for(int j=0;j<another.get(i).getScansList().size();j++)
+			DBStack another=new DBStack(db);
+			for(int i=0;i<this.fs.size();i++)
 			{
-				singleScan scan=another.get(i).getScansList().get(j);
-				if(!this.dbs.get(i).contains(scan))
-					this.dbs.get(i).getScansList().add(scan);
+				another.filter(fs.get(i));
+			}
+			for(int i=0;i<this.dbs.Size();i++)
+			{
+				for(int j=0;j<another.get(i).getScansList().size();j++)
+				{
+					singleScan scan=another.get(i).getScansList().get(j);
+					if(!this.dbs.get(i).contains(scan))
+						this.dbs.get(i).getScansList().add(scan);
+				}
 			}
 		}
 	}
@@ -81,6 +86,26 @@ public class Server implements Serializable{
 		{
 			System.out.println("Class Not Found Exception deserialize did not succeed");
 		}
+	}
+	
+	public void clearFilters()
+	{
+		this.dbs.clear();
+		this.fs.clearAll();
+	}
+	
+	public void clearAll()
+	{
+		this.dbs.clearAll();
+		this.fs.clearAll();
+	}
+
+	public DBStack getDbs() {
+		return dbs;
+	}
+
+	public FilterStack getFs() {
+		return fs;
 	}
 
 }

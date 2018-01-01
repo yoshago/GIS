@@ -36,11 +36,6 @@ public class FilterStack extends Stack<Filter> {
 		return super.pop();
 	}
 	
-	public void clear()
-	{
-		while(Size()>1)
-			this.pop();
-	}
 	
 	public void clearAll()
 	{
