@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-
-import Libraries.Filter;
 import Libraries.read;
 import Libraries.write;
 
@@ -18,11 +16,13 @@ public class DB {
 	private int numOfWifiSpots;
 	
 
-	public ArrayList<singleScan> getScansList() {
+	public ArrayList<singleScan> getScansList() 
+	{
 		return scansList;
 	}
 
-	public void add(ArrayList<singleScan> array) {
+	public void add(ArrayList<singleScan> array) 
+	{
 		this.scansList.addAll(array);
 	}
 	/**
@@ -30,14 +30,17 @@ public class DB {
 	 * 
 	 */
 
-	public void setScansList(ArrayList<singleScan> scansList) {
+	public void setScansList(ArrayList<singleScan> scansList) 
+	{
 		this.scansList = scansList;
 	}
 
 	/**
 	 * 
 	 */
-	public DB() {
+	public DB() 
+	{
+		scansList = new ArrayList<singleScan>();
 	}
 
 	/**
@@ -97,32 +100,25 @@ public class DB {
 	 * 
 	 */
 	
-	public void Filter(){
-		Filter.mainFilter(scansList);
+	public void filter(Filter f){
+		f.filter(scansList);
 	}
 	/**
 	 * printing the DB to kml File
 	 */
-	public void toKML()
+	public void toKML(File outputPath)
 	{
-		String kmlOutputPath;
-		System.out.println("please enter path for output kml file");
-		Scanner userInput=new Scanner(System.in);
-		kmlOutputPath=userInput.nextLine();
+		String kmlOutputPath=outputPath.getPath();
 		kmlFile kmlFile= new kmlFile(this.scansList, kmlOutputPath);
 		kmlFile.SetKmlFIle();
 		kmlFile.exportKml();
-		//userInput.close();
 	}
 	/**
 	 * printing the DB to csv File
 	 */
-	public void toCSV()
+	public void toCSV(File outputPath)
 	{
-		String pathOutput;
-		System.out.println("please enter path for output csv file");
-		Scanner userInput=new Scanner(System.in);
-		pathOutput=userInput.nextLine();
+		String pathOutput=outputPath.getPath();
 		write.writeCsvFile(scansList, pathOutput);
 	}
 
@@ -130,6 +126,16 @@ public class DB {
 		this.numOfWifiSpots = 0;
 		this.scansList.forEach(singleScan -> numOfWifiSpots += singleScan.getWifiSpotsList().size());
 		return numOfWifiSpots;
+	}
+	
+	public boolean contains(singleScan scan)
+	{
+		for(int i=0;i<this.scansList.size();i++)
+		{
+			if(scan.equals(this.scansList.get(i)))
+				return true;
+		}
+		return false;
 	}
 	
 }
