@@ -271,9 +271,10 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = fc.showOpenDialog(mntmAddFile);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					System.out.println("You chose to open this file: " +
-							fc.getSelectedFile().getPath());
+					read.readOutputFolderFile(fc.getSelectedFile(),DBS.get(0).getScansList());
+					
 				}
+				updateDataSheet();
 			}
 		});
 		mnAddData.add(mntmAddFile);
@@ -291,6 +292,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	}
 	private void updateDataSheet() {
 		String dataSheetStr = "Number of records: " + DBS.peek().getScansList().size() + "\n\nNumber of wifi spots: "+ DBS.peek().getNumberOfWifiSpots();
+		this.DataSheet.setText(dataSheetStr);
 //		this.DataSheet.setCaretPosition(position);
 		
 	}
