@@ -153,8 +153,28 @@ public class Filter {
 		}
 	}
 
+	public int getType() {
+		return type;
+	}
 
+	public int getNot() {
+		return not;
+	}
 
+	public String getInput1() {
+		return input1;
+	}
+
+	public String getInput2() {
+		return input2;
+	}
+
+	public String getInput3() {
+		return input3;
+	}
+
+	public String getInput4() {
+		return input4;
+	}
 	
-
 }
