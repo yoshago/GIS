@@ -48,6 +48,7 @@ public class Server implements java.io.Serializable{
 	public void filter(String []arr)
 	{
 		Filter f=new Filter(arr);
+		fs.add(f);
 		dbs.filter(f);
 	}
 
@@ -88,6 +89,12 @@ public class Server implements java.io.Serializable{
 		{
 			System.out.println("Class Not Found Exception deserialize did not succeed");
 		}
+	}
+	
+	public void undo()
+	{
+		fs.pop();
+		dbs.pop();
 	}
 	
 	public void clearFilters()
