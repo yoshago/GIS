@@ -142,6 +142,16 @@ public class DB {
 		}
 		return false;
 	}
+	public Object[][] toTable(){
+		Object[][] data = new Object[this.scansList.size()][46];
+		for(int i=0;i<scansList.size();i++){
+			Object[] row =scansList.get(i).toString().split(",");
+			for (int j = 0; j < row.length; j++) {
+				data[i][j] = row[j];
+			}
+		}
+		return data;
+	}
 	
 	public String toString()
 	{

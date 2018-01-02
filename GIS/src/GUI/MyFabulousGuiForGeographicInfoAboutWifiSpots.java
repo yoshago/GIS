@@ -9,6 +9,7 @@ import com.sun.xml.bind.v2.model.core.ID;
 import Libraries.read;
 import objects.DB;
 import objects.DBStack;
+import objects.Server;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -17,6 +18,9 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Event;
 import java.awt.event.ActionListener;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JFileChooser;
 import javax.swing.JToolBar;
@@ -26,6 +30,7 @@ import javax.swing.AbstractListModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
@@ -34,6 +39,7 @@ import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JTable;
 
 public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 
@@ -54,8 +60,24 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	private JLabel lblEndTime;
 	private JLabel lblTimeSpace;
 	private JLabel lblIdSubstring;
-	DB db =new DB();
-	private DBStack DBS = new DBStack(db);
+	private Server server = new Server();
+	private JComboBox FilterType;
+	private JComboBox operator;
+	private JCheckBox chckbxUseNotOperator;
+	private JMenuItem mntmPreviewData;
+	private JTable table;
+	private Object[] tableColumns = {"time","id","lon","lat","alt","size","mac0","ssid0","channel0","signal0","mac1","ssid1","channel1","signal1",
+			"mac2","ssid2","channel2","signal2",
+			"mac3","ssid3","channel3","signal3",
+			"mac4","ssid4","channel4","signal4",
+			"mac5","ssid5","channel5","signal5",
+			"mac6","ssid6","channel6","signal6",
+			"mac7","ssid7","channel7","signal7",
+			"mac8","ssid8","channel8","signal8",
+			"mac9","ssid9","channel9","signal9"};
+
+
+	
 
 	/**
 	 * Launch the application.
@@ -95,8 +117,32 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		JButton btnAddFilter = new JButton("Add Filter");
 		btnAddFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				FilterWindow FilterW = new FilterWindow();
-				FilterW.setVisible(true);
+				String[] Array = new String[6];
+				String filterType = (String) FilterType.getSelectedItem();
+				String operatorStr = (String) operator.getSelectedItem();
+				boolean isNot = chckbxUseNotOperator.isSelected();
+				if(filterType != null&&operatorStr!= null){
+					if (operatorStr.equals("AND")) Array[0] = "0";
+					else Array[0] = "1";
+					if(isNot) Array[1] = "0";
+					else Array[1] = "1";
+					if(filterType.equals("Time")){
+						Array[2] = StartTime.getText();
+						Array[3] = EndTime.getText();
+					}
+					else if(filterType.equals("ID")){
+						Array[2] = IDSubString.getText();
+					}
+					else if (filterType.equals( "Location")){
+						Array[2] = MinCoorLon.getText();
+						Array[3] = MinCoorLat.getText();
+						Array[4] = MaxCoorLon.getText();
+						Array[5] = MaxCoorLat.getText();
+					}
+				}
+				System.out.println(Arrays.toString(Array));
+				server.filter(Array);
+				updateDataSheet();
 			}
 		});
 		btnAddFilter.setBounds(462, 308, 89, 23);
@@ -113,10 +159,22 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		DataSheet.setColumns(10);
 		
 		JButton btnResetDb = new JButton("Reset DB");
+		btnResetDb.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				server.getDbs().clearAll();
+				updateDataSheet();
+			}
+		});
 		btnResetDb.setBounds(245, 308, 89, 23);
 		frame.getContentPane().add(btnResetDb);
 		
 		JButton btnUndoLastFilter = new JButton("Undo last filter");
+		btnUndoLastFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				server.undo();
+				updateDataSheet();
+			}
+		});
 		btnUndoLastFilter.setBounds(344, 308, 111, 23);
 		frame.getContentPane().add(btnUndoLastFilter);
 		
@@ -126,7 +184,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		frame.getContentPane().add(lblCurrentData);
 		
 		String[] operatorOptions = {"AND", "OR"};
-		JComboBox operator = new JComboBox(operatorOptions);
+		operator = new JComboBox(operatorOptions);
 		operator.setRenderer(new MyComboBoxRenderer("Choose operator"));
 		operator.setSelectedIndex(-1);
 		operator.setBounds(245, 33, 127, 20);
@@ -149,7 +207,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		frame.getContentPane().add(MinCoorLat);
 		MinCoorLat.setColumns(10);
 		
-		JCheckBox chckbxUseNotOperator = new JCheckBox("Use NOT operator");
+		chckbxUseNotOperator = new JCheckBox("Use NOT operator");
 		chckbxUseNotOperator.setBounds(338, 278, 135, 23);
 		frame.getContentPane().add(chckbxUseNotOperator);
 		
@@ -174,18 +232,19 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		frame.getContentPane().add(MaxCoorLat);
 		
 		String[] options = {"Time", "ID", "Location"};
-		JComboBox FilterType = new JComboBox(options);
+		FilterType = new JComboBox(options);
 		FilterType.setRenderer(new MyComboBoxRenderer("Choose filter"));
 		FilterType.setSelectedIndex(-1);
 		FilterType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if((String)FilterType.getSelectedItem()== "Time"){
+				String filType = (String)FilterType.getSelectedItem();
+				if(filType.equals("Time")){
 					ShowTimeFilterObjects();
 				}
-				else if((String)FilterType.getSelectedItem()== "ID"){
+				else if(filType.equals("ID")){
 					ShowIDFilterObjects();
 				}
-				else if ((String)FilterType.getSelectedItem()== "Location"){
+				else if (filType.equals("Location")){
 					ShowLocationFilterObjects();
 				}
 			}
@@ -205,7 +264,8 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		lblLatitude.setBounds(465, 64, 65, 14);
 		frame.getContentPane().add(lblLatitude);
 		
-		StartTime = new JTextField();
+		DateFormat format = new SimpleDateFormat("yyyy--MMMM--dd  hh:mm:ss");
+		StartTime = new JFormattedTextField(format);
 		StartTime.setEditable(false);
 		StartTime.setBounds(369, 164, 86, 20);
 		frame.getContentPane().add(StartTime);
@@ -238,6 +298,8 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		lblIdSubstring = new JLabel("ID SubString");
 		lblIdSubstring.setBounds(369, 195, 104, 14);
 		frame.getContentPane().add(lblIdSubstring);
+		
+
 
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
@@ -252,7 +314,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnVal = fc.showOpenDialog(mntmAddFolder);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					DBS.get(0).add(read.readFolder(fc.getSelectedFile().listFiles()));
+					server.addDB(new DB(read.readFolder(fc.getSelectedFile().listFiles())));
 				}
 				updateDataSheet();
 			}
@@ -271,7 +333,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = fc.showOpenDialog(mntmAddFile);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					read.readOutputFolderFile(fc.getSelectedFile(),DBS.get(0).getScansList());
+					read.readOutputFolderFile(fc.getSelectedFile(),server.getDbs().get(0).getScansList());
 					
 				}
 				updateDataSheet();
@@ -283,15 +345,61 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		menuBar.add(mnExport);
 		
 		JMenuItem mntmToCsv = new JMenuItem("To CSV");
+		mntmToCsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser  fc = new JFileChooser();
+				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnVal = fc.showSaveDialog(mntmAddFolder);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					server.getDbs().peek().toCSV(fc.getSelectedFile());
+				}	
+			}
+		});
 		mnExport.add(mntmToCsv);
 		
 		JMenuItem mntmToKml = new JMenuItem("To KML");
+		mntmToCsv.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFileChooser  fc = new JFileChooser();
+				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnVal = fc.showSaveDialog(mntmAddFolder);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					server.getDbs().peek().toKML(fc.getSelectedFile());
+				}	
+			}
+		});
 		mnExport.add(mntmToKml);
+		
+		mntmPreviewData = new JMenuItem("preview data");
+		mntmPreviewData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame Tableframe = new JFrame();
+				Tableframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+				table = new JTable(server.getDbs().peek().toTable(),tableColumns);
+				JScrollPane scrollPane = new JScrollPane(table);
+				Tableframe.add(scrollPane, BorderLayout.CENTER);
+				Tableframe.setSize(1000, 500);
+				Tableframe.setVisible(true);
+			}
+		});
+		mnExport.add(mntmPreviewData);
+		
+		
+		
+		
+		JMenu mnAlgorithms = new JMenu("Algorithms");
+		menuBar.add(mnAlgorithms);
+		
+		JMenuItem mntmAssessMacLocation = new JMenuItem("Assess MAC Location");
+		mnAlgorithms.add(mntmAssessMacLocation);
+		
+		JMenuItem mntmAssessScanLocation = new JMenuItem("Assess Scan Location");
+		mnAlgorithms.add(mntmAssessScanLocation);
 		
 
 	}
 	private void updateDataSheet() {
-		String dataSheetStr = "Number of records: " + DBS.peek().getScansList().size() + "\n\nNumber of wifi spots: "+ DBS.peek().getNumberOfWifiSpots();
+		String dataSheetStr = "Number of records: " + server.getDbs().peek().getScansList().size() + "\n\nNumber of wifi spots: "+ server.getDbs().peek().getNumberOfWifiSpots();
 		this.DataSheet.setText(dataSheetStr);
 //		this.DataSheet.setCaretPosition(position);
 		
