@@ -238,14 +238,17 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		FilterType.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String filType = (String)FilterType.getSelectedItem();
-				if(filType.equals("Time")){
-					ShowTimeFilterObjects();
-				}
-				else if(filType.equals("ID")){
-					ShowIDFilterObjects();
-				}
-				else if (filType.equals("Location")){
-					ShowLocationFilterObjects();
+				String operatorStr = (String) operator.getSelectedItem();
+				if(operatorStr!=null){
+					if(filType.equals("Time")){
+						ShowTimeFilterObjects();
+					}
+					else if(filType.equals("ID")){
+						ShowIDFilterObjects();
+					}
+					else if (filType.equals("Location")){
+						ShowLocationFilterObjects();
+					}
 				}
 			}
 		});
@@ -266,12 +269,14 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		
 		DateFormat format = new SimpleDateFormat("yyyy--MMMM--dd  hh:mm:ss");
 		StartTime = new JFormattedTextField(format);
+		StartTime.setToolTipText("please enter time in format yyyy-mm-dd hh:mm:ss");
 		StartTime.setEditable(false);
 		StartTime.setBounds(369, 164, 86, 20);
 		frame.getContentPane().add(StartTime);
 		StartTime.setColumns(10);
 		
 		EndTime = new JTextField();
+		EndTime.setToolTipText("please enter time in format yyyy-mm-dd hh:mm:ss");
 		EndTime.setEditable(false);
 		EndTime.setColumns(10);
 		EndTime.setBounds(465, 164, 86, 20);
@@ -308,6 +313,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		menuBar.add(mnAddData);
 		
 		JMenuItem mntmAddFolder = new JMenuItem("Add folder");
+		mntmAddFolder.setToolTipText("accept only folder with wigle files");
 		mntmAddFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser  fc = new JFileChooser();
@@ -324,6 +330,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		mnAddData.add(mntmAddFolder);
 		
 		JMenuItem mntmAddFile = new JMenuItem("Add file");
+		mntmAddFile.setToolTipText("accept only combo csv file");
 		mntmAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser  fc = new JFileChooser();
@@ -374,10 +381,9 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		mntmPreviewData.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				JFrame Tableframe = new JFrame();
-				Tableframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 				table = new JTable(server.getDbs().peek().toTable(),tableColumns);
 				JScrollPane scrollPane = new JScrollPane(table);
-				Tableframe.add(scrollPane, BorderLayout.CENTER);
+				Tableframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
 				Tableframe.setSize(1000, 500);
 				Tableframe.setVisible(true);
 			}
@@ -391,15 +397,27 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		menuBar.add(mnAlgorithms);
 		
 		JMenuItem mntmAssessMacLocation = new JMenuItem("Assess MAC Location");
+		mntmAssessMacLocation.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Algo1Window a1 = new Algo1Window(server.getDbs().get(0));
+				a1.setVisible(true);
+			}
+		});
 		mnAlgorithms.add(mntmAssessMacLocation);
 		
-		JMenuItem mntmAssessScanLocation = new JMenuItem("Assess Scan Location");
-		mnAlgorithms.add(mntmAssessScanLocation);
+		JMenu mnAssessScanLocation = new JMenu("Assess Scan Location");
+		mnAlgorithms.add(mnAssessScanLocation);
+		
+		JMenuItem mntmByScanString = new JMenuItem("By scan string");
+		mnAssessScanLocation.add(mntmByScanString);
+		
+		JMenuItem mntmByListOf = new JMenuItem("By list of macs");
+		mnAssessScanLocation.add(mntmByListOf);
 		
 
 	}
 	private void updateDataSheet() {
-		String dataSheetStr = "Number of records: " + server.getDbs().peek().getScansList().size() + "\n\nNumber of wifi spots: "+ server.getDbs().peek().getNumberOfWifiSpots();
+		String dataSheetStr = "DB Data:\n  Number of records: " + server.getDbs().peek().getScansList().size() + "\n  Number of wifi spots: "+ server.getDbs().peek().getNumberOfWifiSpots()+"\n\nFilter Data:";
 		this.DataSheet.setText(dataSheetStr);
 //		this.DataSheet.setCaretPosition(position);
 		

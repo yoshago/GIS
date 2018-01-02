@@ -146,7 +146,8 @@ public class DB {
 		Object[][] data = new Object[this.scansList.size()][46];
 		for(int i=0;i<scansList.size();i++){
 			Object[] row =scansList.get(i).toString().split(",");
-			for (int j = 0; j < row.length; j++) {
+			for (int j = 0; j < row.length-1; j++) {
+				System.out.println(row.length);
 				data[i][j] = row[j];
 			}
 		}
