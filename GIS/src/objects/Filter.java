@@ -1,7 +1,6 @@
 package objects;
-import java.util.ArrayList;
-import java.util.Scanner;
 
+import java.util.ArrayList;
 import objects.coordinate;
 import objects.singleScan;
 
@@ -69,6 +68,7 @@ public class Filter {
 			filterByLocation(scansList);
 		if(this.input2!=null)
 			filterByTime(scansList);
+		else
 		filterByID(scansList);
 	}
 	
@@ -80,7 +80,6 @@ public class Filter {
 	{
 		String startTime=this.input1;
 		String endTime=this.input2;
-		
 		for(int i=0;i<scansList.size();i++)
 		{
 			if(this.not==1 && (scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
@@ -186,8 +185,6 @@ public class Filter {
 			s+="or";
 		if(this.getNot()==0)
 			s+=" not";
-		else
-			s+=" regular";
 		s+=" " + this.input1;
 		if(this.input2!=null)
 			s+=this.input2;

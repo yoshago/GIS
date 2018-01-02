@@ -83,7 +83,7 @@ public class singleScan {
 	}
 	public String toString()
 	{
-		String s=time+","+id+","+coordinate+","+size+",";
+		String s=time+","+id+","+coordinate.toString()+","+size+",";
 		for(int i=0;i<wifiSpotsList.size();i++)
 		{
 			s+=wifiSpotsList.get(i).toString();
