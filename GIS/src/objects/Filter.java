@@ -66,7 +66,7 @@ public class Filter {
 	{
 		if(this.input4!=null)
 			filterByLocation(scansList);
-		if(this.input2!=null)
+		else if(this.input2!=null)
 			filterByTime(scansList);
 		else
 		filterByID(scansList);
