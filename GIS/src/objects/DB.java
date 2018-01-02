@@ -56,7 +56,7 @@ public class DB {
 		this.scansList = scansList;
 	}
 	public DB(DB db){
-		this.scansList = db.getScansList();
+		this.scansList = new ArrayList<singleScan>(db.getScansList());
 	}
 	/**
 	 * @param Path

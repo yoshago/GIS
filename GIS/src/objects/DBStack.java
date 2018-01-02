@@ -36,6 +36,11 @@ public class DBStack extends Stack<DB>{
 		return super.pop();
 	}
 	
+	public DB peek()
+	{
+		return super.peek();
+	}
+	
 	public void clear()
 	{
 		while(Size()>1)
@@ -72,12 +77,11 @@ public class DBStack extends Stack<DB>{
 			db.filter(f);
 			for(int i=0;i<this.peek().getScansList().size();i++)
 			{
-				{
 					singleScan scan=this.peek().getScansList().get(i);
 					if(!db.contains(scan))
 					db.getScansList().add(scan);
-				}
 			}
+			this.push(db);
 		}
 	}
 	
@@ -98,6 +102,5 @@ public class DBStack extends Stack<DB>{
 		s+="\n";
 		return s;
 	}
-	
 	
 }

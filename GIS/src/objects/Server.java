@@ -93,6 +93,8 @@ public class Server implements java.io.Serializable{
 	
 	public void undo()
 	{
+		if(dbs.Size()==1||fs.Size()==0)
+			return;
 		fs.pop();
 		dbs.pop();
 	}
