@@ -46,6 +46,17 @@ public class FilterStack extends Stack<Filter> {
 	{
 		return super.size();
 	}
+	
+	public String toString()
+	{
+		String s="";
+		for(int i=0;i<this.Size();i++)
+		{
+			s+=this.get(i).toString();
+		}
+		s+="\n";
+		return s;
+	}
 
 
 }

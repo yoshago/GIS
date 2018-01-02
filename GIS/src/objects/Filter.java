@@ -177,4 +177,24 @@ public class Filter {
 		return input4;
 	}
 	
+	public String toString()
+	{
+		String s="";
+		if(this.type==0)
+			s+="and";
+		else
+			s+="or";
+		if(this.getNot()==0)
+			s+=" not";
+		else
+			s+=" regular";
+		s+=" " + this.input1;
+		if(this.input2!=null)
+			s+=this.input2;
+		if(this.input4!=null)
+			s+=" " + this.input3 + " " + this.input4;
+		s+="\n";
+		return s;
+	}
+	
 }

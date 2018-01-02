@@ -42,6 +42,11 @@ public class DB {
 	{
 		scansList = new ArrayList<singleScan>();
 	}
+	
+	public DB(File f)
+	{
+		read.readOutputFolderFile(f, this.scansList);
+	}
 
 	/**
 	 * @param scansList
@@ -138,4 +143,14 @@ public class DB {
 		return false;
 	}
 	
+	public String toString()
+	{
+		String s="";
+		for(int i=0;i<this.scansList.size();i++)
+		{
+			s+=this.getScansList().get(i).toString();
+		}
+		s+="\n";
+		return s;
+	}
 }

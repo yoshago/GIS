@@ -4,16 +4,18 @@
 package objects;
 
 import java.io.*;
+import java.util.ArrayList;
 
 /**
  * @author ישי
  *
  */
-public class Server implements Serializable{
+public class Server implements java.io.Serializable{
 
 	private DBStack dbs;
 	private FilterStack fs;
-
+	private ArrayList<File> filesList;
+	
 	public Server()
 	{
 		this.dbs= new DBStack();
@@ -99,6 +101,16 @@ public class Server implements Serializable{
 		this.dbs.clearAll();
 		this.fs.clearAll();
 	}
+	
+	public String DBStackString()
+	{
+		return dbs.toString();
+	}
+	
+	public String FilterStackString()
+	{
+		return this.fs.toString();
+	}
 
 	public DBStack getDbs() {
 		return dbs;
@@ -107,5 +119,11 @@ public class Server implements Serializable{
 	public FilterStack getFs() {
 		return fs;
 	}
+
+	public ArrayList<File> getFilesList() {
+		return filesList;
+	}
+	
+	
 
 }

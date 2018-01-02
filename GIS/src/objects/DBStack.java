@@ -88,5 +88,16 @@ public class DBStack extends Stack<DB>{
 			this.push(db);
 	}
 	
+	public String toString()
+	{
+		String s="";
+		for(int i=0;i<this.Size();i++)
+		{
+			s+=this.get(i).toString();
+		}
+		s+="\n";
+		return s;
+	}
+	
 	
 }
