@@ -31,10 +31,10 @@ public class testFilter {
 	public void filterByTimeNOTtest() {
 		arr[0]="0";
     	arr[1]="0";
-    	arr[2]="2017-11-09  13:15";
- 		arr[3]="2017-11-09  13:21";
+    	arr[2]="2017-11-09 13:15:00";
+ 		arr[3]="2017-11-09 13:21:00";
  		Filter f=new Filter(arr);
-		db.filter(f);
+		db1.filter(f);
  		assertEquals(2, db1.getScansList().size());
 	}
 	@Test

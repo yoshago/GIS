@@ -211,20 +211,22 @@ public class Filter {
 	
 	public String toString()
 	{
-		String s="";
+		String s="  type: ";
 		if(this.type==0)
 			s+="and";
 		else
 			s+="or";
 		if(this.getNot()==0)
 			s+=" not";
-		s+=" " + this.input1;
-		if(this.input2!=null)
-			s+=this.input2;
+		String s1="";
 		if(this.input4!=null)
-			s+=" " + this.input3 + " " + this.input4;
-		s+="\n";
-		return s;
+			s1=s+" Location filter from: Lon-" + this.input1 + ", Lat-" + this.input2 +". to: Lon-"+this.input3+", Lat-" + this.input4;
+		else if(this.input2!=null)
+			s1=s+"time filter from: "+ this.input1+" to: "+this.input2;
+		else
+			s1=s+"ID filter: "+this.input1;
+		s1+="\n";
+		return s1;
 	}
 	
 }
