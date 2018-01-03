@@ -1,4 +1,7 @@
 package objects;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 /**
  * this class used by classes: linesCollector & csvFilter
@@ -13,6 +16,7 @@ import java.util.ArrayList;
  *              4. location of scan.
  *              5. size of wifiSpot list(maximum 10)
  */
+import java.util.GregorianCalendar;
 public class singleScan {
 
 	private String time;
@@ -20,6 +24,8 @@ public class singleScan {
 	private coordinate coordinate;
 	private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
 	private int size=wifiSpotsList.size();
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm hh:mm:ss");
+
 	/**
 	 * @description empty constructor.
 	 */
@@ -34,7 +40,9 @@ public class singleScan {
 	 */
 	public singleScan(String time, String id , coordinate coordinate)
 	{
-		this.time=time;
+		
+			this.time=time;
+		
 		this.id=id;
 		this.coordinate=coordinate;
 	}

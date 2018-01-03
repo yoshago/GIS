@@ -267,7 +267,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		lblLatitude.setBounds(465, 64, 65, 14);
 		frame.getContentPane().add(lblLatitude);
 		
-		DateFormat format = new SimpleDateFormat("yyyy--MMMM--dd  hh:mm:ss");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		StartTime = new JFormattedTextField(format);
 		StartTime.setToolTipText("please enter time in format yyyy-mm-dd hh:mm:ss");
 		StartTime.setEditable(false);
@@ -340,7 +340,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
 				int returnVal = fc.showOpenDialog(mntmAddFile);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					read.readOutputFolderFile(fc.getSelectedFile(),server.getDbs().get(0).getScansList());
+					server.addCombFile(fc.getSelectedFile());
 					
 				}
 				updateDataSheet();
@@ -356,22 +356,24 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 			public void actionPerformed(ActionEvent e) {
 				JFileChooser  fc = new JFileChooser();
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = fc.showSaveDialog(mntmAddFolder);
+				int returnVal = fc.showSaveDialog(mntmToCsv);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					server.getDbs().peek().toCSV(fc.getSelectedFile());
+					server.addWigleFolder(fc.getSelectedFile().getAbsolutePath());
 				}	
 			}
 		});
 		mnExport.add(mntmToCsv);
 		
 		JMenuItem mntmToKml = new JMenuItem("To KML");
-		mntmToCsv.addActionListener(new ActionListener() {
+		mntmToKml.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFileChooser  fc = new JFileChooser();
-				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnVal = fc.showSaveDialog(mntmAddFolder);
+				JFileChooser  kmlFc = new JFileChooser();
+				kmlFc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnVal = kmlFc.showSaveDialog(mntmToKml);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					server.getDbs().peek().toKML(fc.getSelectedFile());
+					DB dbToKml = server.getDbs().peek();
+					dbToKml.removeDuplicateMac();
+					dbToKml.toKML(kmlFc.getSelectedFile());
 				}	
 			}
 		});
@@ -382,7 +384,8 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 			public void actionPerformed(ActionEvent e) {
 				JFrame Tableframe = new JFrame();
 				table = new JTable(server.getDbs().peek().toTable(),tableColumns);
-				JScrollPane scrollPane = new JScrollPane(table);
+				JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				Tableframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
 				Tableframe.setSize(1000, 500);
 				Tableframe.setVisible(true);

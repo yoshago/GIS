@@ -1,6 +1,11 @@
 package objects;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
+
 import objects.coordinate;
 import objects.singleScan;
 
@@ -76,29 +81,53 @@ public class Filter {
 	 * @param singleScanList
 	 * this functions filter the singleScans by its time using start time and end time that the functions gets from the user.
 	 */
+	
+	/**
+	 * @param singleScanList
+	 * this functions filter the singleScans by its time using start time and end time that the functions gets from the user.
+	 */
 	private void filterByTime(ArrayList<singleScan> scansList)
 	{
-		String startTime=this.input1;
-		String endTime=this.input2;
-		
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm HH:mm:ss");
+		GregorianCalendar startTime= new GregorianCalendar();
+		try {
+			startTime.setTime(dateFormat.parse(this.input1));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		GregorianCalendar endTime= new GregorianCalendar();
+		try {
+			endTime.setTime(dateFormat.parse(this.input2));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for(int i=0;i<scansList.size();i++)
 		{
-			boolean not=this.not==1;
-			boolean condition1=scansList.get(i).getTime().compareTo(startTime)<0;
-			boolean condition2=scansList.get(i).getTime().compareTo(endTime)>0;
-			if(this.not==1 && (scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
-			{
-				scansList.remove(i);
-				i--;
+			GregorianCalendar scanTime= new GregorianCalendar();
+			try {
+				scanTime.setTime(dateFormat.parse(scansList.get(i).getTime()));
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			if(this.not==0 && !(scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
-			{
-				scansList.remove(i);
-				i--;
+			if(this.not==1){
+				if((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0))
+				{
+					scansList.remove(i);
+					i--;
+				}
+			}
+			if(this.not==0){
+				if(!((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0)))
+				{
+					scansList.remove(i);
+					i--;
+				}
 			}
 		}
 	}
-
 	/**
 	 * @param singleScanList
 	 * Uses to filter the singleScans by location.
