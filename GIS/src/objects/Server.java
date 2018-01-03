@@ -14,14 +14,33 @@ public class Server implements java.io.Serializable{
 
 	private DBStack dbs;
 	private FilterStack fs;
-	private ArrayList<File> filesList;
+	private ArrayList<File> combFilesList;
+	private ArrayList<String> wigleFolderPath;
+	private FilesUpdater fu;
 	
 	public Server()
 	{
 		this.dbs= new DBStack();
 		this.fs=new FilterStack();
+		this.combFilesList=new ArrayList<File>();
+		this.wigleFolderPath=new ArrayList<String>();
+		this.fu=new FilesUpdater(this);
+		new Thread(fu).start();
 	}
 
+	public void addCombFile(File f)
+	{
+		this.combFilesList.add(f);
+		DB tmp=new DB(f);
+		this.addDB(tmp);
+	}
+	
+	public void addWigleFolder(String path)
+	{
+		this.wigleFolderPath.add(path);
+		DB tmp=new DB(path,1);
+		this.addDB(tmp);
+	}
 	public void addDB(DB db)
 	{
 		if(this.dbs.size()==0)
@@ -129,8 +148,12 @@ public class Server implements java.io.Serializable{
 		return fs;
 	}
 
-	public ArrayList<File> getFilesList() {
-		return filesList;
+	public ArrayList<File> getCombFilesList() {
+		return combFilesList;
+	}
+
+	public ArrayList<String> getWigleFolderPath() {
+		return wigleFolderPath;
 	}
 	
 	

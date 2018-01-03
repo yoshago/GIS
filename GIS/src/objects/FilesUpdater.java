@@ -14,35 +14,46 @@ import com.sun.xml.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
  *
  */
 public class FilesUpdater implements Runnable{
+	
 	private Server s;
 	private boolean switch_on;
-	private ArrayList<Long> lastModified;
-	private ArrayList<File> fileList;
-	private ArrayList<String> pathList;
+	private ArrayList<Long> combLastModified;
+	private ArrayList<File> combFileList;
+	private ArrayList<String> wigleFolderPath;
+	private ArrayList<String> wigleFilePathList;
+	
 	public FilesUpdater(Server s)
 	{
 		this.s=s;
 		this.switch_on=false;
-		this.fileList=s.getFilesList();
-		for(int i=0;i<this.fileList.size();i++)
+		this.combFileList=s.getCombFilesList();
+		this.wigleFolderPath=s.getWigleFolderPath();
+		for(int i=0;i<this.combFileList.size();i++)
 		{
-			lastModified.add(this.fileList.get(i).lastModified());
+			combLastModified.add(this.combFileList.get(i).lastModified());
+		}
+		for(int i=0;i<this.wigleFolderPath.size();i++)
+		{
+			File[]tmp=new File(this.wigleFolderPath.get(i)).listFiles();
+			for(int j=0;j<tmp.length;j++)
+			{
+				wigleFilePathList.add(tmp[j].getPath());
+			}
 		}
 	}
 	private void treatNewFile()
 	{
-		for(int i=0;i<pathList.size();i++)
+		for(int i=0;i<this.wigleFolderPath.size();i++)
 		{
-			File tmp=new File(this.pathList.get(i));
-			File[] tmparr=tmp.listFiles();
+			File tmp=new File(this.wigleFolderPath.get(i));
+			File[] tmpArr=tmp.listFiles();
 			DB db;
-			for(int j=0;j<tmparr.length;j++)
+			for(int j=0;j<tmpArr.length;j++)
 			{
-				if(!fileList.contains(tmparr[j]))
+				if(!wigleFilePathList.contains(tmpArr[j].getPath()))
 				{
-					this.fileList.add(tmparr[j]);
-					this.pathList.add(tmparr[j].getPath());
-					db=new DB(tmparr[j]);
+					this.wigleFilePathList.add(tmpArr[j].getPath());
+					db=new DB(tmpArr[j]);
 					s.addDB(db);
 				}
 			}
@@ -51,20 +62,32 @@ public class FilesUpdater implements Runnable{
 	
 	private void treatUpdateFile()
 	{
-		for(int i=0;i<this.fileList.size();i++)
+		boolean flag=false;
+		for(int i=0;i<this.combFileList.size();i++)
 		{
-			if(this.fileList.get(i).lastModified()!=this.lastModified.get(i))
+			if(this.combFileList.get(i).lastModified()!=this.combLastModified.get(i))
 			{
-				
+				flag=true;
 			}
 		}
-		try {
-			Thread.sleep(5000);
-		} 
-		catch (InterruptedException e) 
+		if(flag)
+			reloadDBS();
+	}
+	
+	private void reloadDBS() 
+	{
+		this.s.getDbs().clearAll();
+		for(int i=0;i<this.wigleFolderPath.size();i++)
 		{
-			e.printStackTrace();
+			DB tmp=new DB(this.wigleFolderPath.get(i),1);
+			s.addDB(tmp);
 		}
+		for(int i=0;i<this.combFileList.size();i++)
+		{
+			DB tmp=new DB(this.combFileList.get(i).getPath(),2);
+			s.addDB(tmp);
+		}
+		
 	}
 	public void run()
 	{
