@@ -88,7 +88,7 @@ public class Filter {
 	 */
 	private void filterByTime(ArrayList<singleScan> scansList)
 	{
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm HH:mm:ss");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
 		GregorianCalendar startTime= new GregorianCalendar();
 		try {
 			startTime.setTime(dateFormat.parse(this.input1));
@@ -211,20 +211,20 @@ public class Filter {
 	
 	public String toString()
 	{
-		String s="  type: ";
+		String s="";
 		if(this.type==0)
-			s+="and";
+			s+="  AND";
 		else
-			s+="or";
+			s+="  OR";
 		if(this.getNot()==0)
-			s+=" not";
+			s+=" NOT";
 		String s1="";
 		if(this.input4!=null)
-			s1=s+" Location filter from: Lon-" + this.input1 + ", Lat-" + this.input2 +". to: Lon-"+this.input3+", Lat-" + this.input4;
+			s1=s+"\n  Location filter-\n    between: " + this.input1 + "," + this.input2 +"\n    and "+this.input3+"," + this.input4 +".";
 		else if(this.input2!=null)
-			s1=s+"time filter from: "+ this.input1+" to: "+this.input2;
+			s1=s+"\n  Time filter-\n    from: "+ this.input1+"\n    to: "+this.input2;
 		else
-			s1=s+"ID filter: "+this.input1;
+			s1=s+"\n  ID filter: "+this.input1;
 		s1+="\n";
 		return s1;
 	}

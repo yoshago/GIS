@@ -18,47 +18,33 @@ import org.jdatepicker.impl.JDatePanelImpl;
 import javax.swing.JFormattedTextField.AbstractFormatter;
 import org.jdatepicker.impl.SqlDateModel;
 
+import Algorithms.personLocationFinder;
 import Algorithms.wifiLocationFinder;
 import Libraries.write;
 import objects.DB;
 import objects.coordinate;
+import objects.singleScan;
 import objects.wifiSpot;
 
-public class Algo1Window extends JFrame {
+public class Algo2WindowStr extends JFrame {
 
 	private JPanel contentPane;
 
 	private final JButton btnComputeLocation = new JButton("Compute Location");
-	private JTextField mac;
+	private JTextField scan;
 	private JTextField lon;
 	private JTextField lat;
 	private JTextField alt;
 	private ArrayList<wifiSpot> wsl;
 	private coordinate estCoor = new coordinate();
 
-	/**
-	 * Launch the application.
-	 */
-//	public static void main(String[] args) {
-//		EventQueue.invokeLater(new Runnable() {
-//			public void run() {
-//				try {
-//					FilterWindow frame = new FilterWindow();
-//					frame.setVisible(true);
-//				} catch (Exception e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		});
-//	}
+
 
 	/**
 	 * Create the frame.
 	 */
-	public Algo1Window(DB db) {
-		wifiLocationFinder wlf = new wifiLocationFinder(db);
-		wlf.findSpotsLocation();
-	    wsl =wlf.getFinalWifiList();
+	public Algo2WindowStr(DB db) {
+		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -66,10 +52,10 @@ public class Algo1Window extends JFrame {
 		contentPane.setLayout(null);
 		btnComputeLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String MacStr = mac.getText();
-				wsl.forEach(wifiSpot -> {
-					if(wifiSpot.getMac().equals(MacStr)) estCoor = wifiSpot.getCoordinate();
-				});
+				String scanStr = scan.getText();
+				personLocationFinder plf = new personLocationFinder(db,scanStr);
+				plf.findLocation();
+				estCoor = plf.getInput().getScansList().get(0).getCoordinate();
 				String longtitude = ""+estCoor.getLon();
 				String latitude = ""+estCoor.getLat();
 				String altitude = ""+estCoor.getAlt();
@@ -81,11 +67,11 @@ public class Algo1Window extends JFrame {
 		btnComputeLocation.setBounds(147, 219, 140, 31);
 		contentPane.add(btnComputeLocation);
 		
-		mac = new JTextField();
-		mac.setBounds(150, 35, 117, 20);
+		scan = new JTextField();
+		scan.setBounds(29, 35, 384, 20);
 		
-		contentPane.add(mac);
-		mac.setColumns(10);
+		contentPane.add(scan);
+		scan.setColumns(10);
 		
 		lon = new JTextField();
 		lon.setEditable(false);
@@ -93,8 +79,8 @@ public class Algo1Window extends JFrame {
 		contentPane.add(lon);
 		lon.setColumns(10);
 		
-		JLabel lblMacAddress = new JLabel("MAC Address:");
-		lblMacAddress.setBounds(160, 10, 107, 14);
+		JLabel lblMacAddress = new JLabel("Scan string:");
+		lblMacAddress.setBounds(180, 10, 107, 14);
 		contentPane.add(lblMacAddress);
 		
 		JLabel lblEstimatedLocation = new JLabel("Estimated location:");

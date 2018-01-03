@@ -95,7 +95,22 @@ public class DB {
   		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList()
  				.removeIf(wifiSpot -> !wifiSpot.equals(macToWifiSpotMap.get(wifiSpot.getMac()))));
   		
- 	} 
+ 	}
+	public int getMACAmount(){
+		Map<String, wifiSpot> macToWifiSpotMap = new HashMap<>();
+  		this.scansList.forEach(singleScan -> singleScan.getWifiSpotsList().forEach(wifiSpot -> {
+ 			if (macToWifiSpotMap.containsKey(wifiSpot.getMac())) {
+ 				if (wifiSpot.compareTo(macToWifiSpotMap.get(wifiSpot.getMac()))==1) {
+ 					macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
+ 				}
+ 			}
+ 			else {
+ 				macToWifiSpotMap.put(wifiSpot.getMac(), wifiSpot);
+
+  			}
+  		}));
+  		return macToWifiSpotMap.size();
+	}
 	
 	
 

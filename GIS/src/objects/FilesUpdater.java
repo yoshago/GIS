@@ -27,7 +27,7 @@ public class FilesUpdater implements Runnable{
 		this.s=s;
 		this.switch_on=false;
 		this.combFileList=s.getCombFilesList();
-		this.wigleFolderPath=s.getWigleFolderPath();
+		this.wigleFolderPath=s.getWigleFolderPath(); 
 		this.combLastModified=new ArrayList<Long>();
 		for(int i=0;i<this.combFileList.size();i++)
 		{

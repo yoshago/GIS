@@ -15,6 +15,7 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Component;
 import java.awt.Event;
 import java.awt.event.ActionListener;
@@ -75,6 +76,8 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 			"mac7","ssid7","channel7","signal7",
 			"mac8","ssid8","channel8","signal8",
 			"mac9","ssid9","channel9","signal9"};
+	private JMenuItem mntmFilter;
+	private JMenuItem mntmCurentFilter;
 
 
 	
@@ -107,12 +110,15 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 577, 402);
+		frame.setBounds(100, 100, 608, 402);
+		Color bgColor = new Color(16737894);
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		JButton btnFilter = new JButton("Filter");
 		frame.getContentPane().add(btnFilter, BorderLayout.WEST);
 		frame.getContentPane().setLayout(null);
+		frame.getContentPane().setBackground(bgColor);
 
 		JButton btnAddFilter = new JButton("Add Filter");
 		btnAddFilter.addActionListener(new ActionListener() {
@@ -145,7 +151,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				updateDataSheet();
 			}
 		});
-		btnAddFilter.setBounds(462, 308, 89, 23);
+		btnAddFilter.setBounds(483, 308, 89, 23);
 		frame.getContentPane().add(btnAddFilter);
 
 		
@@ -154,6 +160,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		
 		DataSheet = new JTextArea();
 		DataSheet.setEditable(false);
+		DataSheet.setBackground(new Color(10079232));
 		DataSheet.setBounds(0, 33, 228, 309);
 		frame.getContentPane().add(DataSheet);
 		DataSheet.setColumns(10);
@@ -175,7 +182,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				updateDataSheet();
 			}
 		});
-		btnUndoLastFilter.setBounds(344, 308, 111, 23);
+		btnUndoLastFilter.setBounds(344, 308, 129, 23);
 		frame.getContentPane().add(btnUndoLastFilter);
 		
 		JLabel lblCurrentData = new JLabel("Current Data");
@@ -216,7 +223,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		frame.getContentPane().add(lblMinCoordinate);
 		
 		lblMaxCoordinate = new JLabel("Max coordinate:");
-		lblMaxCoordinate.setBounds(265, 118, 89, 14);
+		lblMaxCoordinate.setBounds(265, 118, 95, 14);
 		frame.getContentPane().add(lblMaxCoordinate);
 		
 		MaxCoorLon = new JTextField();
@@ -309,10 +316,10 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		JMenuBar menuBar = new JMenuBar();
 		frame.setJMenuBar(menuBar);
 		
-		JMenu mnAddData = new JMenu("Add data");
+		JMenu mnAddData = new JMenu("Import");
 		menuBar.add(mnAddData);
 		
-		JMenuItem mntmAddFolder = new JMenuItem("Add folder");
+		JMenuItem mntmAddFolder = new JMenuItem("Folder (wigle files)");
 		mntmAddFolder.setToolTipText("accept only folder with wigle files");
 		mntmAddFolder.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -320,7 +327,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnVal = fc.showOpenDialog(mntmAddFolder);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					server.addDB(new DB(read.readFolder(fc.getSelectedFile().listFiles())));
+					server.addWigleFolder(fc.getSelectedFile().getAbsolutePath());
 				}
 				updateDataSheet();
 			}
@@ -329,7 +336,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		});
 		mnAddData.add(mntmAddFolder);
 		
-		JMenuItem mntmAddFile = new JMenuItem("Add file");
+		JMenuItem mntmAddFile = new JMenuItem("File (combo file)");
 		mntmAddFile.setToolTipText("accept only combo csv file");
 		mntmAddFile.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -348,6 +355,13 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		});
 		mnAddData.add(mntmAddFile);
 		
+		mntmFilter = new JMenuItem("Filter");
+		mntmFilter.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		mnAddData.add(mntmFilter);
+		
 		JMenu mnExport = new JMenu("Export");
 		menuBar.add(mnExport);
 		
@@ -362,6 +376,20 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				}	
 			}
 		});
+		
+		mntmPreviewData = new JMenuItem("preview data");
+		mntmPreviewData.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JFrame Tableframe = new JFrame();
+				table = new JTable(server.getDbs().peek().toTable(),tableColumns);
+				JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+				Tableframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
+				Tableframe.setSize(1000, 500);
+				Tableframe.setVisible(true);
+			}
+		});
+		mnExport.add(mntmPreviewData);
 		mnExport.add(mntmToCsv);
 		
 		JMenuItem mntmToKml = new JMenuItem("To KML");
@@ -379,19 +407,12 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		});
 		mnExport.add(mntmToKml);
 		
-		mntmPreviewData = new JMenuItem("preview data");
-		mntmPreviewData.addActionListener(new ActionListener() {
+		mntmCurentFilter = new JMenuItem("Current filter");
+		mntmCurentFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JFrame Tableframe = new JFrame();
-				table = new JTable(server.getDbs().peek().toTable(),tableColumns);
-				JScrollPane scrollPane = new JScrollPane(table, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-				table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-				Tableframe.getContentPane().add(scrollPane, BorderLayout.CENTER);
-				Tableframe.setSize(1000, 500);
-				Tableframe.setVisible(true);
 			}
 		});
-		mnExport.add(mntmPreviewData);
+		mnExport.add(mntmCurentFilter);
 		
 		
 		
@@ -412,15 +433,25 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		mnAlgorithms.add(mnAssessScanLocation);
 		
 		JMenuItem mntmByScanString = new JMenuItem("By scan string");
+		mntmByScanString.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Algo2WindowStr a2s = new Algo2WindowStr(server.getDbs().get(0));
+				a2s.setVisible(true);
+			}
+		});
 		mnAssessScanLocation.add(mntmByScanString);
 		
-		JMenuItem mntmByListOf = new JMenuItem("By list of macs");
+		JMenuItem mntmByListOf =new JMenuItem("By list of macs");
+		mntmByListOf.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		mnAssessScanLocation.add(mntmByListOf);
 		
 
 	}
 	private void updateDataSheet() {
-		String dataSheetStr = "DB Data:\n  Number of records: " + server.getDbs().peek().getScansList().size() + "\n  Number of wifi spots: "+ server.getDbs().peek().getNumberOfWifiSpots()+"\n\nFilter Data:";
+		String dataSheetStr = "DB Data:\n  Number of records: " + server.getDbs().peek().getScansList().size() + "\n  Number of wifi spots: "+ server.getDbs().peek().getMACAmount()+"\n\nFilter Data:\n  All DB\n"+server.getFs().toString();
 		this.DataSheet.setText(dataSheetStr);
 //		this.DataSheet.setCaretPosition(position);
 		

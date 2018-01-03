@@ -33,6 +33,20 @@ public class singleScan {
 	{
 
 	}
+	public singleScan(String scan)
+	{
+		String[] singleScanLine=new String[46];
+		singleScanLine = scan.split(",");
+		this.coordinate=new coordinate(singleScanLine[2] ,singleScanLine[3] ,singleScanLine[4]);
+		this.time =singleScanLine[0];
+		this.id = singleScanLine[1];
+		int i=5;
+		while(++i<singleScanLine.length && singleScanLine[i]!=null )
+		{
+			wifiSpot wifiSpot=new wifiSpot(singleScanLine[i],singleScanLine[++i],singleScanLine[++i],singleScanLine[++i],this.coordinate);
+			this.add(wifiSpot);
+		}
+	}
 	/**
 	 * @param time-time of scan.
 	 * @param id-id of the scanner smartphone.

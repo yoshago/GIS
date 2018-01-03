@@ -25,6 +25,13 @@ public class personLocationFinder {
 		this.DB.setScansList(read.readOutputFolder(fDB.listFiles()));
 		this.input.setScansList(read.readOutputFolder(fInput.listFiles()));
 	}
+	public personLocationFinder(DB db,String scan)
+	{
+		this.DB = db;
+		ArrayList<singleScan> scansList= new ArrayList<singleScan>();
+		scansList.add(new singleScan(scan));
+		this.input.setScansList(scansList);
+	}
 	
 	public void findLocation()
 	{
