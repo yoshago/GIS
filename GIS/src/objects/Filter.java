@@ -113,14 +113,14 @@ public class Filter {
 				e.printStackTrace();
 			}
 			if(this.not==1){
-				if((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0))
+				if(!((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0)))
 				{
 					scansList.remove(i);
 					i--;
 				}
 			}
 			if(this.not==0){
-				if(!((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0)))
+				if((scanTime.compareTo(startTime)>0) && (scanTime.compareTo(endTime)<0))
 				{
 					scansList.remove(i);
 					i--;
