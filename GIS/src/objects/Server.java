@@ -25,7 +25,7 @@ public class Server implements java.io.Serializable{
 		this.combFilesList=new ArrayList<File>();
 		this.wigleFolderPath=new ArrayList<String>();
 		this.fu=new FilesUpdater(this);
-		new Thread(fu).start();
+		new Thread(fu).run();
 	}
 
 	public void addCombFile(File f)
@@ -33,6 +33,7 @@ public class Server implements java.io.Serializable{
 		this.combFilesList.add(f);
 		DB tmp=new DB(f);
 		this.addDB(tmp);
+		this.fu.setSwitch_on(true);
 	}
 	
 	public void addWigleFolder(String path)
@@ -40,6 +41,7 @@ public class Server implements java.io.Serializable{
 		this.wigleFolderPath.add(path);
 		DB tmp=new DB(path,1);
 		this.addDB(tmp);
+		this.fu.setSwitch_on(true);
 	}
 	public void addDB(DB db)
 	{

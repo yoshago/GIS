@@ -93,6 +93,7 @@ public class FilesUpdater implements Runnable{
 	{
 		while(switch_on)
 		{
+			System.out.println("test");
 			treatNewFile();
 			treatUpdateFile();
 			try {
@@ -103,6 +104,9 @@ public class FilesUpdater implements Runnable{
 				e.printStackTrace();
 			}
 		}
+	}
+	public void setSwitch_on(boolean switch_on) {
+		this.switch_on = switch_on;
 	}
 	
 
