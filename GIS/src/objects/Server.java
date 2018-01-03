@@ -25,7 +25,7 @@ public class Server implements java.io.Serializable{
 		this.combFilesList=new ArrayList<File>();
 		this.wigleFolderPath=new ArrayList<String>();
 		this.fu=new FilesUpdater(this);
-		new Thread(fu).run();
+		new Thread(fu).start();
 	}
 
 	public void addCombFile(File f)
