@@ -68,6 +68,7 @@ public class FilesUpdater implements Runnable{
 		{
 			if(this.combFileList.get(i).lastModified()!=this.combLastModified.get(i))
 			{
+				combLastModified.set(i, combFileList.get(i).lastModified());
 				flag=true;
 			}
 		}
@@ -85,7 +86,7 @@ public class FilesUpdater implements Runnable{
 		}
 		for(int i=0;i<this.combFileList.size();i++)
 		{
-			DB tmp=new DB(this.combFileList.get(i).getPath(),2);
+			DB tmp=new DB(this.combFileList.get(i));
 			s.addDB(tmp);
 		}
 		
