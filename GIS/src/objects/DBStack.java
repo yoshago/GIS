@@ -13,8 +13,8 @@ public class DBStack extends Stack<DB>{
 
 	
 	public DBStack()
-	{
-	    	super();
+	{	
+	    super();
 	}
 	
 	
@@ -50,6 +50,7 @@ public class DBStack extends Stack<DB>{
 	public void clearAll()
 	{
 		super.clear();
+		this.push(new DB());
 	}
 	
 	public int Size()

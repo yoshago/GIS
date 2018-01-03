@@ -80,8 +80,12 @@ public class Filter {
 	{
 		String startTime=this.input1;
 		String endTime=this.input2;
+		
 		for(int i=0;i<scansList.size();i++)
 		{
+			boolean not=this.not==1;
+			boolean condition1=scansList.get(i).getTime().compareTo(startTime)<0;
+			boolean condition2=scansList.get(i).getTime().compareTo(endTime)>0;
 			if(this.not==1 && (scansList.get(i).getTime().compareTo(startTime)<0 || scansList.get(i).getTime().compareTo(endTime)>0))
 			{
 				scansList.remove(i);
@@ -115,7 +119,7 @@ public class Filter {
 		{
 			coordinate singleScanCoor=scansList.get(i).getCoordinate();
 
-			if(this.not==1 && !(singleScanCoor.compare(min)>=0 && (singleScanCoor.compare(max)<=0 && singleScanCoor.compare(max)!=-2)))
+			if(this.not==1 && (singleScanCoor.compare(min)<0 || (singleScanCoor.compare(max)>0 || singleScanCoor.compare(max)==-2)))
 			{
 				scansList.remove(i);
 				i--;

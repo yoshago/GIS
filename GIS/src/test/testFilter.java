@@ -42,9 +42,9 @@ public class testFilter {
 		arr[0]="0";
     	arr[1]="1";
     	arr[2]="35.2070";
- 		arr[3]="35.2072";
- 		arr[4]="32.1";
- 		arr[5]="32.2";
+ 		arr[3]="32.0";
+ 		arr[4]="35.2072";
+ 		arr[5]="33.2";
  		Filter f=new Filter(arr);
 		db.filter(f);
  		assertEquals(4, db.getScansList().size());  
@@ -54,9 +54,9 @@ public class testFilter {
 		arr[0]="0";
     	arr[1]="0";
     	arr[2]="35.2070";
- 		arr[3]="35.2072";
- 		arr[4]="32.1";
- 		arr[5]="32.2";
+ 		arr[3]="32.0";
+ 		arr[4]="35.2072";
+ 		arr[5]="33.2";
  		Filter f=new Filter(arr);
 		db.filter(f);
  		assertEquals(2, db.getScansList().size());  

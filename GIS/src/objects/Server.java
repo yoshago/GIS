@@ -20,7 +20,7 @@ public class Server implements java.io.Serializable{
 	
 	public Server()
 	{
-		this.dbs= new DBStack();
+		this.dbs= new DBStack(new DB());
 		this.fs=new FilterStack();
 		this.combFilesList=new ArrayList<File>();
 		this.wigleFolderPath=new ArrayList<String>();
@@ -43,9 +43,6 @@ public class Server implements java.io.Serializable{
 	}
 	public void addDB(DB db)
 	{
-		if(this.dbs.size()==0)
-			this.dbs.push(db);
-		else
 		{
 			DBStack another=new DBStack(db);
 			for(int i=0;i<this.fs.size();i++)
@@ -70,7 +67,46 @@ public class Server implements java.io.Serializable{
 		fs.add(f);
 		dbs.filter(f);
 	}
+	
+	public void saveDB(String path)
+	{
+		String filename=path+".ser";
+		try
+		{  
+			FileOutputStream file = new FileOutputStream(filename);
+			ObjectOutputStream out = new ObjectOutputStream(file);
+			out.writeObject(dbs.get(0));
+			out.close();
+			file.close();
+		}
+		catch(IOException ex)
+		{
+			System.out.println("IOException serialize did not succeed");
+		}
+	}
 
+	public void openDB(String path)
+	{
+		try
+		{   
+			FileInputStream file = new FileInputStream(path);
+			ObjectInputStream in = new ObjectInputStream(file);
+			this.addDB((DB)in.readObject()); 
+			in.close();
+			file.close();
+		}
+
+		catch(IOException ex)
+		{
+			System.out.println("IOException deserialize did not succeed");
+		}
+
+		catch(ClassNotFoundException ex)
+		{
+			System.out.println("Class Not Found Exception deserialize did not succeed");
+		}
+	}
+	
 	public void saveFilters(String path)
 	{
 		String filename=path+".ser";
