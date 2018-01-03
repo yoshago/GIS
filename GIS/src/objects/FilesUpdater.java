@@ -28,6 +28,7 @@ public class FilesUpdater implements Runnable{
 		this.switch_on=false;
 		this.combFileList=s.getCombFilesList();
 		this.wigleFolderPath=s.getWigleFolderPath();
+		this.combLastModified=new ArrayList<Long>();
 		for(int i=0;i<this.combFileList.size();i++)
 		{
 			combLastModified.add(this.combFileList.get(i).lastModified());
@@ -89,6 +90,7 @@ public class FilesUpdater implements Runnable{
 		}
 		
 	}
+	
 	public void run()
 	{
 		while(switch_on)
@@ -97,7 +99,7 @@ public class FilesUpdater implements Runnable{
 			treatNewFile();
 			treatUpdateFile();
 			try {
-				Thread.sleep(5000);
+				Thread.sleep(3000);
 			} 
 			catch (InterruptedException e) 
 			{
@@ -107,6 +109,9 @@ public class FilesUpdater implements Runnable{
 	}
 	public void setSwitch_on(boolean switch_on) {
 		this.switch_on = switch_on;
+	}
+	public ArrayList<Long> getCombLastModified() {
+		return combLastModified;
 	}
 	
 

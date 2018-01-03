@@ -32,6 +32,7 @@ public class Server implements java.io.Serializable{
 		this.combFilesList.add(f);
 		DB tmp=new DB(f);
 		this.addDB(tmp);
+		this.fu.getCombLastModified().add(f.lastModified());
 		this.fu.setSwitch_on(true);
 		new Thread(fu).start();
 	}
