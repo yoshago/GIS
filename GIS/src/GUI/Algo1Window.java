@@ -1,8 +1,5 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -12,14 +9,7 @@ import javax.swing.JLabel;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
-import java.awt.Choice;
-import org.jdatepicker.impl.JDatePickerImpl;
-import org.jdatepicker.impl.JDatePanelImpl;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import org.jdatepicker.impl.SqlDateModel;
-
 import Algorithms.wifiLocationFinder;
-import Libraries.write;
 import objects.DB;
 import objects.coordinate;
 import objects.wifiSpot;
