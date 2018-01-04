@@ -7,13 +7,13 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
+import GUI.gisGui;
 import objects.DB;
 import objects.Filter;
 import objects.Server;
 
 public class testServer {
-	MyFabulousGuiForGeographicInfoAboutWifiSpots window;
+	gisGui window;
 	Server s=new Server(window);
 	File f=new File("C:\\Users\\ישי\\Desktop\\test\\test.csv");
 	File f2=new File("C:\\Users\\ישי\\Desktop\\test\\test2.csv");
