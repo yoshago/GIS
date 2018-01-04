@@ -29,7 +29,7 @@ public class singleScan {
 	 */
 	public singleScan()
 	{
-
+			
 	}
 	public singleScan(String scan)
 	{
@@ -38,7 +38,7 @@ public class singleScan {
 		this.coordinate=new coordinate();
 		this.time =singleScanLine[0];
 		this.id = singleScanLine[1];
-		int i=5;
+		int i=6;
 		while(i+3<singleScanLine.length && singleScanLine[i]!=null )
 		{
 			wifiSpot wifiSpot=new wifiSpot(singleScanLine[i],singleScanLine[i+1],singleScanLine[i+2],singleScanLine[i+3],this.coordinate);
@@ -65,7 +65,6 @@ public class singleScan {
 		this.id=id;
 		this.coordinate=coordinate;
 		this.wifiSpotsList = wifiSpotList;
-
 	}
 
 	/**

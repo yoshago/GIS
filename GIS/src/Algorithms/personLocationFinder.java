@@ -15,8 +15,8 @@ import objects.wifiSpot;
  */
 public class personLocationFinder {
 	
-	DB DB;
-	DB input;
+	DB DB=new DB();
+	DB input=new DB();
 	
 	public personLocationFinder(String pathDB,String pathInput)
 	{
@@ -29,21 +29,19 @@ public class personLocationFinder {
 	{
 		this.DB = db;
 		ArrayList<singleScan> scansList= new ArrayList<singleScan>();
-		this.input = new DB();
 		this.input.getScansList().add(new singleScan(scan));
 	}
 	
-	public void findLocation()
+	public coordinate findLocation()
 	{
 		for(int i=0;i<input.getScansList().size();i++)
 		{
 			Locating(input.getScansList().get(i));
-			
 		}
-		
+		return input.getScansList().get(0).getCoordinate();
 	}
 	
-	private  void Locating(singleScan input)
+	private void Locating(singleScan input)
 	{
 		ImaginationScansList list= new ImaginationScansList();
 		double imagination=0;
@@ -54,7 +52,6 @@ public class personLocationFinder {
 			list.add(scan);
 		}
 		input.setCoordinate(findLocation(list,input));
-
 	}
 	
 	private coordinate findLocation(ImaginationScansList list, singleScan inputScan) 

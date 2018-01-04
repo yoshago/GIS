@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 
+import Algorithms.personLocationFinder;
 import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
 import Libraries.read;
 
@@ -185,6 +186,12 @@ public class Server implements Serializable{
 	{
 		this.dbs.clear();
 		this.fs.clearAll();
+	}
+	
+	public coordinate scanLocation(String s)
+	{
+		personLocationFinder plf=new personLocationFinder(this.dbs.get(0), s);
+		return plf.findLocation();
 	}
 	
 	public void clearAll()
