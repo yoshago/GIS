@@ -22,6 +22,7 @@ import Algorithms.personLocationFinder;
 import Algorithms.wifiLocationFinder;
 import Libraries.write;
 import objects.DB;
+import objects.Server;
 import objects.coordinate;
 import objects.singleScan;
 import objects.wifiSpot;
@@ -38,6 +39,7 @@ public class Algo2WindowMacs extends JFrame {
 	private JTextField alt;
 	private JTextField signal;
 	private ArrayList<String[]> MACList = new ArrayList<String[]>();
+	private coordinate estCoor = new coordinate();
 
 
 
@@ -45,7 +47,7 @@ public class Algo2WindowMacs extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Algo2WindowMacs(DB db) {
+	public Algo2WindowMacs(Server server) {
 		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -54,6 +56,13 @@ public class Algo2WindowMacs extends JFrame {
 		contentPane.setLayout(null);
 		btnComputeLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				estCoor = server.scanLocation(MACList);
+				String longtitude = ""+estCoor.getLon();
+				String latitude = ""+estCoor.getLat();
+				String altitude = ""+estCoor.getAlt();
+				lon.setText(longtitude); 
+				lat.setText(latitude);
+				alt.setText(altitude);
 
 			}
 		});

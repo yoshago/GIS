@@ -451,7 +451,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		JMenuItem mntmByScanString = new JMenuItem("By scan string");
 		mntmByScanString.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Algo2WindowStr a2s = new Algo2WindowStr(server.getDbs().get(0));
+				Algo2WindowStr a2s = new Algo2WindowStr(server);
 				a2s.setVisible(true);
 			}
 		});
@@ -460,6 +460,8 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		JMenuItem mntmByListOf =new JMenuItem("By list of macs");
 		mntmByListOf.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Algo2WindowMacs a2m = new Algo2WindowMacs(server);
+				a2m.setVisible(true);
 			}
 		});
 		mnAssessScanLocation.add(mntmByListOf);

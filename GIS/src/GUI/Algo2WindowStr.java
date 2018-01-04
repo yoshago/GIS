@@ -22,6 +22,7 @@ import Algorithms.personLocationFinder;
 import Algorithms.wifiLocationFinder;
 import Libraries.write;
 import objects.DB;
+import objects.Server;
 import objects.coordinate;
 import objects.singleScan;
 import objects.wifiSpot;
@@ -43,7 +44,7 @@ public class Algo2WindowStr extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Algo2WindowStr(DB db) {
+	public Algo2WindowStr(Server server) {
 		
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -53,9 +54,7 @@ public class Algo2WindowStr extends JFrame {
 		btnComputeLocation.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String scanStr = scan.getText();
-				personLocationFinder plf = new personLocationFinder(db,scanStr);
-				plf.findLocation();
-				estCoor = plf.getInput().getScansList().get(0).getCoordinate();
+				estCoor = server.scanLocation(scanStr);
 				String longtitude = ""+estCoor.getLon();
 				String latitude = ""+estCoor.getLat();
 				String altitude = ""+estCoor.getAlt();
