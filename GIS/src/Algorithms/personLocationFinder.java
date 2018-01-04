@@ -18,6 +18,7 @@ public class personLocationFinder {
 	DB DB=new DB();
 	DB input=new DB();
 	
+	
 	public personLocationFinder(String pathDB,String pathInput)
 	{
 		File fDB=new File(pathDB);
@@ -32,6 +33,10 @@ public class personLocationFinder {
 		this.input.getScansList().add(new singleScan(scan));
 	}
 	
+	public personLocationFinder(DB db, ArrayList<String[]> macList) {
+		this.DB = db;
+		this.input.getScansList().add(new singleScan(macList));
+	}
 	public coordinate findLocation()
 	{
 		for(int i=0;i<input.getScansList().size();i++)

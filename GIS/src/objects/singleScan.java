@@ -67,6 +67,14 @@ public class singleScan {
 		this.wifiSpotsList = wifiSpotList;
 	}
 
+	public singleScan(ArrayList<String[]> macList) 
+	{
+		this.wifiSpotsList=new ArrayList<wifiSpot>();
+		for(int i=0;i<macList.size();i++)
+		{
+			this.wifiSpotsList.add(new wifiSpot(macList.get(i)[0], macList.get(i)[1]));
+		}
+	}
 	/**
 	 * @description this function add wifiSpot to wifiSpotsList
 	 * @param w-wifiSpot object

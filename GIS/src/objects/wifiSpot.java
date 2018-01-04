@@ -42,6 +42,10 @@ public class wifiSpot implements Comparable<wifiSpot> {
 		this.signal=Integer.parseInt(signal);
 		this.channel=channel;
 	}
+	public wifiSpot(String mac, String signal) {
+		this.mac=mac;
+		this.signal=Integer.parseInt(signal);
+	}
 	/**
 	 * toString: return string of wifi in format "mac,name,signal volume,channel".
 	 */

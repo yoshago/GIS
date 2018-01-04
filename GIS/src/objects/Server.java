@@ -194,6 +194,12 @@ public class Server implements Serializable{
 		return plf.findLocation();
 	}
 	
+	public coordinate scanLocation(ArrayList<String[]> macList)
+	{
+		personLocationFinder plf=new personLocationFinder(this.dbs.get(0), macList);
+		return plf.findLocation();
+	}
+	
 	public void clearAll()
 	{
 		this.dbs.clearAll();
