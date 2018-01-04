@@ -3,27 +3,27 @@ package test;
 import static org.junit.Assert.*;
 
 import java.io.File;
-import java.util.Arrays;
+
 
 import org.junit.Test;
 
 import GUI.gisGui;
 import objects.DB;
-import objects.Filter;
+
 import objects.Server;
 
 public class testServer {
 	gisGui window;
 	Server s=new Server(window);
-	File f=new File("C:\\Users\\ישי\\Desktop\\test\\test.csv");
-	File f2=new File("C:\\Users\\ישי\\Desktop\\test\\test2.csv");
+	File f=new File("test\\test.csv");
+	File f2=new File("test\\test2.csv");
 	DB db=new DB(f);
 	DB db2=new DB(f2);
 	String[] arr=new String[6];
 	String[] arr2=new String[6];
-	 
+	 String path=("test");
 	@Test
-	public void testAddDB() {
+	public void testAddDB_andFilter() {
 		s.addDB(db);
 		arr[0]="0";
     	arr[1]="1";
@@ -34,7 +34,7 @@ public class testServer {
     	arr2[2]="d";
     	s.filter(arr2);
     	s.addDB(db2);
-    	System.out.println( s.getDbs().peek().getScansList());
+    	s.saveFilters("test");
     	assertEquals(4, s.getDbs().peek().getScansList().size());
 	}
 	
@@ -46,5 +46,25 @@ public class testServer {
 		assertEquals(2, s.getFu().getFileLastModifiedList().size());
 	}
 	
+	@Test
+	public void testAddwigleFolder() 
+	{
+		s.addWigleFolder(path);
+		assertEquals(3, s.getFu().getWigleFilesList().size());
+	}
+	
+	public void testSaveFilter() 
+	{
+		s.filter(arr);
+		s.filter(arr2);
+		
+	}
+	
+	@Test
+	public void testOpenFilter() 
+	{
+		s.openFilter("test\\Filters_2018-01-04 22-21-00.ser");
+		assertEquals(2, s.getFs().size());
+	}
 	
 }
