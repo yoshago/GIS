@@ -16,7 +16,6 @@ import java.util.ArrayList;
  *              4. location of scan.
  *              5. size of wifiSpot list(maximum 10)
  */
-import java.util.GregorianCalendar;
 public class singleScan {
 
 	private String time;
@@ -24,7 +23,6 @@ public class singleScan {
 	private coordinate coordinate;
 	private ArrayList<wifiSpot> wifiSpotsList = new ArrayList<wifiSpot>();
 	private int size=wifiSpotsList.size();
-	private DateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm hh:mm:ss");
 
 	/**
 	 * @description empty constructor.
@@ -37,14 +35,15 @@ public class singleScan {
 	{
 		String[] singleScanLine=new String[46];
 		singleScanLine = scan.split(",");
-		this.coordinate=new coordinate(singleScanLine[2] ,singleScanLine[3] ,singleScanLine[4]);
+		this.coordinate=new coordinate();
 		this.time =singleScanLine[0];
 		this.id = singleScanLine[1];
 		int i=5;
-		while(++i<singleScanLine.length && singleScanLine[i]!=null )
+		while(i+3<singleScanLine.length && singleScanLine[i]!=null )
 		{
-			wifiSpot wifiSpot=new wifiSpot(singleScanLine[i],singleScanLine[++i],singleScanLine[++i],singleScanLine[++i],this.coordinate);
+			wifiSpot wifiSpot=new wifiSpot(singleScanLine[i],singleScanLine[i+1],singleScanLine[i+2],singleScanLine[i+3],this.coordinate);
 			this.add(wifiSpot);
+			i+=4;
 		}
 	}
 	/**

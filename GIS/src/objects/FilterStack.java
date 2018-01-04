@@ -3,6 +3,7 @@
  */
 package objects;
 
+import java.io.Serializable;
 import java.util.Stack;
 
 
@@ -11,7 +12,7 @@ import java.util.Stack;
  * @author ישי
  *
  */
-public class FilterStack extends Stack<Filter> {
+public class FilterStack extends Stack<Filter> implements Serializable{
 	public FilterStack()
 	{
 	    	super();

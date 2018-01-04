@@ -1,5 +1,6 @@
 package objects;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -16,7 +17,7 @@ import objects.singleScan;
  * @description A library class. contains functions to filter ArrayList of singleScan objects.
  *
  */
-public class Filter {
+public class Filter implements Serializable{
 	int type;
 	int not;
 	String input1;

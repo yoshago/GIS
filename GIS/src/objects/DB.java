@@ -161,7 +161,6 @@ public class DB {
 		for(int i=0;i<scansList.size();i++){
 			Object[] row =scansList.get(i).toString().split(",");
 			for (int j = 0; j < row.length-1; j++) {
-				System.out.println(row.length);
 				data[i][j] = row[j];
 			}
 		}

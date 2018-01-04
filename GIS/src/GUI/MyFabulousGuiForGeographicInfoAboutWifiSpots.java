@@ -61,7 +61,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	private JLabel lblEndTime;
 	private JLabel lblTimeSpace;
 	private JLabel lblIdSubstring;
-	private Server server = new Server();
+	private Server server = new Server(this);
 	private JComboBox FilterType;
 	private JComboBox operator;
 	private JCheckBox chckbxUseNotOperator;
@@ -115,9 +115,6 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		JButton btnFilter = new JButton("Filter");
-		frame.getContentPane().add(btnFilter, BorderLayout.WEST);
-		frame.getContentPane().setLayout(null);
 		frame.getContentPane().setBackground(bgColor);
 
 		JButton btnAddFilter = new JButton("Add Filter");
@@ -151,6 +148,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				updateDataSheet();
 			}
 		});
+		frame.getContentPane().setLayout(null);
 		btnAddFilter.setBounds(483, 308, 89, 23);
 		frame.getContentPane().add(btnAddFilter);
 
@@ -307,8 +305,9 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		IDSubString.setBounds(369, 213, 86, 20);
 		frame.getContentPane().add(IDSubString);
 		
-		lblIdSubstring = new JLabel("ID SubString");
-		lblIdSubstring.setBounds(369, 195, 104, 14);
+		lblIdSubstring = new JLabel("ID String");
+		lblIdSubstring.setForeground(Color.BLACK);
+		lblIdSubstring.setBounds(369, 192, 86, 20);
 		frame.getContentPane().add(lblIdSubstring);
 		
 
@@ -358,6 +357,17 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		mntmFilter = new JMenuItem("Filter");
 		mntmFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser importFilterFc = new JFileChooser();
+				FileNameExtensionFilter filter = new FileNameExtensionFilter(
+						"SER files", "ser");
+				importFilterFc.setFileFilter(filter);
+				importFilterFc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+				int returnVal = importFilterFc.showOpenDialog(mntmFilter);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					server.openFilter(importFilterFc.getSelectedFile().getAbsolutePath());
+					
+				}
+				updateDataSheet();
 			}
 		});
 		mnAddData.add(mntmFilter);
@@ -372,7 +382,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				fc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnVal = fc.showSaveDialog(mntmToCsv);
 				if(returnVal == JFileChooser.APPROVE_OPTION) {
-					server.addWigleFolder(fc.getSelectedFile().getAbsolutePath());
+					server.getDbs().peek().toCSV(fc.getSelectedFile());
 				}	
 			}
 		});
@@ -410,6 +420,12 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		mntmCurentFilter = new JMenuItem("Current filter");
 		mntmCurentFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				JFileChooser  filterFc = new JFileChooser();
+				filterFc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnVal = filterFc.showSaveDialog(mntmCurentFilter);
+				if(returnVal == JFileChooser.APPROVE_OPTION) {
+					server.saveFilters(filterFc.getSelectedFile().getAbsolutePath());
+				}
 			}
 		});
 		mnExport.add(mntmCurentFilter);
@@ -450,7 +466,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		
 
 	}
-	private void updateDataSheet() {
+	public void updateDataSheet() {
 		String dataSheetStr = "DB Data:\n  Number of records: " + server.getDbs().peek().getScansList().size() + "\n  Number of wifi spots: "+ server.getDbs().peek().getMACAmount()+"\n\nFilter Data:\n  All DB\n"+server.getFs().toString();
 		this.DataSheet.setText(dataSheetStr);
 //		this.DataSheet.setCaretPosition(position);

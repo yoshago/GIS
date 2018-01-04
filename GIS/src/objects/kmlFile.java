@@ -9,11 +9,12 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-
+import de.micromata.opengis.kml.v_2_2_0.Coordinate;
 import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Icon;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
+import javafx.scene.shape.Polygon;
 
 /**
  * @author Yehonatan&Yishay
@@ -30,6 +31,7 @@ public class kmlFile {
 	private ArrayList<singleScan> scansList;
 	private boolean marshalTest;
 	private String outputPath;
+	private ArrayList<coordinate[]> filterArea = new ArrayList<coordinate[]>();
 
 	/**
 	 * this class represents an object of the type kmlFile and its constructor takes a list of singleScan object 
@@ -44,6 +46,12 @@ public class kmlFile {
 	public kmlFile(ArrayList<singleScan> scansList, String outputPath){
 		this.scansList = scansList;
 		this.outputPath = outputPath;
+		
+	}
+	public kmlFile(ArrayList<singleScan> scansList, String outputPath, ArrayList<coordinate[]> filterArea){
+		this.scansList = scansList;
+		this.outputPath = outputPath;
+		this.filterArea = filterArea;
 		
 	}
 	
@@ -98,6 +106,23 @@ public class kmlFile {
 			p.withName(model).withDescription(Description).withStyleUrl("#Magnifier").createAndSetPoint().addToCoordinates(scanLocation.getLon(), scanLocation.getLat(), scanLocation.getAlt());
 		}
 	}
+//	public void addFilterAreas(){
+//		for (int j = 0; j < (filterArea.size()); j++){
+//			Placemark p = this.document.createAndAddPlacemark();
+//			Coordinate[] points = new Coordinate[4];
+//			Polygon polygon = new Polygon();
+//			polygon.getPoints().addAll(new Double[]{
+//			    0.0, 0.0,
+//			    20.0, 10.0,
+//			    10.0, 20.0 });
+//			points[0] = (new Coordinate(filterArea.get(j)[0].getLon(),filterArea.get(j)[0].getLat()));
+//			points[1] = (new Coordinate(filterArea.get(j)[0].getLon(),filterArea.get(j)[1].getLat()));
+//			points[2] = (new Coordinate(filterArea.get(j)[1].getLon(),filterArea.get(j)[0].getLat()));
+//			points[3] = (new Coordinate(filterArea.get(j)[1].getLon(),filterArea.get(j)[1].getLat()));
+//			poly = geometryFactory.createPolygon(points);
+//			p.createAndSetPolygon(points);
+//		
+//	}
 	
 	/**
 	 * Adds points of each wifi spot to the kml using the JAK library (java api for kml)

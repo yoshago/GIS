@@ -35,7 +35,7 @@ public class write {
 		boolean flag=false;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
 		Date date = new Date();
-		String nameOfFile=pathOutput + dateFormat.format(date) + ".csv";
+		String nameOfFile=pathOutput +"\\output"+ dateFormat.format(date) + ".csv";
 		try
 		{
 			PrintWriter pw = new PrintWriter(new File(nameOfFile));

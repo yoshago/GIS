@@ -29,8 +29,8 @@ public class personLocationFinder {
 	{
 		this.DB = db;
 		ArrayList<singleScan> scansList= new ArrayList<singleScan>();
-		scansList.add(new singleScan(scan));
-		this.input.setScansList(scansList);
+		this.input = new DB();
+		this.input.getScansList().add(new singleScan(scan));
 	}
 	
 	public void findLocation()

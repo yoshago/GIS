@@ -4,7 +4,10 @@
 package objects;
 
 import java.io.*;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
 import Libraries.read;
@@ -13,7 +16,7 @@ import Libraries.read;
  * @author ישי
  *
  */
-public class Server {
+public class Server implements Serializable{
 
 	private DBStack dbs;
 	private FilterStack fs;
@@ -125,7 +128,9 @@ public class Server {
 	
 	public void saveFilters(String path)
 	{
-		String filename=path+".ser";
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+		Date date = new Date();
+		String filename=path+"\\Filters_" + dateFormat.format(date) + ".ser";
 		try
 		{  
 			FileOutputStream file = new FileOutputStream(filename);
