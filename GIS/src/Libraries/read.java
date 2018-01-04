@@ -55,7 +55,7 @@ public class read {
 		{
 			if(!isWigleFile(f))
 			{
-				System.out.println("not a wigle wifi file");
+				//System.out.println("not a wigle wifi file");
 				return;
 			}
 			String[] readLine=new String[12];
@@ -108,11 +108,11 @@ public class read {
 	 * @param f-file from listOfFiles.  
 	 * @return true if this file is a Wigle-wifi file,  else-false
 	 */
-	private static boolean isWigleFile(File f)
+	public static boolean isWigleFile(File f)
 	{
 		if(!f.getName().contains(".csv"))
 		{
-			System.out.println(f.getName()+" is not a csv file");
+			//System.out.println(f.getName()+" is not a csv file");
 			return false;
 		}
 		try
@@ -123,7 +123,7 @@ public class read {
 			str = br.readLine();
 			if (!str.contains("WigleWifi-1.4")) 
 			{
-				System.out.println(f.getName()+" is not a wigleWifi file");
+				//System.out.println(f.getName()+" is not a wigleWifi file");
 				br.close();
 				fr.close();
 				return false;
@@ -194,4 +194,13 @@ public class read {
 		}
 		return singleScanList;
 	}
+	
+	public static void readSingleFile(File f,ArrayList<singleScan> singleScanList)
+	{
+		if(isWigleFile(f))
+			readFile(f,singleScanList);
+		else
+			readOutputFolderFile(f, singleScanList);
+	}
 }
+

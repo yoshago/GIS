@@ -7,13 +7,14 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
 import objects.DB;
 import objects.Filter;
 import objects.Server;
 
 public class testServer {
-
-	Server s=new Server();
+	MyFabulousGuiForGeographicInfoAboutWifiSpots window;
+	Server s=new Server(window);
 	File f=new File("C:\\Users\\ישי\\Desktop\\test\\test.csv");
 	File f2=new File("C:\\Users\\ישי\\Desktop\\test\\test2.csv");
 	DB db=new DB(f);
@@ -33,9 +34,17 @@ public class testServer {
     	arr2[2]="d";
     	s.filter(arr2);
     	s.addDB(db2);
+    	System.out.println( s.getDbs().peek().getScansList());
     	assertEquals(4, s.getDbs().peek().getScansList().size());
 	}
 	
+	@Test
+	public void testAddCombFile() //test==true, the exeption is only in the test(it's OK) 
+	{
+		s.addCombFile(f);
+		s.addCombFile(f2);
+		assertEquals(2, s.getFu().getFileLastModifiedList().size());
+	}
 	
-
+	
 }

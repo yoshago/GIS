@@ -6,25 +6,30 @@ package objects;
 import java.io.*;
 import java.util.ArrayList;
 
+import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
+import Libraries.read;
+
 /**
  * @author ישי
  *
  */
-public class Server implements java.io.Serializable{
+public class Server {
 
 	private DBStack dbs;
 	private FilterStack fs;
 	private ArrayList<File> combFilesList;
 	private ArrayList<String> wigleFolderPath;
-	private FilesUpdater fu;
+	private FileUpdater fu;
+	private MyFabulousGuiForGeographicInfoAboutWifiSpots window;
 	
-	public Server()
+	public Server(MyFabulousGuiForGeographicInfoAboutWifiSpots window)
 	{
+		this.window=window;
 		this.dbs= new DBStack(new DB());
 		this.fs=new FilterStack();
 		this.combFilesList=new ArrayList<File>();
 		this.wigleFolderPath=new ArrayList<String>();
-		this.fu=new FilesUpdater(this);
+		this.fu=new FileUpdater(this);
 	}
 
 	public void addCombFile(File f)
@@ -32,19 +37,25 @@ public class Server implements java.io.Serializable{
 		this.combFilesList.add(f);
 		DB tmp=new DB(f);
 		this.addDB(tmp);
-		this.fu.getCombLastModified().add(f.lastModified());
+		this.fu.getFileLastModifiedList().add(f.lastModified());
 		this.fu.setSwitch_on(true);
 		new Thread(fu).start();
 	}
 	
 	public void addWigleFolder(String path)
 	{
+		File f=new File(path);
+		File[] tmpArr=f.listFiles();
 		this.wigleFolderPath.add(path);
+		for(int i=0;i<tmpArr.length;i++)
+		{
+			if(read.isWigleFile(tmpArr[i]))
+				this.fu.getWigleFilesList().add(tmpArr[i]);
+		}
 		DB tmp=new DB(path,1);
 		this.addDB(tmp);
 		this.fu.setSwitch_on(true);
 		new Thread(fu).start();
-		
 	}
 	public void addDB(DB db)
 	{
@@ -195,6 +206,14 @@ public class Server implements java.io.Serializable{
 
 	public ArrayList<String> getWigleFolderPath() {
 		return wigleFolderPath;
+	}
+
+	public MyFabulousGuiForGeographicInfoAboutWifiSpots getWindow() {
+		return window;
+	}
+
+	public FileUpdater getFu() {
+		return fu;
 	}
 	
 	

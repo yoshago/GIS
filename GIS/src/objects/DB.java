@@ -3,7 +3,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
 import Libraries.read;
 import Libraries.write;
 
@@ -45,7 +44,7 @@ public class DB {
 	
 	public DB(File f)
 	{
-		read.readOutputFolderFile(f, this.scansList);
+		read.readSingleFile(f, this.scansList);
 	}
 
 	/**
