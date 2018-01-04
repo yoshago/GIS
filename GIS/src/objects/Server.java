@@ -18,7 +18,7 @@ import Libraries.read;
  * @author ישי
  *
  */
-public class Server implements Serializable{
+public class Server {
 
 	private DBStack dbs;
 	private FilterStack fs;
