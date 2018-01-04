@@ -4,30 +4,23 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.sun.xml.bind.v2.model.core.ID;
 
-import Libraries.read;
 import objects.DB;
-import objects.DBStack;
 import objects.Server;
 
 import javax.swing.JButton;
-import javax.swing.JDialog;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Event;
 import java.awt.event.ActionListener;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.awt.event.ActionEvent;
 import javax.swing.JFileChooser;
-import javax.swing.JToolBar;
 import javax.swing.ListCellRenderer;
 import javax.swing.JList;
-import javax.swing.AbstractListModel;
 import javax.swing.JMenuBar;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -39,10 +32,11 @@ import java.awt.Font;
 import javax.swing.JComboBox;
 import javax.swing.JFormattedTextField;
 import javax.swing.JCheckBox;
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JTable;
+import java.awt.SystemColor;
+import javax.swing.border.LineBorder;
 
-public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
+public class gisGui {
 
 	private JFrame frame;
 	private JTextArea DataSheet;
@@ -89,7 +83,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					MyFabulousGuiForGeographicInfoAboutWifiSpots window = new MyFabulousGuiForGeographicInfoAboutWifiSpots();
+					gisGui window = new gisGui();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -101,7 +95,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	/**
 	 * Create the application.
 	 */
-	public MyFabulousGuiForGeographicInfoAboutWifiSpots() {
+	public gisGui() {
 		initialize();
 	}
 
@@ -110,14 +104,15 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 608, 402);
+		frame.setBounds(100, 100, 965, 580);
 		Color bgColor = new Color(16737894);
 		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-		frame.getContentPane().setBackground(bgColor);
+		frame.getContentPane().setBackground(new Color(204, 204, 153));
 
 		JButton btnAddFilter = new JButton("Add Filter");
+		btnAddFilter.setFont(new Font("Baskerville Old Face", Font.BOLD, 17));
 		btnAddFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String[] Array = new String[6];
@@ -149,7 +144,7 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 			}
 		});
 		frame.getContentPane().setLayout(null);
-		btnAddFilter.setBounds(483, 308, 89, 23);
+		btnAddFilter.setBounds(770, 440, 142, 43);
 		frame.getContentPane().add(btnAddFilter);
 
 		
@@ -157,87 +152,97 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		
 		
 		DataSheet = new JTextArea();
+		DataSheet.setFont(new Font("Century Schoolbook", Font.BOLD, 16));
+		DataSheet.setBorder(new LineBorder(new Color(0, 0, 0)));
 		DataSheet.setEditable(false);
-		DataSheet.setBackground(new Color(10079232));
-		DataSheet.setBounds(0, 33, 228, 309);
+		DataSheet.setBackground(SystemColor.info);
+		DataSheet.setBounds(0, 59, 263, 459);
 		frame.getContentPane().add(DataSheet);
 		DataSheet.setColumns(10);
 		
 		JButton btnResetDb = new JButton("Reset DB");
+		btnResetDb.setFont(new Font("Baskerville Old Face", Font.BOLD, 17));
 		btnResetDb.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				server.getDbs().clearAll();
 				updateDataSheet();
 			}
 		});
-		btnResetDb.setBounds(245, 308, 89, 23);
+		btnResetDb.setBounds(387, 440, 143, 43);
 		frame.getContentPane().add(btnResetDb);
 		
 		JButton btnUndoLastFilter = new JButton("Undo last filter");
+		btnUndoLastFilter.setFont(new Font("Baskerville Old Face", Font.BOLD, 17));
 		btnUndoLastFilter.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				server.undo();
 				updateDataSheet();
 			}
 		});
-		btnUndoLastFilter.setBounds(344, 308, 129, 23);
+		btnUndoLastFilter.setBounds(567, 440, 168, 43);
 		frame.getContentPane().add(btnUndoLastFilter);
 		
 		JLabel lblCurrentData = new JLabel("Current Data");
-		lblCurrentData.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-		lblCurrentData.setBounds(63, 8, 121, 23);
+		lblCurrentData.setFont(new Font("Sitka Text", Font.BOLD, 19));
+		lblCurrentData.setBounds(58, 25, 121, 23);
 		frame.getContentPane().add(lblCurrentData);
 		
 		String[] operatorOptions = {"AND", "OR"};
 		operator = new JComboBox(operatorOptions);
+		operator.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		operator.setRenderer(new MyComboBoxRenderer("Choose operator"));
 		operator.setSelectedIndex(-1);
-		operator.setBounds(245, 33, 127, 20);
+		operator.setBounds(273, 61, 186, 43);
 		frame.getContentPane().add(operator);
 		
 		JLabel lblFilterOperator = new JLabel("Filter operator");
-		lblFilterOperator.setBounds(245, 15, 80, 14);
+		lblFilterOperator.setFont(new Font("Baskerville Old Face", Font.BOLD, 16));
+		lblFilterOperator.setBounds(292, 36, 139, 17);
 		frame.getContentPane().add(lblFilterOperator);
 		
 		MinCoorLon = new JTextField();
 		MinCoorLon.setEditable(false);
-		MinCoorLon.setBounds(369, 84, 86, 20);
+		MinCoorLon.setBounds(449, 146, 172, 22);
 		frame.getContentPane().add(MinCoorLon);
 		MinCoorLon.setColumns(10);
 		
 		
 		MinCoorLat = new JTextField();
 		MinCoorLat.setEditable(false);
-		MinCoorLat.setBounds(465, 84, 86, 20);
+		MinCoorLat.setBounds(649, 146, 162, 23);
 		frame.getContentPane().add(MinCoorLat);
 		MinCoorLat.setColumns(10);
 		
 		chckbxUseNotOperator = new JCheckBox("Use NOT operator");
-		chckbxUseNotOperator.setBounds(338, 278, 135, 23);
+		chckbxUseNotOperator.setFont(new Font("Segoe UI", Font.BOLD, 16));
+		chckbxUseNotOperator.setBounds(721, 61, 181, 43);
 		frame.getContentPane().add(chckbxUseNotOperator);
 		
 		lblMinCoordinate = new JLabel("Min coordinate:");
-		lblMinCoordinate.setBounds(265, 87, 89, 14);
+		lblMinCoordinate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblMinCoordinate.setBounds(321, 149, 96, 20);
 		frame.getContentPane().add(lblMinCoordinate);
 		
 		lblMaxCoordinate = new JLabel("Max coordinate:");
-		lblMaxCoordinate.setBounds(265, 118, 95, 14);
+		lblMaxCoordinate.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblMaxCoordinate.setBounds(315, 187, 98, 20);
 		frame.getContentPane().add(lblMaxCoordinate);
 		
 		MaxCoorLon = new JTextField();
 		MaxCoorLon.setEditable(false);
 		MaxCoorLon.setColumns(10);
-		MaxCoorLon.setBounds(369, 115, 86, 20);
+		MaxCoorLon.setBounds(449, 189, 172, 23);
 		frame.getContentPane().add(MaxCoorLon);
 		
 		MaxCoorLat = new JTextField();
 		MaxCoorLat.setEditable(false);
 		MaxCoorLat.setColumns(10);
-		MaxCoorLat.setBounds(465, 115, 86, 20);
+		MaxCoorLat.setBounds(649, 189, 162, 23);
 		frame.getContentPane().add(MaxCoorLat);
 		
 		String[] options = {"Time", "ID", "Location"};
 		FilterType = new JComboBox(options);
+		FilterType.setFont(new Font("Segoe UI", Font.BOLD, 15));
 		FilterType.setRenderer(new MyComboBoxRenderer("Choose filter"));
 		FilterType.setSelectedIndex(-1);
 		FilterType.addActionListener(new ActionListener() {
@@ -257,26 +262,29 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 				}
 			}
 		});
-		FilterType.setBounds(398, 33, 111, 20);
+		FilterType.setBounds(490, 61, 186, 43);
 		frame.getContentPane().add(FilterType);
 		
 		JLabel lblFilterType = new JLabel("Filter type");
-		lblFilterType.setBounds(398, 15, 75, 14);
+		lblFilterType.setFont(new Font("Baskerville Old Face", Font.BOLD, 16));
+		lblFilterType.setBounds(522, 36, 97, 17);
 		frame.getContentPane().add(lblFilterType);
 		
 		lblLongtitude = new JLabel("longtitude");
-		lblLongtitude.setBounds(369, 64, 65, 14);
+		lblLongtitude.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblLongtitude.setBounds(500, 115, 63, 20);
 		frame.getContentPane().add(lblLongtitude);
 		
 		lblLatitude = new JLabel("latitude");
-		lblLatitude.setBounds(465, 64, 65, 14);
+		lblLatitude.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblLatitude.setBounds(702, 113, 46, 20);
 		frame.getContentPane().add(lblLatitude);
 		
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		StartTime = new JFormattedTextField(format);
 		StartTime.setToolTipText("please enter time in format yyyy-mm-dd hh:mm:ss");
 		StartTime.setEditable(false);
-		StartTime.setBounds(369, 164, 86, 20);
+		StartTime.setBounds(421, 264, 200, 23);
 		frame.getContentPane().add(StartTime);
 		StartTime.setColumns(10);
 		
@@ -284,30 +292,34 @@ public class MyFabulousGuiForGeographicInfoAboutWifiSpots {
 		EndTime.setToolTipText("please enter time in format yyyy-mm-dd hh:mm:ss");
 		EndTime.setEditable(false);
 		EndTime.setColumns(10);
-		EndTime.setBounds(465, 164, 86, 20);
+		EndTime.setBounds(631, 264, 208, 23);
 		frame.getContentPane().add(EndTime);
 		
 		lblStartTime = new JLabel("Start time");
-		lblStartTime.setBounds(369, 146, 65, 14);
+		lblStartTime.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblStartTime.setBounds(490, 230, 60, 20);
 		frame.getContentPane().add(lblStartTime);
 		
 		lblEndTime = new JLabel("End time");
-		lblEndTime.setBounds(465, 146, 65, 14);
+		lblEndTime.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblEndTime.setBounds(698, 230, 54, 20);
 		frame.getContentPane().add(lblEndTime);
 		
 		lblTimeSpace = new JLabel("Time space:");
-		lblTimeSpace.setBounds(265, 167, 89, 14);
+		lblTimeSpace.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+		lblTimeSpace.setBounds(321, 263, 70, 20);
 		frame.getContentPane().add(lblTimeSpace);
 		
 		IDSubString = new JTextField();
 		IDSubString.setEditable(false);
 		IDSubString.setColumns(10);
-		IDSubString.setBounds(369, 213, 86, 20);
+		IDSubString.setBounds(567, 329, 127, 35);
 		frame.getContentPane().add(IDSubString);
 		
 		lblIdSubstring = new JLabel("ID String");
+		lblIdSubstring.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		lblIdSubstring.setForeground(Color.BLACK);
-		lblIdSubstring.setBounds(369, 192, 86, 20);
+		lblIdSubstring.setBounds(597, 298, 54, 20);
 		frame.getContentPane().add(lblIdSubstring);
 		
 
