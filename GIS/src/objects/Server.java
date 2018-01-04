@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.Iterator;
 
 import Algorithms.personLocationFinder;
-import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
+import GUI.gisGui;
 import Libraries.read;
 
 /**
@@ -25,9 +25,9 @@ public class Server implements Serializable{
 	private ArrayList<File> combFilesList;
 	private ArrayList<String> wigleFolderPath;
 	private FileUpdater fu;
-	private MyFabulousGuiForGeographicInfoAboutWifiSpots window;
+	private gisGui window;
 	
-	public Server(MyFabulousGuiForGeographicInfoAboutWifiSpots window)
+	public Server(gisGui window)
 	{
 		this.window=window;
 		this.dbs= new DBStack(new DB());
@@ -232,7 +232,7 @@ public class Server implements Serializable{
 		return wigleFolderPath;
 	}
 
-	public MyFabulousGuiForGeographicInfoAboutWifiSpots getWindow() {
+	public gisGui getWindow() {
 		return window;
 	}
 
