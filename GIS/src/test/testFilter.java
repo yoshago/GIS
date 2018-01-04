@@ -11,8 +11,8 @@ import objects.singleScan;
 
 
 public class testFilter {
-	File f=new File("C:\\Users\\ישי\\Desktop\\test\\test.csv");
-	File f1=new File("C:\\Users\\ישי\\Desktop\\test\\test3.csv");
+	File f=new File("test\\test.csv");
+	File f1=new File("test\\test3.csv");
 	DB db=new DB(f);
 	DB db1=new DB(f1);
 	String[] arr= new String[6];
