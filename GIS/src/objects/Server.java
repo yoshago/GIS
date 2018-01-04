@@ -8,6 +8,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 
 import GUI.MyFabulousGuiForGeographicInfoAboutWifiSpots;
 import Libraries.read;
@@ -151,7 +152,12 @@ public class Server implements Serializable{
 		{   
 			FileInputStream file = new FileInputStream(path);
 			ObjectInputStream in = new ObjectInputStream(file);
-			this.fs = (FilterStack)in.readObject(); 
+			FilterStack newfs = (FilterStack)in.readObject();
+			this.clearFilters();
+			for(int i=0;i<newfs.size();i++){
+				fs.add(newfs.get(i));
+				dbs.filter(newfs.get(i));
+			}
 			in.close();
 			file.close();
 		}

@@ -69,7 +69,8 @@ public class kmlFile {
 	private void addStyles(){
 		document.createAndAddStyle().withId("wifiIcon").createAndSetIconStyle().withScale(1.5).withIcon(new Icon().withHref("http://www.freepngimg.com/download/wifi/4-2-wi-fi-png-images.png"));
 		document.createAndAddStyle().withId("Magnifier").createAndSetIconStyle().withScale(1.5).withIcon(new Icon().withHref("https://images.vexels.com/media/users/3/132064/isolated/preview/27a9fb54f687667ecfab8f20afa58bbb-search-businessman-circle-icon-by-vexels.png"));
-	}
+		document.createAndAddStyle().withId("filterPolyStyle").createAndSetPolyStyle().withColor("007878");
+		}
 	
 	/**
 	 * Removing duplicate wifi spots (by mac address).
@@ -106,23 +107,18 @@ public class kmlFile {
 			p.withName(model).withDescription(Description).withStyleUrl("#Magnifier").createAndSetPoint().addToCoordinates(scanLocation.getLon(), scanLocation.getLat(), scanLocation.getAlt());
 		}
 	}
-//	public void addFilterAreas(){
-//		for (int j = 0; j < (filterArea.size()); j++){
-//			Placemark p = this.document.createAndAddPlacemark();
-//			Coordinate[] points = new Coordinate[4];
-//			Polygon polygon = new Polygon();
-//			polygon.getPoints().addAll(new Double[]{
-//			    0.0, 0.0,
-//			    20.0, 10.0,
-//			    10.0, 20.0 });
-//			points[0] = (new Coordinate(filterArea.get(j)[0].getLon(),filterArea.get(j)[0].getLat()));
-//			points[1] = (new Coordinate(filterArea.get(j)[0].getLon(),filterArea.get(j)[1].getLat()));
-//			points[2] = (new Coordinate(filterArea.get(j)[1].getLon(),filterArea.get(j)[0].getLat()));
-//			points[3] = (new Coordinate(filterArea.get(j)[1].getLon(),filterArea.get(j)[1].getLat()));
-//			poly = geometryFactory.createPolygon(points);
-//			p.createAndSetPolygon(points);
-//		
-//	}
+	public void addFilterAreas(){
+		for (int j = 0; j < (filterArea.size()); j++){
+			Placemark p = this.document.createAndAddPlacemark().withStyleUrl("filterPolyStyle");
+			p.createAndSetPolygon().createAndSetOuterBoundaryIs()
+			.createAndSetLinearRing()
+			.addToCoordinates(filterArea.get(j)[0].getLon()+","+filterArea.get(j)[0].getLat())
+			.addToCoordinates(filterArea.get(j)[0].getLon()+","+filterArea.get(j)[1].getLat())
+			.addToCoordinates(filterArea.get(j)[1].getLon()+","+filterArea.get(j)[0].getLat())
+			.addToCoordinates(filterArea.get(j)[1].getLon()+","+filterArea.get(j)[1].getLat());
+		}
+		
+	}
 	
 	/**
 	 * Adds points of each wifi spot to the kml using the JAK library (java api for kml)

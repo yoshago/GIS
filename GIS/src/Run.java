@@ -29,21 +29,13 @@ public class Run {
 //		wifiLocationFinder wlf = new wifiLocationFinder(db1);
 //		wlf.findSpotsLocation();
 //		write.algo1toCsv(wlf.getFinalWifiList());
-//		personLocationFinder lf=new personLocationFinder("C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\data","C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\input");
-//		lf.findLocation();
-//		write.writeCsvFile(lf.getInput().getScansList(), "C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\Algo2_BM3_TS1_");
+		personLocationFinder lf=new personLocationFinder("C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\data","C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\input");
+		lf.findLocation();
+		write.writeCsvFile(lf.getInput().getScansList(), "C:\\Users\\Yehonatan\\Downloads\\testing\\Gmail (3)\\Algo2_BM3_TS1_");
 //		File f = new File("C:/Users/Yehonatan/workspace/wigle Files");
 //		DB x =new DB(read.readFolder(f.listFiles()));
 //		x.toTable();
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-dd-mm hh:mm:ss");
-		GregorianCalendar startTime= new GregorianCalendar();
-		try {
-			startTime.setTime(dateFormat.parse("1970-01-01 03:00:00"));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(startTime.getTime().getTime());
+
 	}
 
 }

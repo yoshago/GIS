@@ -132,6 +132,13 @@ public class DB {
 		kmlFile.SetKmlFIle();
 		kmlFile.exportKml();
 	}
+	public void toKML(File outputPath,ArrayList<coordinate[]> filterArea)
+	{
+		String kmlOutputPath=outputPath.getPath();
+		kmlFile kmlFile= new kmlFile(this.scansList, kmlOutputPath,filterArea);
+		kmlFile.SetKmlFIle();
+		kmlFile.exportKml();
+	}
 	/**
 	 * printing the DB to csv File
 	 */
