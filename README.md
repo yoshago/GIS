@@ -20,4 +20,4 @@ The system shows the user the live state of the Database and information about t
 
 *Algorithms:* Use algorithm 1 to get the estimated location of a router based on scan locations containing that router. Use algorithm 2 to get the estimated location of a scan based on other scans and a smart algorithm.
 
-for more detailed information see our [GIS report] (https://github.com/yoshago/GIS/blob/master/report%20GIS.docx)
+for more detailed information see our [GIS report](report%20GIS.docx)
