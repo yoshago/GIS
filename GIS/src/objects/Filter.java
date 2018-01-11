@@ -230,4 +230,29 @@ public class Filter implements Serializable{
 		return s1;
 	}
 	
+	String toSQLQuerry()
+	{
+		String s="";
+		if(type==0)
+			s+="&&";
+		else s+="||";
+		if(not==0)
+		{
+			s+="!";
+		}
+		s+="(";
+		if(input4!=null)
+		{
+			s+="lon>='"+input1+"' && lat>='"+input2+"'"+" && lon<='"+input3+"' && lat<='"+input4+"'";
+		}
+		else if(input2!=null)
+		{
+			s+="time>='"+input1+"' and time<='"+input2+"'";
+		}
+		else
+		{
+			 s+="device=='"+input1+"'";
+		}
+		return s+")";
+	}
 }
