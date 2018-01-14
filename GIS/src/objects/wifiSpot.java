@@ -35,6 +35,13 @@ public class wifiSpot implements Comparable<wifiSpot> {
 		this.channel=channel;
 		this.coordinate=coordinate;
 	}
+	
+	public wifiSpot(String mac,int signal,coordinate coordinate){
+		this.mac=mac;
+		this.signal=(signal);
+		this.coordinate=coordinate;
+	}
+	
 	public wifiSpot(String mac, String ssid, String channel, String signal)
 	{
 		this.ssid=ssid;

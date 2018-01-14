@@ -215,6 +215,11 @@ public class Server {
 	{
 		return this.fs.toString();
 	}
+	
+	public String FilterStackSqlQuery()
+	{
+		return this.fs.toSQLQuerry();
+	}
 
 	public DBStack getDbs() {
 		return dbs;

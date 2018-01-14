@@ -382,6 +382,15 @@ public class gisGui {
 				updateDataSheet();
 			}
 		});
+		
+		JMenuItem mntmTablesqlTable = new JMenuItem("Table (Sql table)");
+		mntmTablesqlTable.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				SqlGetTable sgt = new SqlGetTable(server);
+				sgt.setVisible(true);
+			}
+		});
+		mnAddData.add(mntmTablesqlTable);
 		mnAddData.add(mntmFilter);
 		
 		JMenu mnExport = new JMenu("Export");

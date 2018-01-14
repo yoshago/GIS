@@ -59,7 +59,7 @@ public class FilterStack extends Stack<Filter> implements Serializable{
 		return s;
 	}
 
-	String toSQLQuerry()
+	public String toSQLQuerry()
 	{
 		String s="";
 		for(int i=0;i<this.Size();i++)
