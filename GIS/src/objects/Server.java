@@ -36,6 +36,7 @@ public class Server {
 		this.combFilesList=new ArrayList<File>();
 		this.wigleFolderPath=new ArrayList<String>();
 		this.fu=new FileUpdater(this);
+		this.sqlTablesList=new ArrayList<SQLTable>();
 	}
 
 	public void addCombFile(File f)
@@ -52,7 +53,7 @@ public class Server {
 	{
 		this.sqlTablesList.add(st);
 		this.addDB(st.readTable());
-		
+		this.fu.getSQLLastModifiedList().add(st.getLastModified());
 	}
 	
 	public void addWigleFolder(String path)
@@ -252,6 +253,12 @@ public class Server {
 	public FileUpdater getFu() {
 		return fu;
 	}
+
+	
+	public ArrayList<SQLTable> getSqlTablesList() {
+		return sqlTablesList;
+	}
+	
 	
 	
 

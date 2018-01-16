@@ -11,6 +11,7 @@ public class FileUpdater implements Runnable{
 	private ArrayList<Long> fileLastModifiedList;
 	private ArrayList<File> wigleFilesList;
 	private boolean switch_on;
+	private ArrayList<String> SQLLastModifiedList;
 	
 	public FileUpdater(Server s)
 	{
@@ -18,6 +19,7 @@ public class FileUpdater implements Runnable{
 		fileLastModifiedList=new ArrayList<Long>();
 		wigleFilesList=new ArrayList<File>();
 		this.switch_on=false;
+		SQLLastModifiedList= new ArrayList<String>();
 	}
 	
 	public void run()
@@ -27,11 +29,33 @@ public class FileUpdater implements Runnable{
 			treatUpdateFile();
 			treatNewFile();
 			treatDeleteFile();
+			treatChengedSqlTable();
 			try {
 				Thread.sleep(3000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+		}
+	}
+
+	private void treatChengedSqlTable() 
+	{
+		boolean changeFlag=false;
+		for(int i=0;i<s.getSqlTablesList().size();i++)
+		{
+			SQLTable tmp=s.getSqlTablesList().get(i);
+			String newTime=tmp.getLastModified();
+			String lastModified=this.SQLLastModifiedList.get(i);
+			if(!newTime.equals(lastModified))
+			{
+				this.SQLLastModifiedList.set(i, newTime);
+				changeFlag=true;
+			}
+		}
+		if(changeFlag)
+		{
+			reloadDB();
+			s.getWindow().updateDataSheet();
 		}
 	}
 
@@ -114,7 +138,11 @@ public class FileUpdater implements Runnable{
 			DB tmp=new DB(this.s.getCombFilesList().get(i));
 			s.addDB(tmp);
 		}
-		
+		for(int i=0;i<this.s.getSqlTablesList().size();i++)
+		{
+			DB tmp=this.s.getSqlTablesList().get(i).readTable();
+			s.addDB(tmp);
+		}
 	}
 
 	public ArrayList<Long> getFileLastModifiedList() {
@@ -129,4 +157,8 @@ public class FileUpdater implements Runnable{
 		this.switch_on = switch_On;
 	}
 
+	public ArrayList<String> getSQLLastModifiedList() {
+		return SQLLastModifiedList;
+	}
+	
 }
