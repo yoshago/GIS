@@ -52,6 +52,7 @@ public class SQLTable extends SqlDB {
 
 
 	public String getLastModified() {
+		updateLastModified();
 		return lastModified;
 	}
 
