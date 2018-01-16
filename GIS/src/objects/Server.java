@@ -26,6 +26,7 @@ public class Server {
 	private ArrayList<String> wigleFolderPath;
 	private FileUpdater fu;
 	private gisGui window;
+	private ArrayList<SQLTable> sqlTablesList;
 	
 	public Server(gisGui window)
 	{
@@ -45,6 +46,13 @@ public class Server {
 		this.fu.getFileLastModifiedList().add(f.lastModified());
 		this.fu.setSwitch_on(true);
 		new Thread(fu).start();
+	}
+	
+	public void addSqlTable(SQLTable st)
+	{
+		this.sqlTablesList.add(st);
+		this.addDB(st.readTable());
+		
 	}
 	
 	public void addWigleFolder(String path)

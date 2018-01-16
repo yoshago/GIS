@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 import objects.DB;
-import objects.SQL;
+import objects.SQLTable;
+import objects.SqlDB;
 import objects.Server;
 import objects.coordinate;
 
@@ -40,9 +41,9 @@ public class SqlGetTable extends JFrame {
 	private JTextField textPort;
 	private JTextField textUser;
 	private JTextField textPswd;
-	private SQL sql;
+	private SqlDB sql;
 	private JTextField textDBName;
-	private JTextArea textArea;
+	private JTextArea sqlTextArea;
 	private JComboBox comboBox;
 	private boolean con;
 
@@ -64,7 +65,7 @@ public class SqlGetTable extends JFrame {
 				String user = textUser.getText();
 				String pass = textPswd.getText();
 				String DBName = textDBName.getText();
-				sql = new SQL(ip,port,user,pass,DBName);
+				sql = new SqlDB(ip,port,user,pass,DBName);
 				con = sql.testConnection();
 				if(con){
 					updateConnection(con);
@@ -84,9 +85,9 @@ public class SqlGetTable extends JFrame {
 				if(comboBox.getSelectedItem() != null){
 					String TableName = (String) comboBox.getSelectedItem();
 					DB newDb;
-					textArea.setText(server.FilterStackString());
-					newDb = sql.readTable(TableName, server.FilterStackSqlQuery());
-					server.addDB(newDb);
+					sqlTextArea.setText(server.FilterStackString());
+					SQLTable Table = new SQLTable(sql,TableName);
+					server.addSqlTable(Table);
 				}
 				else{
 					updatePleaseSelect();
@@ -139,10 +140,10 @@ public class SqlGetTable extends JFrame {
 		comboBox.setBounds(262, 21, 120, 20);
 		contentPane.add(comboBox);
 		
-		textArea = new JTextArea();
-		textArea.setBorder(new LineBorder(new Color(0, 0, 0)));
-		textArea.setBounds(242, 95, 182, 113);
-		contentPane.add(textArea);
+		sqlTextArea = new JTextArea();
+		sqlTextArea.setBorder(new LineBorder(new Color(0, 0, 0)));
+		sqlTextArea.setBounds(242, 95, 182, 113);
+		contentPane.add(sqlTextArea);
 		
 		JLabel lblInfo = new JLabel("Info:");
 		lblInfo.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -167,10 +168,10 @@ public class SqlGetTable extends JFrame {
 
 	protected void updatePleaseSelect() {
 		if(con){
-		textArea.setText("Select Table Please");
+			sqlTextArea.setText("Select Table Please");
 		}
 		else{
-			textArea.setText("Sorry, we are not connected yet.");
+			sqlTextArea.setText("Sorry, we are not connected yet.");
 		}
 		
 	}
@@ -178,10 +179,10 @@ public class SqlGetTable extends JFrame {
 
 	protected void updateConnection(boolean con) {
 		if(con){
-			textArea.setText("Connection Succeeded!");
+			sqlTextArea.setText("Connection Succeeded!");
 		}
 		else{
-			textArea.setText("Connection Failed :(");
+			sqlTextArea.setText("Connection Failed :(");
 		}
 		
 	}
