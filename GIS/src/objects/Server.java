@@ -45,8 +45,11 @@ public class Server {
 		DB tmp=new DB(f);
 		this.addDB(tmp);
 		this.fu.getFileLastModifiedList().add(f.lastModified());
-		this.fu.setSwitch_on(true);
-		new Thread(fu).start();
+		if(!this.fu.isSwitch_on())
+		{
+			this.fu.setSwitch_on(true);
+			new Thread(fu).start();
+		}
 	}
 	
 	public void addSqlTable(SQLTable st)
@@ -54,6 +57,11 @@ public class Server {
 		this.sqlTablesList.add(st);
 		this.addDB(st.readTable());
 		this.fu.getSQLLastModifiedList().add(st.getLastModified());
+		if(!this.fu.isSwitch_on())
+		{
+			this.fu.setSwitch_on(true);
+			new Thread(fu).start();
+		}
 	}
 	
 	public void addWigleFolder(String path)
@@ -68,8 +76,11 @@ public class Server {
 		}
 		DB tmp=new DB(path,1);
 		this.addDB(tmp);
-		this.fu.setSwitch_on(true);
-		new Thread(fu).start();
+		if(!this.fu.isSwitch_on())
+		{
+			this.fu.setSwitch_on(true);
+			new Thread(fu).start();
+		}
 	}
 	public void addDB(DB db)
 	{
@@ -259,7 +270,4 @@ public class Server {
 		return sqlTablesList;
 	}
 	
-	
-	
-
 }

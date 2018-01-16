@@ -160,5 +160,9 @@ public class FileUpdater implements Runnable{
 	public ArrayList<String> getSQLLastModifiedList() {
 		return SQLLastModifiedList;
 	}
+
+	public boolean isSwitch_on() {
+		return switch_on;
+	}
 	
 }
