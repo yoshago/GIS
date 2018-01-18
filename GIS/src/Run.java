@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
 import java.util.Scanner;
 
-import Algorithms.personLocationFinder;
-import Libraries.read;
-import Libraries.write;
-import objects.DB;
+import main.java.Algorithms.personLocationFinder;
+import main.java.Libraries.read;
+import main.java.Libraries.write;
+import main.java.objects.DB;
 
 
 /**

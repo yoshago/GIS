@@ -1,7 +1,7 @@
-import Algorithms.personLocationFinder;
-import Libraries.write;
-import objects.DB;
-import objects.coordinate;
+import main.java.Algorithms.personLocationFinder;
+import main.java.Libraries.write;
+import main.java.objects.DB;
+import main.java.objects.coordinate;
 
 /**
  * 
