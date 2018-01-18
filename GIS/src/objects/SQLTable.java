@@ -33,7 +33,7 @@ public class SQLTable extends SqlDB {
 		PreparedStatement pst;
 		try {
 			
-			pst = _con.prepareStatement("SELECT update_time	FROM   information_schema.tables	WHERE  table_schema = '"+_DBName	+"'       AND table_name = '"+tableName+"'");
+			pst = _con.prepareStatement("SELECT update_time	FROM   information_schema.tables  WHERE  TABLE_SCHEMA = '"+_DBName	+"'  AND TABLE_NAME  = '"+tableName+"'");
 			rs = pst.executeQuery();
 			if(rs.next()){
 				lastModified = rs.getString(1);

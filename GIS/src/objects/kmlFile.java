@@ -14,7 +14,7 @@ import de.micromata.opengis.kml.v_2_2_0.Document;
 import de.micromata.opengis.kml.v_2_2_0.Icon;
 import de.micromata.opengis.kml.v_2_2_0.Kml;
 import de.micromata.opengis.kml.v_2_2_0.Placemark;
-import javafx.scene.shape.Polygon;
+
 
 /**
  * @author Yehonatan&Yishay

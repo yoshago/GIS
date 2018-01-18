@@ -39,6 +39,7 @@ public class SqlDB {
 		_url = "jdbc:mysql://"+_ip+":"+_port+"/"+_DBName;
 		_user = db._user;
 		_password = db._password;
+		_con = db._con;
 	}
 
 	public ArrayList<String> getTables(){
